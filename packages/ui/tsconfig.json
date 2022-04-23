@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "paths": {
+      "@solsy/base": ["./../base/src"],
+      "@solsy/base/*": ["./../base/src/*"],
+      "@solsy/forms": ["./../forms/src"],
+      "@solsy/forms/*": ["./../forms/src/*"],
+    }
+  },
+  "exclude": ["src/**/*.test.*"],
+  "extends": "./../../tsconfig.json",
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "./../base"
+    },
+    {
+      "path": "./../forms"
+    }
+  ]
+}

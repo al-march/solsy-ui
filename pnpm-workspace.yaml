@@ -1,2 +1,4 @@
 packages:
   - packages/base
+  - packages/forms
+  - packages/ui
