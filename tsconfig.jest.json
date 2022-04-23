@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@solsy/base": ["./packages/base/src"],
+      "@solsy/base/*": ["./packages/base/src/*"],
+    }
+  },
+  "extends": "./tsconfig.json"
+}

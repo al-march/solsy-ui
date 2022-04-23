@@ -1,0 +1,8 @@
+.history
+.pnpm-store
+bk
+dist
+lib
+node_modules
+temp
+tsconfig.tsbuildinfo

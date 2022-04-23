@@ -1,0 +1,18 @@
+{
+  "name": "@solsy/form",
+  "version": "0.0.1",
+  "description": "Hooks for forms used by @solsy/daisyui.",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "watch": "tsc --build -w"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "solid-js": "^1.3.7"
+  },
+  "publishConfig": {
+    "directory": "lib"
+  }
+}
