@@ -1,3 +1,4 @@
 packages:
   - packages/forms
   - packages/ui
+  - demo

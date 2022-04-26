@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "description": "Components based on DaisyUI",
   "files": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.d.ts"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "tsc --build",
@@ -18,8 +16,5 @@
   },
   "peerDependencies": {
     "solid-js": "^1.3.7"
-  },
-  "publishConfig": {
-    "directory": "lib"
   }
 }
