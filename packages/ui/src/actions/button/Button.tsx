@@ -42,7 +42,7 @@ export const Button: Component<Props> = (props) => {
             onBlur={props.onBlur}
 
             disabled={props.disabled}
-            class={`btn ${props.class}`}
+            class={`btn ${props.class || ''}`}
             classList={{
                 'btn-lg': props.size === 'lg',
                 'btn-md': props.size === 'md',
