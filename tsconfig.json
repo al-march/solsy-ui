@@ -15,5 +15,5 @@
     "declarationMap": true,
     "types": ["ts-jest"]
   },
-  "exclude": ["**/temp/", "**/.*/", "**/lib", "**/node_modules"]
+  "exclude": ["**/temp/", "**/.*/", "**/dist", "**/node_modules"]
 }

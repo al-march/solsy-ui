@@ -2,6 +2,11 @@
   "name": "@solsy/form",
   "version": "0.0.1",
   "description": "Hooks for forms used by @solsy/daisyui.",
+  "files": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.d.ts"
+  ],
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",

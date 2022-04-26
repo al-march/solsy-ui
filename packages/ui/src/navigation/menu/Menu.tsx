@@ -1,6 +1,6 @@
 import { Component, createEffect, createSignal, onCleanup, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
-import { Overlay, ScaleTransition, usePopper } from 'utils';
+import { Overlay, ScaleTransition, usePopper } from '../../utils';
 
 
 type Props = {
