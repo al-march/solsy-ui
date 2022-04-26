@@ -23,4 +23,5 @@ module.exports = {
     "solid-js/store": `${solidjsPath}/store/dist/store.cjs`,
     "solid-js": `${solidjsPath}/dist/solid.cjs`,
   },
+  setupFilesAfterEnv: ["./setup.test.ts"]
 };
