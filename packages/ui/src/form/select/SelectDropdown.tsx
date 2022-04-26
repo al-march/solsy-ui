@@ -1,8 +1,7 @@
 import { Accessor, Component, createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { SelectTypeEnum } from './Select.type';
-import { ScaleTransition } from '../../utils';
-import { usePopper } from '@solsy/base';
+import { ScaleTransition, usePopper } from 'utils';
 
 type Props = {
     isShow: boolean;

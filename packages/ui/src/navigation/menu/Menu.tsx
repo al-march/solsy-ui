@@ -1,7 +1,7 @@
 import { Component, createEffect, createSignal, onCleanup, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
-import { Overlay, ScaleTransition } from '../../utils';
-import { usePopper } from '@solsy/base';
+import { Overlay, ScaleTransition, usePopper } from 'utils';
+
 
 type Props = {
     isShow: boolean;
@@ -70,7 +70,11 @@ export const Menu: Component<Props> = (props) => {
         <Show when={show()}>
             <Portal>
                 <Overlay onClick={() => onBackdropClick()}>
-                    <div ref={setPopper} style={{'min-width': props.minWidth + 'px'}} onClick={e => e.stopPropagation()}>
+                    <div
+                        ref={setPopper}
+                        style={{'min-width': props.minWidth + 'px'}}
+                        onClick={e => e.stopPropagation()}
+                    >
                         <ScaleTransition appear={true} onExit={destroy}>
                             {props.isShow && (
                                 <ul class="menu bg-base-200 z-10 shadow-xl">

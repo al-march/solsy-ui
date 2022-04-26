@@ -19,7 +19,7 @@ import { createPopper, Instance, Options } from '@popperjs/core';
  *
  * @returns Popper.Instance | undefined
  */
-export function usePopper<T extends HTMLElement, P extends HTMLElement>(
+export function usePopper<T extends HTMLElement>(
     referenceAccessor: Accessor<T | undefined | null>,
     popperAccessor: Accessor<T | undefined | null>,
     options: Partial<Options> = {},

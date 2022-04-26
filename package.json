@@ -1,8 +1,8 @@
 {
   "name": "solsy",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
-  "description": "UI library with DaysiUi (MUI) built with Solid.js.",
+  "description": "UI library with DaysiUi built with Solid.js.",
   "keywords": [
     "components",
     "solid",
@@ -29,7 +29,8 @@
     }
   ],
   "workspaces": [
-    "packages/base"
+    "packages/ui",
+    "packages/forms"
   ],
   "scripts": {
     "build": "pnpm build:ts",
@@ -73,5 +74,5 @@
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
   },
-  "info": "solsy is all a set of utils and components ported from MUI Core and much more."
+  "info": "solsy is simple ui library with DaisyUI styles"
 }

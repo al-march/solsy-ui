@@ -1,8 +1,7 @@
 import { Component, createEffect, createSignal, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { Placement } from '@popperjs/core';
-import { usePopper } from '@solsy/base'
-import { ScaleTransition } from '../../utils';
+import { ScaleTransition, usePopper } from 'utils';
 
 type Props = {
     message: string;
@@ -40,7 +39,7 @@ export const Tooltip: Component<Props> = (props) => {
                 },
             }]
         });
-    })
+    });
 
     const showTooltip = () => {
         setShow(true);
