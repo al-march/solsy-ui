@@ -2,7 +2,7 @@ import { Component } from 'solid-js';
 import { Transition } from 'solid-transition-group';
 
 const onEnter = (el: Element) => {
-    return el.animate([{
+    return el.animate?.([{
         opacity: 0,
         transform: 'scale(0.8) translateX(-5px) translateY(20px)',
     }, {
@@ -15,7 +15,7 @@ const onEnter = (el: Element) => {
 };
 
 const onExit = (el: Element) => {
-    return el.animate([{
+    return el.animate?.([{
         opacity: 1,
         transform: 'scale(1)'
     }, {
