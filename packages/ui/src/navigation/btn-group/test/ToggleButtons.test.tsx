@@ -15,6 +15,8 @@ const ToggleButtonsSingleTest: Component<ToggleButtonGroupProps> = (props) => {
     );
 };
 
+const isButtonActive = (button: HTMLElement) => button.classList.contains('btn-active');
+
 describe('ToggleButtons.single', () => {
 
     test('should be rendered', async () => {
@@ -26,7 +28,7 @@ describe('ToggleButtons.single', () => {
     });
 
     test('should be active by click', async () => {
-        let value: string[] = [];
+        let value = '';
         const {container} = render(() => (
             <ToggleButtonsSingleTest onChange={e => value = e}/>
         ));
@@ -38,14 +40,14 @@ describe('ToggleButtons.single', () => {
 
         fireEvent.click(first);
 
-        expect(first).toHaveClass('btn-active');
-        expect(second).not.toHaveClass('btn-active');
+        expect(isButtonActive(first)).toBeTruthy()
+        expect(isButtonActive(second)).toBeFalsy();
         expect(value).toStrictEqual(firstValue);
 
         fireEvent.click(second);
 
-        expect(second).toHaveClass('btn-active');
-        expect(first).not.toHaveClass('btn-active');
+        expect(isButtonActive(second)).toBeTruthy()
+        expect(isButtonActive(first)).toBeFalsy();
         expect(value).toStrictEqual(secondValue);
     });
 
@@ -59,8 +61,8 @@ describe('ToggleButtons.single', () => {
             result.container.querySelectorAll('button')
         );
 
-        expect(buttons[0]).toHaveClass('btn-active');
-        expect(buttons[1]).not.toHaveClass('btn-active');
+        expect(isButtonActive(buttons[0])).toBeTruthy();
+        expect(isButtonActive(buttons[1])).toBeFalsy();
         cleanup();
 
         defaultValue = toggleButtons[1];
@@ -72,7 +74,47 @@ describe('ToggleButtons.single', () => {
             result.container.querySelectorAll('button')
         );
 
-        expect(buttons[0]).not.toHaveClass('btn-active');
-        expect(buttons[1]).toHaveClass('btn-active');
+        expect(isButtonActive(buttons[0])).not.toBeTruthy();
+        expect(isButtonActive(buttons[1])).toBeTruthy();
     });
+});
+
+describe('ToggleButtons.multiple', () => {
+
+    test('should return a list', () => {
+        let value: string[] = [];
+        const result = render(() => (
+            <ToggleButtonsSingleTest
+                multiple
+                onChange={e => value = e}
+            />
+        ));
+
+        const buttons = result.container.querySelectorAll('button');
+        const [firstBtn, secondBtn] = buttons;
+
+        fireEvent.click(firstBtn);
+        fireEvent.click(secondBtn);
+
+        expect(value).toStrictEqual([toggleButtons[0], toggleButtons[1]]);
+
+        fireEvent.click(firstBtn);
+        fireEvent.click(secondBtn);
+
+        expect(value).toStrictEqual([]);
+    });
+
+    test('should checked buttons by default value', () => {
+        const defaultValues = [...toggleButtons];
+        const result = render(() => (
+            <ToggleButtonsSingleTest
+                multiple
+                defaultValue={defaultValues}
+            />
+        ));
+
+        result.container.querySelectorAll('button').forEach(button => {
+            expect(isButtonActive(button)).toBeTruthy();
+        })
+    })
 });

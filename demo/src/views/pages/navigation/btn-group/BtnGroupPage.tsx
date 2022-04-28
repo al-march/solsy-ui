@@ -3,12 +3,17 @@ import { Page } from '../../base/Page';
 import { ToggleButton, ToggleButtonsGroup } from '@solsy/ui/dist/navigation';
 
 export const BtnGroupPage: Component = () => {
-    const [btn, setBtn] = createSignal(3);
+    const [btn, setBtn] = createSignal();
+
+    function onButtonsChange(v: any) {
+        setBtn(v);
+        console.log(v);
+    }
 
     return (
         <Page full class="p-4">
             <ToggleButtonsGroup
-                onChange={(v) => setBtn(v)}
+                onChange={onButtonsChange}
                 defaultValue={btn()}
                 multiple
             >

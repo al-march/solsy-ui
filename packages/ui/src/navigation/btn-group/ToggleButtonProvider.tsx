@@ -18,10 +18,12 @@ export const ToggleButtonsProvider: Component<Props> = (props) => {
 
     const model = new SelectionModel();
 
-    if (Array.isArray(props.defaultValue)) {
-        props.defaultValue.forEach(v => model.add(v));
-    } else {
-        model.add(props.defaultValue);
+    if (props.defaultValue) {
+        if (Array.isArray(props.defaultValue)) {
+            props.defaultValue.forEach(v => model.add(v));
+        } else {
+            model.add(props.defaultValue);
+        }
     }
 
     const [activeBtn, setActiveBtn] = createSignal(model);
