@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
-import { ToggleButton, ToggleButtonsGroup } from '@solsy/ui/dist/navigation';
+import { ToggleButton, ToggleButtonsGroup } from '../../../../../../packages/ui/src/navigation';
 
 export const BtnGroupPage: Component = () => {
     const [btn, setBtn] = createSignal();

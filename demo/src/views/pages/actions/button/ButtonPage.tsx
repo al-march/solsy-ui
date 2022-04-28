@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Button } from '@solsy/ui/dist/actions';
+import { Button } from '../../../../../../packages/ui/src/actions';
 
 
 export const ButtonPage: Component = () => {

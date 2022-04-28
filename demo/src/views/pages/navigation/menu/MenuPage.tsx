@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Menu, MenuOption } from '@solsy/ui/dist/navigation';
+import { Menu, MenuOption } from '../../../../../../packages/ui/src/navigation';
 
 type State = {
     show: boolean;

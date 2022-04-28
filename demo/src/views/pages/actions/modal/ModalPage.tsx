@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Modal, ModalAction } from '@solsy/ui/dist/actions';
+import { Modal, ModalAction } from '../../../../../../packages/ui/src/actions';
 
 export const ModalPage: Component = () => {
 

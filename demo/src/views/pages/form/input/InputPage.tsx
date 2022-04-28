@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Input } from '@solsy/ui/dist/form';
+import { Input } from '../../../../../../packages/ui/src/form';
 
 export const InputPage: Component = () => {
     return (

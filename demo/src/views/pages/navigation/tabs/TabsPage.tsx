@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Tab, Tabs } from '@solsy/ui/dist/navigation';
+import { Tab, Tabs } from '../../../../../../packages/ui/src/navigation';
 
 /**
  * Todo: 1) create value props

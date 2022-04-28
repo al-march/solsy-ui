@@ -1,7 +1,7 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Tooltip } from '@solsy/ui/dist/data-display';
-import { ToggleButton, ToggleButtonsGroup } from '@solsy/ui/dist/navigation';
+import { Tooltip } from '../../../../../../packages/ui/src/data-display';
+import { ToggleButton, ToggleButtonsGroup } from '../../../../../../packages/ui/src/navigation';
 
 type Position = 'left' | 'top' | 'right' | 'bottom';
 

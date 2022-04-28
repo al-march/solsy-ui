@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Input, Range } from '@solsy/ui/dist/form';
+import { Input, Range } from '../../../../../../packages/ui/src/form';
 
 
 

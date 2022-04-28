@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Step, Steps } from '@solsy/ui/dist/navigation';
+import { Step, Steps } from '../../../../../../packages/ui/src/navigation';
 
 export const StepsPage: Component = () => {
     const [step, setStep] = createSignal(0);

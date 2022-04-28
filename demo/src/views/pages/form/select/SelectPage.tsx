@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 import { Page } from '../../base/Page';
-import { Select, Option } from '@solsy/ui/dist/form';
+import { Select, Option } from '../../../../../../packages/ui/src/form';
 
 export const SelectPage: Component = () => {
 
