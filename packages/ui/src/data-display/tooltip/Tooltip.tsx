@@ -10,7 +10,7 @@ type Props = {
 }
 
 /**
- * Tooltip - компонент обертка для создания подсказок
+ * Tooltip
  *
  * @example
  * <Tooltip
@@ -46,20 +46,26 @@ export const Tooltip: Component<Props> = (props) => {
         setTooltip(true);
     };
 
+    const hideTooltip = () => {
+        setShow(false);
+        setTooltip(false);
+    }
+
     return (
         <>
             <span
+                data-testid="tooltip-trigger"
                 class={`inline-block ${props.class || ''}`}
                 ref={setTriggerRef}
                 onMouseEnter={showTooltip}
-                onMouseLeave={() => setShow(false)}
+                onMouseLeave={hideTooltip}
             >
                 {props.children}
             </span>
 
             <Show when={show()}>
                 <Portal>
-                    <div ref={setPopperRef}>
+                    <div data-testid="tooltip" ref={setPopperRef}>
                         <ScaleTransition appear={true}>
                             {tooltip() && (
                                 <div class="rounded shadow-lg bg-base-200 p-2">

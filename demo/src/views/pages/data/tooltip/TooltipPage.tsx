@@ -9,7 +9,7 @@ export const TooltipPage: Component = () => {
 
     const [position, setPosition] = createSignal<Position>('left');
 
-    function updatePosition([position]: [Position]) {
+    function updatePosition(position: Position) {
         setPosition(position);
     }
 
