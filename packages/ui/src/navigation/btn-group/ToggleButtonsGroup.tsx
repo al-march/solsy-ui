@@ -1,7 +1,7 @@
 import { Component } from 'solid-js';
 import { ToggleButtonsProvider } from './ToggleButtonProvider';
 
-type Props = {
+export type ToggleButtonGroupProps = {
     onChange?: (btnValue: any) => void;
     defaultValue?: any;
     multiple?: boolean;
@@ -21,7 +21,7 @@ type Props = {
  *     <ToggleButton value={3}>3</ToggleButton>
  * </ToggleButtonsGroup>
  */
-export const ToggleButtonsGroup: Component<Props> = (props) => {
+export const ToggleButtonsGroup: Component<ToggleButtonGroupProps> = (props) => {
 
     return (
         <ToggleButtonsProvider

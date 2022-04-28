@@ -24,7 +24,6 @@ export const ToggleButtonsProvider: Component<Props> = (props) => {
         model.add(props.defaultValue);
     }
 
-
     const [activeBtn, setActiveBtn] = createSignal(model);
 
     const store: ContextType = {
@@ -38,8 +37,10 @@ export const ToggleButtonsProvider: Component<Props> = (props) => {
                 setActiveBtn(value);
             }
 
-            if (props.onChange) {
-                props.onChange(Array.from(activeBtn().get()));
+            if (props.multiple) {
+                props.onChange?.(Array.from(activeBtn().get()));
+            } else {
+                props.onChange?.(activeBtn().getFirst());
             }
         }
     };

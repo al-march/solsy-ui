@@ -11,6 +11,11 @@ export class SelectionModel<T = any> {
         return this.value;
     }
 
+    getFirst() {
+        const [first] = this.get();
+        return first;
+    }
+
     add(v: T) {
         this.value.add(v);
         return this;
