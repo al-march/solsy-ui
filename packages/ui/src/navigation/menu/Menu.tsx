@@ -1,9 +1,9 @@
-import { Component, createEffect, createSignal, onCleanup, Show } from 'solid-js';
+import { Component, createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
-import { Overlay, ScaleTransition, usePopper } from '../../utils';
+import { ScaleTransition, usePopper } from '../../utils';
 
 
-type Props = {
+export type MenuProps = {
     isShow: boolean;
     reference?: HTMLElement;
     onBackdropClick?: () => void;
@@ -30,7 +30,7 @@ type Props = {
  *     </div>
  * </Menu>
  */
-export const Menu: Component<Props> = (props) => {
+export const Menu: Component<MenuProps> = (props) => {
 
     const [reference] = createSignal(props.reference);
     const [popper, setPopper] = createSignal<HTMLElement>();
@@ -62,28 +62,59 @@ export const Menu: Component<Props> = (props) => {
         }]
     });
 
+    onMount(() => {
+        setListener();
+    });
+
     onCleanup(() => {
         instance()?.destroy();
+        removeListener();
     });
+
+    function setListener() {
+        document.addEventListener('click', listener);
+    }
+
+    function removeListener() {
+        document.removeEventListener('click', listener);
+    }
+
+    const listener = (e: Event) => {
+        if (!show()) {
+            return;
+        }
+
+        const target = e.target as HTMLElement;
+        const trigger = props?.reference;
+        const content = popper();
+
+        if (trigger?.contains(target)) {
+            return;
+        }
+
+        const isBackdropClicked = !content?.contains(target);
+
+        if (isBackdropClicked) {
+            onBackdropClick();
+        }
+    };
 
     return (
         <Show when={show()}>
             <Portal>
-                <Overlay onClick={() => onBackdropClick()}>
-                    <div
-                        ref={setPopper}
-                        style={{'min-width': props.minWidth + 'px'}}
-                        onClick={e => e.stopPropagation()}
-                    >
-                        <ScaleTransition appear={true} onExit={destroy}>
-                            {props.isShow && (
-                                <ul class="menu bg-base-200 z-10 shadow-xl">
-                                    {props.children}
-                                </ul>
-                            )}
-                        </ScaleTransition>
-                    </div>
-                </Overlay>
+                <div
+                    ref={setPopper}
+                    style={{'min-width': props.minWidth + 'px'}}
+                    onClick={e => e.stopPropagation()}
+                >
+                    <ScaleTransition appear={true} onExit={destroy}>
+                        {props.isShow && (
+                            <ul class="menu bg-base-200 z-10 shadow-xl">
+                                {props.children}
+                            </ul>
+                        )}
+                    </ScaleTransition>
+                </div>
             </Portal>
         </Show>
     );

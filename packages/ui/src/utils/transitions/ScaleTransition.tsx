@@ -24,7 +24,7 @@ const onExit = (el: Element) => {
     }], {
         duration: 120,
         easing: 'cubic-bezier(0.55, 0, 0.55, 0.2)'
-    });
+    }).finished || Promise.resolve();
 };
 
 type Props = {
@@ -44,7 +44,7 @@ export const ScaleTransition: Component<Props> = (props) => {
         <Transition
             appear={!!props.appear}
             onEnter={onEnter}
-            onExit={(el) => onExit(el).finished.then(onExitDone)}
+            onExit={(el) => onExit(el).then(onExitDone)}
         >
             {props.children}
         </Transition>
