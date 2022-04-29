@@ -1,7 +1,7 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
 import { Tooltip } from '../../../../../../packages/ui/src/data-display';
-import { ButtonsGroupItem, ButtonsGroup } from '../../../../../../packages/ui/src/navigation';
+import { ButtonGroup, ButtonsGroup } from '../../../../../../packages/ui/src/navigation';
 
 type Position = 'left' | 'top' | 'right' | 'bottom';
 
@@ -22,10 +22,10 @@ export const TooltipPage: Component = () => {
             </Tooltip>
 
             <ButtonsGroup defaultValue={position()} onChange={updatePosition}>
-                <ButtonsGroupItem value="left"><Icon type="left"/></ButtonsGroupItem>
-                <ButtonsGroupItem value="top"><Icon type="up"/></ButtonsGroupItem>
-                <ButtonsGroupItem value="right"><Icon type="right"/></ButtonsGroupItem>
-                <ButtonsGroupItem value="bottom"><Icon type="down"/></ButtonsGroupItem>
+                <ButtonGroup value="left"><Icon type="left"/></ButtonGroup>
+                <ButtonGroup value="top"><Icon type="up"/></ButtonGroup>
+                <ButtonGroup value="right"><Icon type="right"/></ButtonGroup>
+                <ButtonGroup value="bottom"><Icon type="down"/></ButtonGroup>
             </ButtonsGroup>
         </Page>
     );

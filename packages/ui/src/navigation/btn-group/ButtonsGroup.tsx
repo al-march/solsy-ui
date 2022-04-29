@@ -21,7 +21,7 @@ type ButtonsGroupContext = {
     setActiveButton: (v: any) => void;
 }
 
-const ToggleButtonsContext = createContext<ButtonsGroupContext>();
+const ButtonsGroupContext = createContext<ButtonsGroupContext>();
 
 export type ButtonsGroupProps = {
     value?: any | any[];
@@ -31,7 +31,7 @@ export type ButtonsGroupProps = {
 }
 
 /**
- * Создает контекст для управления состояния ButtonsGroupItem
+ * ButtonsGroup
  *
  * @example
  * <ButtonsGroup
@@ -39,9 +39,9 @@ export type ButtonsGroupProps = {
  *     value={activeBtn()}
  *     multiple
  * >
- *     <ButtonsGroupItem value={1}>1</ButtonsGroupItem>
- *     <ButtonsGroupItem value={2}>2</ButtonsGroupItem>
- *     <ButtonsGroupItem value={3}>3</ButtonsGroupItem>
+ *     <ButtonGroup>1</ButtonGroup>
+ *     <ButtonGroup>2</ButtonGroup>
+ *     <ButtonGroup>3</ButtonGroup>
  * </ButtonsGroup>
  */
 export const ButtonsGroup: Component<ButtonsGroupProps> = (props) => {
@@ -112,7 +112,7 @@ export const ButtonsGroup: Component<ButtonsGroupProps> = (props) => {
     }
 
     return (
-        <ToggleButtonsContext.Provider value={{
+        <ButtonsGroupContext.Provider value={{
             state,
             initButton,
             setActiveButton,
@@ -123,12 +123,12 @@ export const ButtonsGroup: Component<ButtonsGroupProps> = (props) => {
             >
                 {props.children}
             </div>
-        </ToggleButtonsContext.Provider>
+        </ButtonsGroupContext.Provider>
     );
 };
 
 export const useToggleButtons = () => {
-    const context = useContext(ToggleButtonsContext);
+    const context = useContext(ButtonsGroupContext);
     if (context) {
         return context;
     }

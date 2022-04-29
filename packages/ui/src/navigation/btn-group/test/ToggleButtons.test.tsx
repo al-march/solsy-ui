@@ -1,7 +1,7 @@
 import { Component, For } from 'solid-js';
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
 import { ButtonsGroupSelectors, ButtonsGroupProps, ButtonsGroup, ButtonGroupSize } from '../ButtonsGroup';
-import { ButtonsGroupItem } from '../ButtonsGroupItem';
+import { ButtonGroup } from '../ButtonGroup';
 
 
 const toggleButtons = ['first', 'second', 'third'];
@@ -9,7 +9,7 @@ const ToggleButtonsSingleTest: Component<ButtonsGroupProps> = (props) => {
     return (
         <ButtonsGroup {...props}>
             <For each={toggleButtons}>
-                {(btn) => <ButtonsGroupItem value={btn}>{btn}</ButtonsGroupItem>}
+                {(btn) => <ButtonGroup value={btn}>{btn}</ButtonGroup>}
             </For>
         </ButtonsGroup>
     );
@@ -94,7 +94,7 @@ describe('ToggleButtons', () => {
         render(() => (
             <ButtonsGroup value={2}>
                 <For each={toggleButtons}>
-                    {(btn) => <ButtonsGroupItem>{btn}</ButtonsGroupItem>}
+                    {(btn) => <ButtonGroup>{btn}</ButtonGroup>}
                 </For>
             </ButtonsGroup>
         ));

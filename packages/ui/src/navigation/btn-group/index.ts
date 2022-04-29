@@ -1,2 +1,2 @@
 export * from './ButtonsGroup';
-export * from './ButtonsGroupItem';
+export * from './ButtonGroup';

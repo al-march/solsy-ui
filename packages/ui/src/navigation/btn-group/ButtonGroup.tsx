@@ -10,12 +10,12 @@ type Props<T = any> = {
 }
 
 /**
- * ButtonsGroupItem is used in ToggleButtonGroup component
+ * ButtonGroup is used in ToggleButtonGroup component
  *
  * @example
- * <ButtonsGroupItem value={1} defaultChecked>Some text</ButtonsGroupItem>
+ * <ButtonGroup value={1} defaultChecked>Some text</ButtonGroup>
  */
-export const ButtonsGroupItem = (props: PropsWithChildren<Props>) => {
+export const ButtonGroup = (props: PropsWithChildren<Props>) => {
 
     const [value, setValue] = createSignal(props.value);
     const buttons = useToggleButtons();
