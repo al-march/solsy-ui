@@ -1,17 +1,17 @@
 import { Component, For } from 'solid-js';
-import { cleanup, fireEvent, render } from 'solid-testing-library';
-import { ToggleButtonGroupProps, ToggleButtonsGroup } from '../ToggleButtonsGroup';
-import { ToggleButton } from '../ToggleButton';
+import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
+import { ButtonsGroupSelectors, ButtonsGroupProps, ButtonsGroup } from '../ButtonsGroup';
+import { ButtonsGroupItem } from '../ButtonsGroupItem';
 
 
 const toggleButtons = ['first', 'second', 'third'];
-const ToggleButtonsSingleTest: Component<ToggleButtonGroupProps> = (props) => {
+const ToggleButtonsSingleTest: Component<ButtonsGroupProps> = (props) => {
     return (
-        <ToggleButtonsGroup {...props}>
+        <ButtonsGroup {...props}>
             <For each={toggleButtons}>
-                {(btn) => <ToggleButton value={btn}>{btn}</ToggleButton>}
+                {(btn) => <ButtonsGroupItem value={btn}>{btn}</ButtonsGroupItem>}
             </For>
-        </ToggleButtonsGroup>
+        </ButtonsGroup>
     );
 };
 
@@ -20,62 +20,85 @@ const isButtonActive = (button: HTMLElement) => button.classList.contains('btn-a
 describe('ToggleButtons.single', () => {
 
     test('should be rendered', async () => {
-        const {container} = render(() => (
+        render(() => (
             <ToggleButtonsSingleTest/>
         ));
 
-        expect(container.querySelectorAll('button').length).toBe(3);
+        expect(screen.getAllByTestId(ButtonsGroupSelectors.BUTTON).length).toBe(3);
     });
 
     test('should be active by click', async () => {
         let value = '';
-        const {container} = render(() => (
-            <ToggleButtonsSingleTest onChange={e => value = e}/>
+        render(() => (
+            <ToggleButtonsSingleTest onInput={e => value = e}/>
         ));
 
-        const [first, second] = Array.from(
-            container.querySelectorAll('button')
-        );
+        const [first, second] = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON)
         const [firstValue, secondValue] = toggleButtons;
 
         fireEvent.click(first);
 
-        expect(isButtonActive(first)).toBeTruthy()
+        expect(isButtonActive(first)).toBeTruthy();
         expect(isButtonActive(second)).toBeFalsy();
         expect(value).toStrictEqual(firstValue);
 
         fireEvent.click(second);
 
-        expect(isButtonActive(second)).toBeTruthy()
+        expect(isButtonActive(second)).toBeTruthy();
         expect(isButtonActive(first)).toBeFalsy();
         expect(value).toStrictEqual(secondValue);
     });
 
     test('should set default value', () => {
-        let [defaultValue] = toggleButtons;
-        let result = render(() => (
-            <ToggleButtonsSingleTest defaultValue={defaultValue}/>
+        let [value] = toggleButtons;
+        render(() => (
+            <ToggleButtonsSingleTest value={value}/>
         ));
 
-        let buttons = Array.from(
-            result.container.querySelectorAll('button')
-        );
+        let buttons = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON);
 
         expect(isButtonActive(buttons[0])).toBeTruthy();
         expect(isButtonActive(buttons[1])).toBeFalsy();
         cleanup();
 
-        defaultValue = toggleButtons[1];
-        result = render(() => (
-            <ToggleButtonsSingleTest defaultValue={defaultValue}/>
+        value = toggleButtons[1];
+        render(() => (
+            <ToggleButtonsSingleTest value={value}/>
         ));
 
-        buttons = Array.from(
-            result.container.querySelectorAll('button')
-        );
+        buttons = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON);
 
         expect(isButtonActive(buttons[0])).not.toBeTruthy();
         expect(isButtonActive(buttons[1])).toBeTruthy();
+    });
+
+    test('should set index without defaultValue on button', () => {
+        render(() => (
+            <ButtonsGroup value={2}>
+                <For each={toggleButtons}>
+                    {(btn) => <ButtonsGroupItem>{btn}</ButtonsGroupItem>}
+                </For>
+            </ButtonsGroup>
+        ))
+
+        const buttons = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON);
+        const last = buttons[2];
+        expect(isButtonActive(last)).toBeTruthy();
+    })
+
+    test('should toggle', async () => {
+        render(() => (
+            <ToggleButtonsSingleTest
+                multiple
+            />
+        ));
+
+        const [button] = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON);
+
+        fireEvent.click(button);
+        expect(isButtonActive(button)).toBeTruthy();
+        fireEvent.click(button);
+        expect(isButtonActive(button)).not.toBeTruthy();
     });
 });
 
@@ -83,38 +106,33 @@ describe('ToggleButtons.multiple', () => {
 
     test('should return a list', () => {
         let value: string[] = [];
-        const result = render(() => (
+        render(() => (
             <ToggleButtonsSingleTest
                 multiple
-                onChange={e => value = e}
+                onInput={e => value = e}
             />
         ));
 
-        const buttons = result.container.querySelectorAll('button');
+        const buttons = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON);
         const [firstBtn, secondBtn] = buttons;
 
         fireEvent.click(firstBtn);
         fireEvent.click(secondBtn);
 
         expect(value).toStrictEqual([toggleButtons[0], toggleButtons[1]]);
-
-        fireEvent.click(firstBtn);
-        fireEvent.click(secondBtn);
-
-        expect(value).toStrictEqual([]);
     });
 
     test('should checked buttons by default value', () => {
         const defaultValues = [...toggleButtons];
-        const result = render(() => (
+        render(() => (
             <ToggleButtonsSingleTest
                 multiple
-                defaultValue={defaultValues}
+                value={defaultValues}
             />
         ));
 
-        result.container.querySelectorAll('button').forEach(button => {
+        screen.getAllByTestId(ButtonsGroupSelectors.BUTTON).forEach(button => {
             expect(isButtonActive(button)).toBeTruthy();
-        })
-    })
+        });
+    });
 });

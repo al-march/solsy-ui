@@ -7,8 +7,8 @@ export type TabSize = DaisySize;
 
 type TabsContext = {
     state: TabsState;
-    setActiveTabIndex: (i: number) => void;
     initTab: (node: HTMLElement) => number;
+    setActiveTabIndex: (i: number) => void;
     setTabContent: (content: JSXElement) => void;
 }
 

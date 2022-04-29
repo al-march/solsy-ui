@@ -1,2 +1,2 @@
-export * from './ToggleButtonsGroup';
-export * from './ToggleButton';
+export * from './ButtonsGroup';
+export * from './ButtonsGroupItem';

@@ -1,9 +1,9 @@
 import { Component, createSignal } from 'solid-js';
 import { Page } from '../../base/Page';
-import { ToggleButton, ToggleButtonsGroup } from '../../../../../../packages/ui/src/navigation';
+import { ButtonsGroupItem, ButtonsGroup } from '../../../../../../packages/ui/src/navigation';
 
 export const BtnGroupPage: Component = () => {
-    const [btn, setBtn] = createSignal();
+    const [btn, setBtn] = createSignal(2);
 
     function onButtonsChange(v: any) {
         setBtn(v);
@@ -12,15 +12,14 @@ export const BtnGroupPage: Component = () => {
 
     return (
         <Page full class="p-4">
-            <ToggleButtonsGroup
-                onChange={onButtonsChange}
-                defaultValue={btn()}
-                multiple
+            <ButtonsGroup
+                value={btn()}
+                onInput={onButtonsChange}
             >
-                <ToggleButton value={1}>1</ToggleButton>
-                <ToggleButton value={2}>2</ToggleButton>
-                <ToggleButton value={3}>3</ToggleButton>
-            </ToggleButtonsGroup>
+                <ButtonsGroupItem>1</ButtonsGroupItem>
+                <ButtonsGroupItem>2</ButtonsGroupItem>
+                <ButtonsGroupItem>3</ButtonsGroupItem>
+            </ButtonsGroup>
         </Page>
     );
 };
