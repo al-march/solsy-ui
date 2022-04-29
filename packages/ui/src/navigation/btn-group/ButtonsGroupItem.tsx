@@ -1,5 +1,6 @@
 import { createSignal, onMount, PropsWithChildren } from 'solid-js';
-import { ButtonsGroupSelectors, useToggleButtons } from './ButtonsGroup';
+import { useToggleButtons } from './ButtonsGroup';
+import { Button } from '../../actions';
 
 type Props<T = any> = {
     value?: T;
@@ -33,26 +34,21 @@ export const ButtonsGroupItem = (props: PropsWithChildren<Props>) => {
         if (!v) {
             setValue(index);
         }
-    }
+    };
 
     const onClick = () => {
         const v = value();
         buttons.setActiveButton(v);
         props.onCheck?.(v);
-    }
+    };
 
     return (
-        <button
-            data-testid={ButtonsGroupSelectors.BUTTON}
+        <Button
             ref={initButton}
-            class="btn"
-            classList={{
-                'btn-active': isActive(),
-                'btn-disabled': props.disabled,
-            }}
+            active={isActive()}
             onClick={onClick}
         >
             {props.children}
-        </button>
+        </Button>
     );
 };

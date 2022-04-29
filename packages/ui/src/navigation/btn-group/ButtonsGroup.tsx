@@ -2,8 +2,8 @@ import { Component, createContext, createSignal, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
 
 export const ButtonsGroupSelectors = {
-    GROUP: 'toggle-group',
-    BUTTON: 'toggle-button',
+    GROUP: 'button-group',
+    BUTTON: 'button',
 };
 
 type ButtonsGroupState = {

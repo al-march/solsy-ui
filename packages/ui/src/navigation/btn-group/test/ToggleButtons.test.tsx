@@ -17,7 +17,7 @@ const ToggleButtonsSingleTest: Component<ButtonsGroupProps> = (props) => {
 
 const isButtonActive = (button: HTMLElement) => button.classList.contains('btn-active');
 
-describe('ToggleButtons.single', () => {
+describe('ToggleButtons', () => {
 
     test('should be rendered', async () => {
         render(() => (
@@ -100,9 +100,6 @@ describe('ToggleButtons.single', () => {
         fireEvent.click(button);
         expect(isButtonActive(button)).not.toBeTruthy();
     });
-});
-
-describe('ToggleButtons.multiple', () => {
 
     test('should return a list', () => {
         let value: string[] = [];

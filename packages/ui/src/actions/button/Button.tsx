@@ -31,12 +31,15 @@ type Props = {
     onClick?: (e: ClickButtonEvent) => void;
     onFocus?: (e: FocusButtonEvent) => void;
     onBlur?: (e: FocusButtonEvent) => void;
+    ref?: (button: HTMLButtonElement) => void;
 }
 
 export const Button: Component<Props> = (props) => {
 
     return (
         <button
+            data-testid="button"
+            ref={props.ref}
             onClick={props.onClick}
             onFocus={props.onFocus}
             onBlur={props.onBlur}
