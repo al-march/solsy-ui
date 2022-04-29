@@ -1,58 +1,90 @@
-import { Accessor, Component, createContext, createSignal, For, JSXElement, useContext } from 'solid-js';
+import { Component, createContext, createSignal, JSXElement, useContext } from 'solid-js';
+import { createStore } from 'solid-js/store';
 
 type TabsContext = {
-    tab: Accessor<number>;
-    tabContent: JSXElement;
-    setTab: (tab: number) => void;
+    state: TabsState,
+    setActiveTab: (i: number) => void;
+    initTab: (node: HTMLElement) => number;
     setTabContent: (content: JSXElement) => void;
+}
+
+type TabsState = {
+    _activeTabIndex: number;
+    _tabContent: JSXElement;
+
+    activeTabIndex: number;
+    tabContent: JSXElement;
 }
 
 const TabsContext = createContext<TabsContext>();
 
-type Props = {
-    tabList: JSXElement[];
+export type TabsProps = {
+    defaultValue?: number;
+    onInput?: (i: number) => void;
 }
 
 /**
- *
+ * Tabs
  * @example
- *  <Tabs
- *      tabList={[
- *          <Tab label="Tab 1" index={0}>Content of 1</Tab>,
- *          <Tab label="Tab 2" index={1}>Content of 2</Tab>,
- *          <Tab label="Tab 3" index={2}>Content of 3</Tab>,
- *      ]}
- *  />
+ * <Tabs>
+ *      <Tab label="Tab label 1">
+ *          Tab content 1
+ *      </Tab>
+ *      <Tab label="Tab label 2">
+ *          Tab content 2
+ *      </Tab>
+ * </Tabs>
  */
-export const Tabs: Component<Props> = (props) => {
+export const Tabs: Component<TabsProps> = (props) => {
 
-    const [tab, setTab] = createSignal<number>(0);
-    const [tabContent, setTabContent] = createSignal<JSXElement>();
-
-    const store: TabsContext = {
-        tab,
-        tabContent,
-        setTab(tab) {
-            setTab(tab);
+    const [tabs, setTabs] = createSignal<HTMLElement[]>([]);
+    const [state, setState] = createStore<TabsState>({
+        _activeTabIndex: props.defaultValue ?? 0,
+        get activeTabIndex() {
+            return this._activeTabIndex;
         },
-        setTabContent(content) {
-            setTabContent(content);
+        _tabContent: '',
+        get tabContent() {
+            return this._tabContent;
         }
+    });
+
+    const initTab = (tab: HTMLElement) => {
+        setTabs(tabs => ([...tabs, tab]));
+        return tabs().length - 1;
+    };
+
+    const setActiveTab = (index: number) => {
+        setState('_activeTabIndex', index);
+        props.onInput?.(index);
+    };
+
+    const setTabContent = (content: JSXElement) => {
+        setState('_tabContent', content);
     };
 
     return (
-        <TabsContext.Provider value={store}>
+        <TabsContext.Provider value={{
+            state,
+            initTab,
+            setActiveTab,
+            setTabContent
+        }}>
             <div class="tabs tabs-boxed">
-                <For each={props.tabList}>
-                    {tab => tab}
-                </For>
+                {props.children}
             </div>
 
             <div class="p-4">
-                {tabContent()}
+                {state.tabContent}
             </div>
         </TabsContext.Provider>
     );
 };
 
-export const useTabs = () => useContext(TabsContext)!;
+export const useTabs = () => {
+    const context = useContext(TabsContext);
+    if (context) {
+        return context;
+    }
+    throw new Error('No context for Tabs');
+};

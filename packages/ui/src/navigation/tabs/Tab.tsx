@@ -1,16 +1,15 @@
-import { Component, JSXElement, onMount } from 'solid-js';
+import { Component, createSignal, JSXElement, onMount } from 'solid-js';
 import { useTabs } from './Tabs';
 
 type Props = {
     label: JSXElement,
-    index: number;
 }
 
 export const Tab: Component<Props> = (props) => {
+    const context = useTabs();
+    const [index, setIndex] = createSignal(-1);
 
-    const tabs = useTabs();
-
-    const isActive = () => tabs?.tab() === props.index;
+    const isActive = () => context.state.activeTabIndex === index();
 
     onMount(() => {
         if (isActive()) {
@@ -19,12 +18,17 @@ export const Tab: Component<Props> = (props) => {
     });
 
     function setTab() {
-        tabs.setTab(props.index);
-        tabs.setTabContent(props.children);
+        context.setActiveTab(index());
+        context.setTabContent(props.children);
+    }
+
+    function initTab(node: HTMLElement) {
+        setIndex(context.initTab(node));
     }
 
     return (
         <div
+            ref={initTab}
             class="tab"
             classList={{
                 'tab-active': isActive()

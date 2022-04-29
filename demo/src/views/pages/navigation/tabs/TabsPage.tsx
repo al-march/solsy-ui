@@ -9,11 +9,11 @@ import { Tab, Tabs } from '../../../../../../packages/ui/src/navigation';
 export const TabsPage: Component = () => {
     return (
         <Page full class="p-4">
-            <Tabs tabList={[
-                <CarTab/>,
-                <PlaneTab/>,
-                <BuildingTab/>,
-            ]}/>
+            <Tabs defaultValue={2}>
+                <CarTab/>
+                <PlaneTab/>
+                <BuildingTab/>
+            </Tabs>
         </Page>
     );
 };
@@ -22,7 +22,7 @@ const CarTab = () => {
     const label = <div><i class="fa-solid fa-car pr-2"/>Cars</div>;
 
     return (
-        <Tab label={label} index={0}>
+        <Tab label={label}>
             <div class="flex flex-col items-start">
                 <span class="mb-2">
                     <i class="fa-solid fa-car pr-2"/>
@@ -38,7 +38,7 @@ const PlaneTab = () => {
     const label = <div><i class="fa-solid fa-plane-departure pr-2"/>Plane</div>;
 
     return (
-        <Tab label={label} index={1}>
+        <Tab label={label}>
             <div class="flex flex-col items-start">
                 <span class="mb-2">
                     <i class="fa-solid fa-plane-departure pr-2"/>
@@ -54,7 +54,7 @@ const BuildingTab = () => {
     const label = <div><i class="fa-solid fa-building pr-2"/>Buildings</div>;
 
     return (
-        <Tab label={label} index={2}>
+        <Tab label={label}>
             <div class="flex flex-col items-start">
                 <span class="mb-2">
                     <i class="fa-solid fa-building pr-2"/>
