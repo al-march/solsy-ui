@@ -1,6 +1,6 @@
 import { Component, For } from 'solid-js';
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { ButtonsGroupSelectors, ButtonsGroupProps, ButtonsGroup } from '../ButtonsGroup';
+import { ButtonsGroupSelectors, ButtonsGroupProps, ButtonsGroup, ButtonGroupSize } from '../ButtonsGroup';
 import { ButtonsGroupItem } from '../ButtonsGroupItem';
 
 
@@ -27,13 +27,31 @@ describe('ToggleButtons', () => {
         expect(screen.getAllByTestId(ButtonsGroupSelectors.BUTTON).length).toBe(3);
     });
 
+    test('should set size classes', () => {
+        const sizes: Record<ButtonGroupSize, string> = {
+            lg: 'btn-lg',
+            md: 'btn-md',
+            sm: 'btn-sm',
+            xs: 'btn-xs'
+        };
+
+        Object.keys(sizes).forEach(key => {
+            const size = key as ButtonGroupSize;
+            render(() => <ToggleButtonsSingleTest size={size}/>);
+            screen.getAllByTestId(ButtonsGroupSelectors.BUTTON).forEach(button => {
+                expect(button).toHaveClass(sizes[size]);
+            });
+            cleanup();
+        });
+    });
+
     test('should be active by click', async () => {
         let value = '';
         render(() => (
             <ToggleButtonsSingleTest onInput={e => value = e}/>
         ));
 
-        const [first, second] = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON)
+        const [first, second] = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON);
         const [firstValue, secondValue] = toggleButtons;
 
         fireEvent.click(first);
@@ -79,12 +97,12 @@ describe('ToggleButtons', () => {
                     {(btn) => <ButtonsGroupItem>{btn}</ButtonsGroupItem>}
                 </For>
             </ButtonsGroup>
-        ))
+        ));
 
         const buttons = screen.getAllByTestId(ButtonsGroupSelectors.BUTTON);
         const last = buttons[2];
         expect(isButtonActive(last)).toBeTruthy();
-    })
+    });
 
     test('should toggle', async () => {
         render(() => (

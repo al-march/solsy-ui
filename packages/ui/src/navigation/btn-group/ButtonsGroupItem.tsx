@@ -47,6 +47,7 @@ export const ButtonsGroupItem = (props: PropsWithChildren<Props>) => {
             ref={initButton}
             active={isActive()}
             onClick={onClick}
+            size={buttons.state.size}
         >
             {props.children}
         </Button>

@@ -1,14 +1,18 @@
 import { Component, createContext, createSignal, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
+import { DaisySize } from '../../types';
 
 export const ButtonsGroupSelectors = {
     GROUP: 'button-group',
     BUTTON: 'button',
 };
 
+export type ButtonGroupSize = DaisySize;
+
 type ButtonsGroupState = {
     _activeButtons: Set<any>;
     activeButtons: Set<any>;
+    size?: ButtonGroupSize;
 }
 
 type ButtonsGroupContext = {
@@ -23,6 +27,7 @@ export type ButtonsGroupProps = {
     value?: any | any[];
     multiple?: boolean;
     onInput?: (v: any) => void;
+    size?: ButtonGroupSize;
 }
 
 /**
@@ -46,6 +51,9 @@ export const ButtonsGroup: Component<ButtonsGroupProps> = (props) => {
         _activeButtons: initActiveButtons(),
         get activeButtons() {
             return this._activeButtons;
+        },
+        get size() {
+            return props.size;
         }
     });
 
