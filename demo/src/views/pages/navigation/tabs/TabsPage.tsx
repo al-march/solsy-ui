@@ -9,7 +9,7 @@ import { Tab, Tabs } from '../../../../../../packages/ui/src/navigation';
 export const TabsPage: Component = () => {
     return (
         <Page full class="p-4">
-            <Tabs defaultValue={2}>
+            <Tabs defaultValue={2} view="boxed" size="sm">
                 <CarTab/>
                 <PlaneTab/>
                 <BuildingTab/>

@@ -1,9 +1,13 @@
 import { Component, createContext, createSignal, JSXElement, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
+import { DaisySize } from '../../types';
+
+export type TabView = 'bordered' | 'lifted' | 'boxed';
+export type TabSize = DaisySize;
 
 type TabsContext = {
     state: TabsState,
-    setActiveTab: (i: number) => void;
+    setActiveTabIndex: (i: number) => void;
     initTab: (node: HTMLElement) => number;
     setTabContent: (content: JSXElement) => void;
 }
@@ -14,6 +18,8 @@ type TabsState = {
 
     activeTabIndex: number;
     tabContent: JSXElement;
+    size?: TabSize;
+    view?: TabView;
 }
 
 const TabsContext = createContext<TabsContext>();
@@ -21,10 +27,13 @@ const TabsContext = createContext<TabsContext>();
 export type TabsProps = {
     defaultValue?: number;
     onInput?: (i: number) => void;
+    view?: TabView;
+    size?: TabSize;
 }
 
 /**
  * Tabs
+ *
  * @example
  * <Tabs>
  *      <Tab label="Tab label 1">
@@ -46,6 +55,12 @@ export const Tabs: Component<TabsProps> = (props) => {
         _tabContent: '',
         get tabContent() {
             return this._tabContent;
+        },
+        get size() {
+            return props.size;
+        },
+        get view() {
+            return props.view;
         }
     });
 
@@ -54,7 +69,7 @@ export const Tabs: Component<TabsProps> = (props) => {
         return tabs().length - 1;
     };
 
-    const setActiveTab = (index: number) => {
+    const setActiveTabIndex = (index: number) => {
         setState('_activeTabIndex', index);
         props.onInput?.(index);
     };
@@ -67,10 +82,16 @@ export const Tabs: Component<TabsProps> = (props) => {
         <TabsContext.Provider value={{
             state,
             initTab,
-            setActiveTab,
+            setActiveTabIndex,
             setTabContent
         }}>
-            <div class="tabs tabs-boxed">
+            <div
+                data-testid="tabs"
+                class="tabs"
+                classList={{
+                    'tabs-boxed': state.view === 'boxed'
+                }}
+            >
                 {props.children}
             </div>
 

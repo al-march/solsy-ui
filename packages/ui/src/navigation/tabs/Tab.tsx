@@ -1,15 +1,15 @@
 import { Component, createSignal, JSXElement, onMount } from 'solid-js';
 import { useTabs } from './Tabs';
 
-type Props = {
+export type TabProps = {
     label: JSXElement,
 }
 
-export const Tab: Component<Props> = (props) => {
-    const context = useTabs();
+export const Tab: Component<TabProps> = (props) => {
+    const tabs = useTabs();
     const [index, setIndex] = createSignal(-1);
 
-    const isActive = () => context.state.activeTabIndex === index();
+    const isActive = () => tabs.state.activeTabIndex === index();
 
     onMount(() => {
         if (isActive()) {
@@ -18,23 +18,30 @@ export const Tab: Component<Props> = (props) => {
     });
 
     function setTab() {
-        context.setActiveTab(index());
-        context.setTabContent(props.children);
+        tabs.setActiveTabIndex(index());
+        tabs.setTabContent(props.children);
     }
 
     function initTab(node: HTMLElement) {
-        setIndex(context.initTab(node));
+        setIndex(tabs.initTab(node));
     }
 
     return (
         <div
+            data-testid="tab"
             ref={initTab}
             class="tab"
             classList={{
-                'tab-active': isActive()
+                'tab-active': isActive(),
+                'tab-bordered': tabs.state.view === 'bordered',
+                'tab-lifted': tabs.state.view === 'lifted',
+
+                'tab-xs': tabs.state.size === 'xs',
+                'tab-sm': tabs.state.size === 'sm',
+                'tab-md': tabs.state.size === 'md',
+                'tab-lg': tabs.state.size === 'lg',
             }}
             onClick={setTab}
-            data-testid="tab"
         >
             {props.label}
         </div>

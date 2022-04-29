@@ -1,6 +1,6 @@
 import { Component, For } from 'solid-js';
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { Tabs, TabsProps } from '../Tabs';
+import { Tabs, TabSize, TabsProps, TabView } from '../Tabs';
 import { Tab } from '../Tab';
 
 const tabs = [
@@ -76,5 +76,45 @@ describe('Tabs', () => {
         expect(await screen.findByText(tabs[1].content));
         fireEvent.click(first);
         expect(await screen.findByText(tabs[0].content));
+    });
+
+    test('should set size class', () => {
+        const sizesClassMap: Record<TabSize, string> = {
+            xs: 'tab-xs',
+            sm: 'tab-sm',
+            md: 'tab-md',
+            lg: 'tab-lg'
+        };
+
+        Object.keys(sizesClassMap).forEach(key => {
+            const size = key as TabSize;
+            render(() => <TabsTest size={size}/>);
+            screen.getAllByTestId('tab').forEach(tab => {
+                expect(tab).toHaveClass(sizesClassMap[size]);
+            });
+            cleanup();
+        });
+    });
+
+    test('should set view class', () => {
+        const viewsClassMap: Record<TabView, string> = {
+            boxed: 'tabs-boxed',
+            bordered: 'tab-bordered',
+            lifted: 'tab-lifted',
+        };
+
+        Object.keys(viewsClassMap).forEach(key => {
+            const view = key as TabView;
+            render(() => <TabsTest view={view}/>);
+
+            if (view === 'boxed') {
+                expect(screen.getByTestId('tabs')).toHaveClass(viewsClassMap[view]);
+            } else {
+                screen.getAllByTestId('tab').forEach(tab => {
+                    expect(tab).toHaveClass(viewsClassMap[view]);
+                });
+            }
+            cleanup();
+        });
     });
 });
