@@ -6,7 +6,7 @@ export type TabView = 'bordered' | 'lifted' | 'boxed';
 export type TabSize = DaisySize;
 
 type TabsContext = {
-    state: TabsState,
+    state: TabsState;
     setActiveTabIndex: (i: number) => void;
     initTab: (node: HTMLElement) => number;
     setTabContent: (content: JSXElement) => void;

@@ -2,10 +2,6 @@ import { Component } from 'solid-js';
 import { Page } from '../../base/Page';
 import { Tab, Tabs } from '../../../../../../packages/ui/src/navigation';
 
-/**
- * Todo: 1) create value props
- * Todo: 2) create view props
- */
 export const TabsPage: Component = () => {
     return (
         <Page full class="p-4">
