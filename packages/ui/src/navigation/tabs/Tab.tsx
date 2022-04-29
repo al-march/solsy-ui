@@ -34,6 +34,7 @@ export const Tab: Component<Props> = (props) => {
                 'tab-active': isActive()
             }}
             onClick={setTab}
+            data-testid="tab"
         >
             {props.label}
         </div>
