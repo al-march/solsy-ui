@@ -4,7 +4,6 @@ import { BtnGroupPage, HomePage, MenuPage, NotFound, RangePage, SelectPage, Tabs
 import { RoutersComponentsEnum, RouterSDKEnum } from './RoutersComponentsEnum';
 import { ButtonPage, ModalPage } from '../../views/pages/actions';
 import { TooltipPage } from '../../views/pages/data/tooltip/TooltipPage';
-import { StepsPage } from '../../views/pages/navigation/steps/StepsPage';
 import { InputPage } from '../../views/pages/form/input/InputPage';
 import { FormPage } from '../../views/pages/sdk/form/FormPage';
 
@@ -23,7 +22,6 @@ export const Routers: Component = () => {
             <Route path={`/${RoutersComponentsEnum.MODALS}`} element={<ModalPage/>}/>
             <Route path={`/${RoutersComponentsEnum.BUTTON}`} element={<ButtonPage/>}/>
             <Route path={`/${RoutersComponentsEnum.TOOLTIP}`} element={<TooltipPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.STEPS}`} element={<StepsPage/>}/>
             <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage/>}/>
 
             <Route path="/*all" element={<NotFound/>}/>
