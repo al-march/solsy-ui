@@ -1,4 +1,8 @@
 import { Component, createMemo, For, Show } from 'solid-js';
+import { DaisySize } from '../../types';
+
+export type RangeSize = DaisySize;
+export type RangeColor = 'primary' | 'secondary' | 'accent'
 
 export const RangeSelectors = {
     INPUT: 'range',
@@ -13,6 +17,9 @@ type Props = {
     step?: number;
 
     onInput?: (v: number) => void;
+
+    size?: RangeSize;
+    color?: RangeColor;
 }
 
 export const Range: Component<Props> = (props) => {
@@ -21,6 +28,9 @@ export const Range: Component<Props> = (props) => {
         const value = parseInt(target.value, 10);
         props.onInput?.(value);
     }
+
+    const setColor = (color?: RangeColor) => color ? `range-${color}` : '';
+    const setSize = (size?: RangeSize) => size ? `range-${size}` : '';
 
     return (
         <>
@@ -31,7 +41,18 @@ export const Range: Component<Props> = (props) => {
                 max={props.max || 100}
                 value={props.value}
                 step={props.step}
-                class="range"
+                class={`range ${setColor(props.color)} ${setSize(props.size)}`}
+
+                classList={{
+                    'range-lg': props.size === 'lg',
+                    'range-md': props.size === 'md',
+                    'range-sm': props.size === 'sm',
+                    'range-xs': props.size === 'xs',
+
+                    'range-primary':   props.color === 'primary',
+                    'range-secondary': props.color === 'secondary',
+                    'range-accent':    props.color === 'accent',
+                }}
 
                 onInput={change}
             />
