@@ -2,6 +2,7 @@ import { Component, For } from 'solid-js';
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
 import { Tabs, TabSize, TabsProps, TabView } from '../Tabs';
 import { Tab } from '../Tab';
+import { ObjectKeys } from '../../../utils/object';
 
 const tabs = [
     {
@@ -86,8 +87,7 @@ describe('Tabs', () => {
             lg: 'tab-lg'
         };
 
-        Object.keys(sizesClassMap).forEach(key => {
-            const size = key as TabSize;
+        ObjectKeys(sizesClassMap).forEach(size => {
             render(() => <TabsTest size={size}/>);
             screen.getAllByTestId('tab').forEach(tab => {
                 expect(tab).toHaveClass(sizesClassMap[size]);
@@ -103,8 +103,7 @@ describe('Tabs', () => {
             lifted: 'tab-lifted',
         };
 
-        Object.keys(viewsClassMap).forEach(key => {
-            const view = key as TabView;
+        ObjectKeys(viewsClassMap).forEach(view => {
             render(() => <TabsTest view={view}/>);
 
             if (view === 'boxed') {

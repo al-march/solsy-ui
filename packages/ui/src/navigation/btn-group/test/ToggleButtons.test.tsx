@@ -2,6 +2,7 @@ import { Component, For } from 'solid-js';
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
 import { ButtonsGroupSelectors, ButtonsGroupProps, ButtonsGroup, ButtonGroupSize } from '../ButtonsGroup';
 import { ButtonGroup } from '../ButtonGroup';
+import { ObjectKeys } from '../../../utils/object';
 
 
 const toggleButtons = ['first', 'second', 'third'];
@@ -35,8 +36,7 @@ describe('ToggleButtons', () => {
             xs: 'btn-xs'
         };
 
-        Object.keys(sizes).forEach(key => {
-            const size = key as ButtonGroupSize;
+        ObjectKeys(sizes).forEach(size => {
             render(() => <ToggleButtonsSingleTest size={size}/>);
             screen.getAllByTestId(ButtonsGroupSelectors.BUTTON).forEach(button => {
                 expect(button).toHaveClass(sizes[size]);

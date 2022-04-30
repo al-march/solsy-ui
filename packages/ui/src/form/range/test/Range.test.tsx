@@ -1,5 +1,6 @@
 import { cleanup, render, screen } from 'solid-testing-library';
 import { Range, RangeColor, RangeSelectors, RangeSize } from '../Range';
+import { ObjectKeys } from '../../../utils/object';
 
 describe('Range', () => {
 
@@ -43,8 +44,7 @@ describe('Range', () => {
             accent: 'range-accent'
         };
 
-        Object.keys(colors).forEach(key => {
-            const color = key as RangeColor;
+        ObjectKeys(colors).forEach((color) => {
             render(() => <Range color={color}/>);
             expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveClass(colors[color]);
             cleanup();
@@ -59,8 +59,7 @@ describe('Range', () => {
             xs: 'range-xs'
         };
 
-        Object.keys(sizes).forEach((key) => {
-            const size = key as RangeSize;
+        ObjectKeys(sizes).forEach((size) => {
             render(() => <Range size={size}/>);
             expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveClass(sizes[size]);
             cleanup();
