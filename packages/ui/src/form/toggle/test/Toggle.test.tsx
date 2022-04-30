@@ -1,7 +1,31 @@
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { Toggle, ToggleSelectors, ToggleClasses } from '../Toggle';
+import { Toggle, ToggleSelectors, ToggleColor, ToggleSize } from '../Toggle';
 import { createSignal } from 'solid-js';
 import { ObjectKeys } from '../../../utils/object';
+
+type ToggleClasses = {
+    main: string,
+    colors: Record<ToggleColor, string>,
+    sizes: Record<ToggleSize, string>
+}
+
+export const addPrefix = (name: string) => `toggle-${name}`;
+
+export const classes: ToggleClasses = {
+    main: 'toggle',
+    colors: {
+        accent: addPrefix('accent'),
+        primary: addPrefix('primary'),
+        secondary: addPrefix('secondary'),
+    },
+    sizes: {
+        lg: addPrefix('lg'),
+        md: addPrefix('md'),
+        sm: addPrefix('sm'),
+        xs: addPrefix('xs'),
+    }
+};
+
 
 describe('Toggle', () => {
 
@@ -65,7 +89,7 @@ describe('Toggle', () => {
     });
 
     test('should set color classes', () => {
-        const {colors} = ToggleClasses;
+        const {colors} = classes;
         ObjectKeys(colors).forEach(color => {
             render(() => <Toggle color={color}/>);
             expect(screen.getByTestId(ToggleSelectors.INPUT)).toHaveClass(colors[color]);
@@ -74,7 +98,7 @@ describe('Toggle', () => {
     });
 
     test('should set size classes', () => {
-        const {sizes} = ToggleClasses;
+        const {sizes} = classes;
         ObjectKeys(sizes).forEach(size => {
             render(() => <Toggle size={size}/>);
             expect(screen.getByTestId(ToggleSelectors.INPUT)).toHaveClass(sizes[size]);

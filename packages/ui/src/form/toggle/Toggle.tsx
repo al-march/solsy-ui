@@ -12,29 +12,6 @@ export const ToggleSelectors = {
 export type ToggleColor = 'primary' | 'secondary' | 'accent';
 export type ToggleSize = DaisySize;
 
-type ToggleClasses = {
-    main: string,
-    colors: Record<ToggleColor, string>,
-    sizes: Record<ToggleSize, string>
-}
-
-export const addPrefix = (name: string) => `toggle-${name}`;
-
-export const ToggleClasses: ToggleClasses = {
-    main: 'toggle',
-    colors: {
-        accent: addPrefix('accent'),
-        primary: addPrefix('primary'),
-        secondary: addPrefix('secondary'),
-    },
-    sizes: {
-        lg: addPrefix('lg'),
-        md: addPrefix('md'),
-        sm: addPrefix('sm'),
-        xs: addPrefix('xs'),
-    }
-};
-
 export type ToggleProps = {
     value?: boolean;
 
@@ -66,16 +43,16 @@ export const Toggle: Component<ToggleProps> = (props) => {
                 setRef(el);
                 props.ref?.(el);
             }}
-            class={ToggleClasses.main}
+            class="toggle"
             classList={{
-                [ToggleClasses.colors.accent]: props.color === 'accent',
-                [ToggleClasses.colors.primary]: props.color === 'primary',
-                [ToggleClasses.colors.secondary]: props.color === 'secondary',
+                'toggle-accent': props.color === 'accent',
+                'toggle-primary': props.color === 'primary',
+                'toggle-secondary': props.color === 'secondary',
 
-                [ToggleClasses.sizes.lg]: props.size === 'lg',
-                [ToggleClasses.sizes.md]: props.size === 'md',
-                [ToggleClasses.sizes.sm]: props.size === 'sm',
-                [ToggleClasses.sizes.xs]: props.size === 'xs',
+                'toggle-lg': props.size === 'lg',
+                'toggle-md': props.size === 'md',
+                'toggle-sm': props.size === 'sm',
+                'toggle-xs': props.size === 'xs',
             }}
             type="checkbox"
             checked={props.value}

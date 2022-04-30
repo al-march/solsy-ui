@@ -1,7 +1,8 @@
-export {
+export type {
     ToggleSize,
     ToggleColor,
     ToggleInputEvent,
     ToggleChangeEvent,
-    Toggle
 } from './Toggle';
+
+export { Toggle } from './Toggle';
