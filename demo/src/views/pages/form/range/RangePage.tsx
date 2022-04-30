@@ -22,7 +22,7 @@ export const RangePage: Component = () => {
                     onInput={e => setValue(Number((e.target as HTMLInputElement).value))}
                 />
                 <p class="py-4">Value: {value()}</p>
-                <Range value={value()} onChange={setValue}/>
+                <Range value={value()} onInput={setValue}/>
 
                 <br/>
 
@@ -37,7 +37,7 @@ export const RangePage: Component = () => {
                 <Range
                     value={value()}
                     step={range()}
-                    onChange={setValue}
+                    onInput={setValue}
                 />
             </div>
         </Page>
