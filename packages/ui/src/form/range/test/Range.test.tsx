@@ -2,6 +2,29 @@ import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
 import { Range, RangeColor, RangeSelectors, RangeSize } from '../Range';
 import { ObjectKeys } from '../../../utils/object';
 
+type RangeClasses = {
+    main: string,
+    colors: Record<RangeColor, string>,
+    sizes: Record<RangeSize, string>
+}
+
+const addPrefix = (name: string) => `range-${name}`;
+
+const classes: RangeClasses = {
+    main: 'range',
+    colors: {
+        accent: addPrefix('accent'),
+        primary: addPrefix('primary'),
+        secondary: addPrefix('secondary'),
+    },
+    sizes: {
+        lg: addPrefix('lg'),
+        md: addPrefix('md'),
+        sm: addPrefix('sm'),
+        xs: addPrefix('xs'),
+    }
+};
+
 describe('Range', () => {
 
     test('should be rendered', () => {
@@ -45,12 +68,7 @@ describe('Range', () => {
     });
 
     test('should set color classes', () => {
-        const colors: Record<RangeColor, string> = {
-            primary: 'range-primary',
-            secondary: 'range-secondary',
-            accent: 'range-accent'
-        };
-
+        const {colors} = classes;
         ObjectKeys(colors).forEach((color) => {
             render(() => <Range color={color}/>);
             expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveClass(colors[color]);
@@ -59,13 +77,7 @@ describe('Range', () => {
     });
 
     test('should set size classes', () => {
-        const sizes: Record<RangeSize, string> = {
-            lg: 'range-lg',
-            md: 'range-md',
-            sm: 'range-sm',
-            xs: 'range-xs'
-        };
-
+        const {sizes} = classes;
         ObjectKeys(sizes).forEach((size) => {
             render(() => <Range size={size}/>);
             expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveClass(sizes[size]);
