@@ -2,11 +2,17 @@ import { Component, createEffect, createSignal, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { ScaleTransition } from '../../utils';
 
-type Props = {
+export const ModalSelectors = {
+    MODAL: 'modal',
+    BACKDROP: 'modal-backdrop'
+};
+
+export type ModalProps = {
     isShow?: boolean;
+    class?: string;
+
     onBackdropClick?: () => void;
     onClose?: () => void;
-    class?: string;
 }
 
 /**
@@ -21,7 +27,7 @@ type Props = {
  *     </ModalAction>
  * </Modal>
  */
-export const Modal: Component<Props> = (props) => {
+export const Modal: Component<ModalProps> = (props) => {
 
     const [show, setShow] = createSignal(false);
 
@@ -31,24 +37,30 @@ export const Modal: Component<Props> = (props) => {
         }
     });
 
-    function close() {
+    const close = () => {
         setShow(false);
-        props.onClose && props.onClose();
-    }
+        props.onClose?.();
+    };
 
-    function backdropClickHandler() {
-        if (props.onBackdropClick) {
-            props.onBackdropClick();
-        }
-    }
+    const backdropClickHandler = () => {
+        props.onBackdropClick?.();
+    };
 
     return (
         <Show when={show()}>
             <Portal>
-                <div class="modal opacity-100 visible z-50 pointer-events-auto" onClick={backdropClickHandler}>
-                    <ScaleTransition appear={true} onExit={close}>
+                <div
+                    data-testid={ModalSelectors.BACKDROP}
+                    class="modal opacity-100 visible z-50 pointer-events-auto"
+                    onClick={backdropClickHandler}
+                >
+                    <ScaleTransition
+                        appear={true}
+                        onExit={close}
+                    >
                         <Show when={props.isShow}>
                             <div
+                                data-testid={ModalSelectors.MODAL}
                                 class={`modal-box transition-none transform-none opacity-100 ${props.class || ''}`}
                                 onClick={e => e.stopPropagation()}
                             >
