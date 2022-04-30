@@ -1,5 +1,6 @@
-import { cleanup, render, screen } from 'solid-testing-library';
-import { Button } from '../Button';
+import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
+import { Button, ButtonColor } from '../Button';
+import { ObjectKeys } from '../../../utils/object';
 
 
 describe('Button', () => {
@@ -10,33 +11,47 @@ describe('Button', () => {
         expect(component).toBeInTheDocument();
     });
 
+    test('should emit onClick', () => {
+        const onClick = jest.fn();
+        render(() => <Button onClick={onClick}>button</Button>);
+        fireEvent.click(screen.getByTestId('button'));
+        expect(onClick).toBeCalled();
+    });
+
+    test('should emit onFocus', () => {
+        const onFocus = jest.fn();
+        render(() => <Button onFocus={onFocus}>button</Button>);
+        fireEvent.focus(screen.getByTestId('button'));
+        expect(onFocus).toBeCalled();
+    });
+
+    test('should emit onBlur', () => {
+        const onBlur = jest.fn();
+        render(() => <Button onBlur={onBlur}>button</Button>);
+        fireEvent.blur(screen.getByTestId('button'));
+        expect(onBlur).toBeCalled();
+    });
+
     test('should add color classes', async () => {
-        render(() => <Button color="primary">button primary</Button>);
-        expect(await screen.findByText('button primary')).toHaveClass('btn-primary');
+        const colors: Record<ButtonColor, string> = {
+            accent: 'btn-accent',
+            error: 'btn-error',
+            ghost: 'btn-ghost',
+            info: 'btn-info',
+            primary: 'btn-primary',
+            secondary: 'btn-secondary',
+            success: 'btn-success',
+            warning: 'btn-warning'
+        };
 
-        render(() => <Button color="secondary">button secondary</Button>);
-        expect(await screen.findByText('button secondary')).toHaveClass('btn-secondary');
+        ObjectKeys(colors).forEach(color => {
+            render(() => <Button color={color}>button</Button>);
+            expect(screen.getByTestId('button')).toHaveClass(colors[color]);
+            cleanup();
+        });
 
-        render(() => <Button color="accent">button accent</Button>);
-        expect(await screen.findByText('button accent')).toHaveClass('btn-accent');
-
-        render(() => <Button color="info">button info</Button>);
-        expect(await screen.findByText('button info')).toHaveClass('btn-info');
-
-        render(() => <Button color="success">button success</Button>);
-        expect(await screen.findByText('button success')).toHaveClass('btn-success');
-
-        render(() => <Button color="warning">button warning</Button>);
-        expect(await screen.findByText('button warning')).toHaveClass('btn-warning');
-
-        render(() => <Button color="error">button error</Button>);
-        expect(await screen.findByText('button error')).toHaveClass('btn-error');
-
-        render(() => <Button color="ghost">button ghost</Button>);
-        expect(await screen.findByText('button ghost')).toHaveClass('btn-ghost');
-
-        render(() => <Button link>button link</Button>);
-        expect(await screen.findByText('button link')).toHaveClass('btn-link');
+        render(() => <Button link>button</Button>);
+        expect(screen.getByTestId('button')).toHaveClass('btn-link');
     });
 
     test('should add type classes', async () => {
@@ -67,16 +82,16 @@ describe('Button', () => {
         render(() => <Button glass>button</Button>);
         expect(await screen.findByText('button')).toHaveClass('glass');
         cleanup();
-    })
+    });
 
     test('should add custom classes', async () => {
         render(() => <Button class="my-custom-class">button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('my-custom-class')
+        expect(await screen.findByText('button')).toHaveClass('my-custom-class');
     });
 
     test('should disable button', async () => {
         render(() => <Button disabled>button</Button>);
         expect(await screen.findByText('button')).toBeDisabled();
         expect(await screen.findByText('button')).toHaveClass('btn-disabled');
-    })
-})
+    });
+});

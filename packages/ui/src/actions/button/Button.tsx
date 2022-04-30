@@ -2,10 +2,11 @@ import { Component } from 'solid-js';
 import { DOMElement } from 'solid-js/jsx-runtime';
 import { DaisyColor, DaisySize } from '../../types';
 
-type ClickButtonEvent = MouseEvent & { currentTarget: HTMLButtonElement; target: DOMElement };
-type FocusButtonEvent = FocusEvent & { currentTarget: HTMLButtonElement; target: DOMElement };
+export type ClickButtonEvent = MouseEvent & { currentTarget: HTMLButtonElement; target: DOMElement };
+export type FocusButtonEvent = FocusEvent & { currentTarget: HTMLButtonElement; target: DOMElement };
 
-type ButtonColor = DaisyColor | 'ghost';
+export type ButtonColor = DaisyColor | 'ghost';
+export type ButtonSize = DaisySize;
 
 type Props = {
     disabled?: boolean;
@@ -15,7 +16,7 @@ type Props = {
     class?: string;
 
     color?: ButtonColor;
-    size?: DaisySize;
+    size?: ButtonSize;
     link?: boolean;
     outline?: boolean;
     glass?: boolean;
