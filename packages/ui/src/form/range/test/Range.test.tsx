@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from 'solid-testing-library';
+import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
 import { Range, RangeColor, RangeSelectors, RangeSize } from '../Range';
 import { ObjectKeys } from '../../../utils/object';
 
@@ -9,7 +9,7 @@ describe('Range', () => {
         expect(screen.getByTestId(RangeSelectors.INPUT)).toBeInTheDocument();
     });
 
-    test('should set range value', () => {
+    test('should set value', () => {
         const value = 10;
         render(() => <Range value={value}/>);
         expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveValue(value.toString());
@@ -35,6 +35,13 @@ describe('Range', () => {
         render(() => <Range step={step}/>);
         expect(screen.getByTestId(RangeSelectors.STEPS)).toBeInTheDocument();
         expect(screen.getAllByTestId(RangeSelectors.STEP).length).toBe(step + 1);
+    });
+
+    test('should onInput emit', () => {
+        const stub = jest.fn();
+        render(() => <Range onInput={stub} step={10}/>);
+        fireEvent.input(screen.getByTestId(RangeSelectors.INPUT));
+        expect(stub).toBeCalled();
     });
 
     test('should set color classes', () => {
