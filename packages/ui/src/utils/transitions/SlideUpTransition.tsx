@@ -2,9 +2,9 @@ import { Transition } from 'solid-transition-group';
 import { Component } from 'solid-js';
 
 const onEnter = (el: Element) => {
-    return el.animate([{
+    return el.animate?.([{
         opacity: 0,
-        transform: 'scale(0.95) translateY(100%)',
+        transform: 'scale(0.95) translateY(40px)',
     }, {
         opacity: 1,
         transform: 'scale(1) translateY(0)'
@@ -15,15 +15,15 @@ const onEnter = (el: Element) => {
 };
 
 const onExit = (el: Element) => {
-    return el.animate([{
+    return el.animate?.([{
         opacity: 1,
         transform: 'scale(1) translateY(0)',
     }, {
         opacity: 0,
-        transform: 'scale(0.95) translateY(100%)',
+        transform: 'scale(0.95) translateY(40px)',
     }], {
         duration: 120
-    });
+    }).finished || Promise.resolve();
 };
 
 type Props = {
@@ -33,18 +33,16 @@ type Props = {
 
 export const SlideUpTransition: Component<Props> = (props) => {
     const onExitDone = () => {
-        if (props.onExit) {
-            props.onExit();
-        }
+        props.onExit?.()
     };
 
     return (
         <Transition
             appear={!!props.appear}
             onEnter={onEnter}
-            onExit={(el) => onExit(el).finished.then(onExitDone)}
+            onExit={(el) => onExit(el).then(onExitDone)}
         >
             {props.children}
         </Transition>
     );
-}
+};
