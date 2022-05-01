@@ -1,3 +1,3 @@
-export * from './overlay/Overlay';
+export * from './overlay';
 export * from './transitions';
 export * from './popper';
