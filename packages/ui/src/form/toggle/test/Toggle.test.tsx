@@ -9,9 +9,9 @@ type ToggleClasses = {
     sizes: Record<ToggleSize, string>
 }
 
-export const addPrefix = (name: string) => `toggle-${name}`;
+const addPrefix = (name: string) => `toggle-${name}`;
 
-export const classes: ToggleClasses = {
+const classes: ToggleClasses = {
     main: 'toggle',
     colors: {
         accent: addPrefix('accent'),
