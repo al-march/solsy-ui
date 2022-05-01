@@ -4,3 +4,4 @@ export * from './range';
 export * from './select';
 export * from './toggle';
 export * from './checkbox';
+export * from './radio';
