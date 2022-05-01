@@ -51,6 +51,7 @@ export const Drawer: Component = (props) => {
                     <Menu>
                         <MenuTitle>Data view</MenuTitle>
                         <MenuLink href={`/${RoutersComponentsEnum.TOOLTIP}`}>Tooltip</MenuLink>
+                        <MenuLink href={`/${RoutersComponentsEnum.POPOVER}`}>Popover</MenuLink>
                     </Menu>
                 </div>
             </div>

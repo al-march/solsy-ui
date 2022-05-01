@@ -9,6 +9,7 @@ export enum RoutersComponentsEnum {
     MODALS = 'modals',
     BUTTON = 'button',
     TOOLTIP = 'tooltip',
+    POPOVER = 'popover',
 }
 
 export enum RouterSDKEnum {

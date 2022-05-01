@@ -21,7 +21,7 @@ export const TooltipPage: Component = () => {
                 <p class="p-2">Hover to text</p>
             </Tooltip>
 
-            <ButtonsGroup defaultValue={position()} onChange={updatePosition}>
+            <ButtonsGroup value={position()} onInput={updatePosition} size="sm">
                 <ButtonGroup value="left"><Icon type="left"/></ButtonGroup>
                 <ButtonGroup value="top"><Icon type="up"/></ButtonGroup>
                 <ButtonGroup value="right"><Icon type="right"/></ButtonGroup>
@@ -31,4 +31,4 @@ export const TooltipPage: Component = () => {
     );
 };
 
-const Icon = (props: { type: string }) => <i class={`fa-solid fa-angle-${props.type} text-2xl`}/>;
+const Icon = (props: { type: string }) => <i class={`fa-solid fa-angle-${props.type}`}/>;

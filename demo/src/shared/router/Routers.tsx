@@ -6,6 +6,7 @@ import { ButtonPage, ModalPage } from '../../views/pages/actions';
 import { TooltipPage } from '../../views/pages/data/tooltip/TooltipPage';
 import { InputPage } from '../../views/pages/form/input/InputPage';
 import { FormPage } from '../../views/pages/sdk/form/FormPage';
+import { PopoverPage } from '../../views/pages/data/popover/PopoverPage';
 
 
 export const Routers: Component = () => {
@@ -22,6 +23,7 @@ export const Routers: Component = () => {
             <Route path={`/${RoutersComponentsEnum.MODALS}`} element={<ModalPage/>}/>
             <Route path={`/${RoutersComponentsEnum.BUTTON}`} element={<ButtonPage/>}/>
             <Route path={`/${RoutersComponentsEnum.TOOLTIP}`} element={<TooltipPage/>}/>
+            <Route path={`/${RoutersComponentsEnum.POPOVER}`} element={<PopoverPage/>}/>
             <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage/>}/>
 
             <Route path="/*all" element={<NotFound/>}/>
