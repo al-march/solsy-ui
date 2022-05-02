@@ -2,6 +2,11 @@ import { Component, createContext, createSignal, JSXElement, useContext } from '
 import { createStore } from 'solid-js/store';
 import { DaisySize } from '../../types';
 
+export const TabSelectors = {
+    TAB_GROUP: 'tab-group',
+    TAB: 'tab',
+};
+
 export type TabView = 'bordered' | 'lifted' | 'boxed';
 export type TabSize = DaisySize;
 
@@ -25,7 +30,7 @@ type TabsState = {
 const TabsContext = createContext<TabsContext>();
 
 export type TabsProps = {
-    defaultValue?: number;
+    value?: number;
     onInput?: (i: number) => void;
     view?: TabView;
     size?: TabSize;
@@ -48,7 +53,7 @@ export const Tabs: Component<TabsProps> = (props) => {
 
     const [tabs, setTabs] = createSignal<HTMLElement[]>([]);
     const [state, setState] = createStore<TabsState>({
-        _activeTabIndex: props.defaultValue ?? 0,
+        _activeTabIndex: props.value ?? 0,
         get activeTabIndex() {
             return this._activeTabIndex;
         },
@@ -86,7 +91,7 @@ export const Tabs: Component<TabsProps> = (props) => {
             setTabContent
         }}>
             <div
-                data-testid="tabs"
+                data-testid={TabSelectors.TAB_GROUP}
                 class="tabs"
                 classList={{
                     'tabs-boxed': state.view === 'boxed'

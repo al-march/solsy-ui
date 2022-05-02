@@ -1,8 +1,11 @@
 import { Component, createSignal, JSXElement, onMount } from 'solid-js';
-import { useTabs } from './Tabs';
+import { TabSelectors, useTabs } from './Tabs';
+import { PropFocusEvent } from '../../types';
 
 export type TabProps = {
     label: JSXElement,
+    onFocus?: (e: PropFocusEvent) => void;
+    onBlur?: (e: PropFocusEvent) => void;
 }
 
 export const Tab: Component<TabProps> = (props) => {
@@ -27,8 +30,8 @@ export const Tab: Component<TabProps> = (props) => {
     }
 
     return (
-        <div
-            data-testid="tab"
+        <button
+            data-testid={TabSelectors.TAB}
             ref={initTab}
             class="tab"
             classList={{
@@ -42,8 +45,10 @@ export const Tab: Component<TabProps> = (props) => {
                 'tab-lg': tabs.state.size === 'lg',
             }}
             onClick={setTab}
+            onFocus={props.onFocus}
+            onBlur={props.onBlur}
         >
             {props.label}
-        </div>
+        </button>
     );
 };
