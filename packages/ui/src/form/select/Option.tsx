@@ -1,6 +1,5 @@
 import { Component } from 'solid-js';
-import { useSelect } from './Select';
-import { SelectTypeEnum } from './Select.type';
+import { SelectSelectors, useSelect } from './Select';
 
 type Props = {
     value: string;
@@ -13,9 +12,10 @@ export const Option: Component<Props> = (props) => {
     return (
         <li>
             <button
-                onClick={() => select.setValue(props.value)}
-                class={SelectTypeEnum.OPTION_SELECTOR}
-                classList={{active: select.value() === props.value}}
+                data-testid={SelectSelectors.OPTION}
+                onClick={() => select.check(props.value)}
+                class={SelectSelectors.OPTION}
+                classList={{active: select.state.value === props.value}}
             >
                 {props.children}
             </button>

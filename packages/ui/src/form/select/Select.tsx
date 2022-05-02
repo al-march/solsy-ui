@@ -3,20 +3,27 @@ import {
     createContext,
     createEffect,
     createSignal,
-    Show,
     useContext
 } from 'solid-js';
 import { SelectDropdown } from './SelectDropdown';
 import { DaisyColor, DaisySize } from '../../types';
+import { createStore } from 'solid-js/store';
 
-type ContextType = {
+export const SelectSelectors = {
+    SELECT: 'select',
+    OPTION: 'select-option',
+    DROPDOWN: 'select-dropdown',
+};
+
+type SelectState = {
+    _value: any;
     value: any;
-    setValue: (v: string) => void;
+    _isOpen: boolean;
+    isOpen: boolean;
+    isClose: boolean;
 }
 
-const SelectContext = createContext<ContextType>();
-
-type Props = {
+export type SelectProps = {
     placeholder?: string;
     name?: string;
     value?: string | number;
@@ -29,81 +36,102 @@ type Props = {
     onInput?: (e: string | number) => void;
     onFocus?: (e: InputEvent) => void;
     onBlur?: (e: InputEvent) => void;
+
+    onOpen?: () => void;
+    onClose?: () => void;
 }
 
-export const Select: Component<Props> = (props) => {
+export const Select: Component<SelectProps> = (props) => {
 
     const [reference, setReference] = createSignal<HTMLElement>();
-    const [value, setValue] = createSignal('');
-    const [state, setState] = createSignal({
-        isHasDropdown: false,
-        isShowDropdown: false,
+
+    const [state, setState] = createStore<SelectState>({
+        _value: props.value,
+        _isOpen: false,
+        get value() {
+            return this._value;
+        },
+        get isOpen() {
+            return this._isOpen;
+        },
+        get isClose() {
+            return !this._isOpen;
+        }
     });
 
     createEffect(() => {
         const value = (props.value || '') as string;
-        setValue(value);
+        setState('_value', value);
     });
 
-    function setControlValue(value: string) {
-        setValue(value);
+    const setValue = (value: string) => {
+        setState('_value', value);
         props.onInput?.(value);
-    }
+    };
 
-    function showDropdown() {
-        setState(state => ({
-            ...state,
-            isHasDropdown: true,
-            isShowDropdown: true,
-        }));
-    }
+    const open = () => {
+        setState('_isOpen', true);
+        props.onOpen?.();
+    };
 
-    function destroyDropdown() {
-        const isHasDropdown = false;
-        setState(state => ({...state, isHasDropdown}));
-    }
+    const close = () => {
+        setState('_isOpen', false);
+        props.onClose?.();
+    };
 
-    function hideDropdown() {
-        const isShowDropdown = false;
-        setState(state => ({...state, isShowDropdown}));
-    }
-
-    function optionChecked(value: any) {
-        setControlValue(value);
-        hideDropdown();
-    }
-
-    const store: ContextType = {
-        value,
-        setValue: optionChecked
+    const check = (value: any) => {
+        setValue(value);
+        close();
     };
 
     return (
-        <SelectContext.Provider value={store}>
+        <SelectContext.Provider value={{
+            state,
+            setValue,
+            open,
+            close,
+            check
+        }}>
             <input
+                data-testid={SelectSelectors.SELECT}
                 ref={setReference}
                 class="select"
                 classList={{
                     'select-bordered': props.bordered,
                 }}
-                value={value()}
+                value={state.value}
                 placeholder={props.placeholder || ''}
                 name={props.name}
-                onClick={showDropdown}
-                onFocus={showDropdown}
+                onClick={open}
+                onFocus={open}
             />
 
-            <Show when={state().isHasDropdown}>
-                <SelectDropdown
-                    isShow={state().isShowDropdown}
-                    reference={reference}
-                    onClose={destroyDropdown}
-                >
-                    {props.children}
-                </SelectDropdown>
-            </Show>
+            <SelectDropdown
+                show={state.isOpen}
+                reference={reference}
+                onClose={close}
+            >
+                {props.children}
+            </SelectDropdown>
         </SelectContext.Provider>
     );
 };
 
-export const useSelect = () => useContext(SelectContext)!;
+type ContextType = {
+    state: SelectState;
+    setValue: (v: string) => void;
+    open: () => void;
+    close: () => void;
+    check: (v: any) => void;
+}
+
+const SelectContext = createContext<ContextType>();
+
+export const useSelect = () => {
+    const context = useContext(SelectContext);
+    if (context) {
+        return context;
+    }
+
+    throw new Error('No context for Select');
+};
