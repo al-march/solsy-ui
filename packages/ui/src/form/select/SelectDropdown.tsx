@@ -1,7 +1,7 @@
-import { Accessor, Component, createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js';
+import { Accessor, Component, createEffect, createSignal, onMount, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { SelectTypeEnum } from './Select.type';
-import { ScaleTransition, usePopper } from '../../utils';
+import { BackdropClick, ScaleTransition, usePopper } from '../../utils';
 
 type Props = {
     isShow: boolean;
@@ -29,11 +29,6 @@ export const SelectDropdown: Component<Props> = (props) => {
 
     onMount(() => {
         focusOption();
-        setListener();
-    });
-
-    onCleanup(() => {
-        removeListener();
     });
 
     function focusOption() {
@@ -43,45 +38,36 @@ export const SelectDropdown: Component<Props> = (props) => {
         }
     }
 
-    function setListener() {
-        document.addEventListener('click', listener);
-    }
-
-    function removeListener() {
-        document.removeEventListener('click', listener);
-    }
-
-    const listener = (e: Event) => {
-        if (!show()) {
-            return;
-        }
-
+    function onBackdropClick(e: Event) {
         const target = e.target as HTMLElement;
-        const select = props.reference();
-        const dropdownRef = dropdown();
-
-        if (select?.contains(target)) {
+        if (props.reference()?.contains(target)) {
             return;
         }
 
-        const isBackdropClicked = !dropdownRef?.contains(target);
-
-        if (isBackdropClicked) {
-            setShow(false);
-        }
-    };
+        setShow(false);
+    }
 
     return (
         <Portal>
-            <div ref={setDropdown} style={{'min-width': props.reference()?.offsetWidth + 'px'}}>
-                <ScaleTransition appear={true} onExit={() => props.onClose?.()}>
-                    <Show when={show()}>
-                        <div class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-scroll">
-                            {props.children}
-                        </div>
-                    </Show>
-                </ScaleTransition>
-            </div>
+            <BackdropClick
+                onBackdropClick={onBackdropClick}
+            >
+                <div
+                    ref={setDropdown}
+                    style={{'min-width': props.reference()?.offsetWidth + 'px'}}
+                >
+                    <ScaleTransition
+                        appear={true}
+                        onExit={() => props.onClose?.()}
+                    >
+                        <Show when={show()}>
+                            <div class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-scroll">
+                                {props.children}
+                            </div>
+                        </Show>
+                    </ScaleTransition>
+                </div>
+            </BackdropClick>
         </Portal>
     );
 };
