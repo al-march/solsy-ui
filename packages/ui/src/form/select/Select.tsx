@@ -27,6 +27,7 @@ export type SelectProps = {
     placeholder?: string;
     name?: string;
     value?: string | number;
+    show?: boolean;
 
     color?: DaisyColor;
     size?: DaisySize;
@@ -47,7 +48,7 @@ export const Select: Component<SelectProps> = (props) => {
 
     const [state, setState] = createStore<SelectState>({
         _value: props.value,
-        _isOpen: false,
+        _isOpen: !!props.show,
         get value() {
             return this._value;
         },

@@ -2,7 +2,7 @@ import { Component } from 'solid-js';
 import { SelectSelectors, useSelect } from './Select';
 
 type Props = {
-    value: string;
+    value: string | number;
 }
 
 export const Option: Component<Props> = (props) => {

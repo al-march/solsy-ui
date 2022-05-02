@@ -13,8 +13,8 @@ type Props = {
 export const SelectDropdown: Component<Props> = (props) => {
     const [dropdown, setDropdown] = createSignal<HTMLElement>();
     const [state, setState] = createStore({
-        isRender: props.show,
-        isOpen: props.show,
+        isRender: false,
+        isOpen: false,
     });
 
     createEffect(() => {
