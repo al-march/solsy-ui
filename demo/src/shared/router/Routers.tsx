@@ -7,6 +7,7 @@ import { TooltipPage } from '../../views/pages/data/tooltip/TooltipPage';
 import { InputPage } from '../../views/pages/form/input/InputPage';
 import { FormPage } from '../../views/pages/sdk/form/FormPage';
 import { PopoverPage } from '../../views/pages/data/popover/PopoverPage';
+import { AutocompletePage } from '../../views/pages/form/autocomplete/AutocompletePage';
 
 
 export const Routers: Component = () => {
@@ -16,6 +17,7 @@ export const Routers: Component = () => {
             <Route path={`/`} element={<HomePage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_SELECT}`} element={<SelectPage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_INPUT}`} element={<InputPage/>}/>
+            <Route path={`/${RoutersComponentsEnum.FORM_AUTOCOMPLETE}`} element={<AutocompletePage/>}/>
             <Route path={`/${RoutersComponentsEnum.MENU}`} element={<MenuPage/>}/>
             <Route path={`/${RoutersComponentsEnum.TABS}`} element={<TabsPage/>}/>
             <Route path={`/${RoutersComponentsEnum.BTN_GROUPS}`} element={<BtnGroupPage/>}/>

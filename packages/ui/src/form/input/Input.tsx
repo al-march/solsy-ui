@@ -1,8 +1,5 @@
 import { Component } from 'solid-js';
-import { DOMElement } from 'solid-js/jsx-runtime';
-import { DaisyColor, DaisySize } from '../../types';
-
-export type InputEvent = Event & { currentTarget: HTMLInputElement; target: DOMElement }
+import { DaisyColor, DaisySize, PropChangeEvent, PropFocusEvent, PropInputEvent } from '../../types';
 
 export type InputColor = DaisyColor | 'ghost';
 export type InputSize = DaisySize;
@@ -14,16 +11,17 @@ type Props = {
     name?: string;
     autocomplete?: string;
     disabled?: boolean;
+    ref?: (el: HTMLInputElement) => void;
 
     color?: InputColor;
     size?: InputSize;
     error?: boolean;
     bordered?: boolean;
 
-    onChange?: (e: InputEvent) => void;
-    onInput?: (e: InputEvent) => void;
-    onFocus?: (e: InputEvent) => void;
-    onBlur?: (e: InputEvent) => void;
+    onChange?: (e: PropChangeEvent<HTMLInputElement>) => void;
+    onInput?: (e: PropInputEvent<HTMLInputElement>) => void;
+    onFocus?: (e: PropFocusEvent<HTMLInputElement>) => void;
+    onBlur?: (e: PropFocusEvent<HTMLInputElement>) => void;
 }
 
 export const Input: Component<Props> = (props) => {
@@ -31,6 +29,7 @@ export const Input: Component<Props> = (props) => {
     return (
         <input
             data-testid="input"
+            ref={props.ref}
             type={props.type || 'text'}
             placeholder={props.placeholder}
             value={props.value}
