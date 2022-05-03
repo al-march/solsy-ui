@@ -1,5 +1,11 @@
 import { DOMElement } from 'solid-js/types/jsx';
 
+export type PropMouseEvent<Target extends HTMLElement = HTMLElement> =
+    MouseEvent & {
+    currentTarget: Target;
+    target: DOMElement;
+}
+
 export type PropInputEvent<Target extends HTMLElement = HTMLElement> =
     InputEvent & {
     currentTarget: Target;

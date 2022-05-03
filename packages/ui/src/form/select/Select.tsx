@@ -9,10 +9,14 @@ import { SelectDropdown } from './SelectDropdown';
 import { DaisyColor, DaisySize } from '../../types';
 import { createStore } from 'solid-js/store';
 
+export type SelectColor = DaisyColor | 'ghost';
+export type SelectSize = DaisySize;
+
 export const SelectSelectors = {
     SELECT: 'select',
-    OPTION: 'select-option',
     DROPDOWN: 'select-dropdown',
+    OPTION: 'select-option',
+    OPTION_BUTTON: 'select-option-btn',
 };
 
 type SelectState = {
@@ -29,9 +33,10 @@ export type SelectProps = {
     value?: string | number;
     show?: boolean;
 
-    color?: DaisyColor;
-    size?: DaisySize;
+    color?: SelectColor;
+    size?: SelectSize;
     bordered?: boolean;
+    error?: boolean;
 
     onChange?: (e: InputEvent) => void;
     onInput?: (e: string | number) => void;
@@ -61,7 +66,7 @@ export const Select: Component<SelectProps> = (props) => {
     });
 
     createEffect(() => {
-        const value = (props.value || '') as string;
+        const value = props.value;
         setState('_value', value);
     });
 
@@ -98,6 +103,20 @@ export const Select: Component<SelectProps> = (props) => {
                 ref={setReference}
                 class="select"
                 classList={{
+                    'select-lg': props.size === 'lg',
+                    'select-md': props.size === 'md',
+                    'select-sm': props.size === 'sm',
+                    'select-xs': props.size === 'xs',
+
+                    'select-primary':   props.color === 'primary',
+                    'select-secondary': props.color === 'secondary',
+                    'select-accent':    props.color === 'accent',
+                    'select-info':      props.color === 'info',
+                    'select-success':   props.color === 'success',
+                    'select-warning':   props.color === 'warning',
+                    'select-error':     props.color === 'error' || props.error,
+                    'select-ghost':     props.color === 'ghost',
+
                     'select-bordered': props.bordered,
                 }}
                 value={state.value}

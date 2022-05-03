@@ -42,7 +42,7 @@ export const SelectDropdown: Component<Props> = (props) => {
 
     function focusOption() {
         const optionsRef = dropdown()
-            ?.querySelector(`.${SelectSelectors.OPTION}`) as HTMLButtonElement;
+            ?.querySelector(`.${SelectSelectors.OPTION_BUTTON}`) as HTMLButtonElement;
 
         if (optionsRef) {
             optionsRef.focus();
@@ -79,9 +79,9 @@ export const SelectDropdown: Component<Props> = (props) => {
                             onExit={destroy}
                         >
                             <Show when={state.isOpen}>
-                                <div class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-scroll">
+                                <ul class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-scroll">
                                     {props.children}
-                                </div>
+                                </ul>
                             </Show>
                         </ScaleTransition>
                     </div>
