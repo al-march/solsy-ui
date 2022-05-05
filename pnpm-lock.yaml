@@ -75,7 +75,6 @@ importers:
       postcss: ^8.4.12
       solid-app-router: ^0.3.2
       solid-js: ^1.3.13
-      solid-transition-group: ^0.0.8
       tailwindcss: ^3.0.23
       typescript: ^4.6.3
       vite: ^2.8.6
@@ -84,7 +83,6 @@ importers:
       '@popperjs/core': 2.11.5
       solid-app-router: 0.3.2_solid-js@1.3.13
       solid-js: 1.3.13
-      solid-transition-group: 0.0.8_solid-js@1.3.13
     devDependencies:
       '@types/node': 17.0.23
       autoprefixer: 10.4.5_postcss@8.4.12
@@ -7280,14 +7278,6 @@ packages:
 
   /solid-transition-group/0.0.10_solid-js@1.3.13:
     resolution: {integrity: sha512-b3O9z6BUP60CG1WnTdqFuvHms0reDNYwQF+eAEEaSaoDEmiOu9+Lu7zQgWGySJjaAdSAClhmFCmx/eAjQgfIoA==}
-    peerDependencies:
-      solid-js: ^1.0.0
-    dependencies:
-      solid-js: 1.3.13
-    dev: false
-
-  /solid-transition-group/0.0.8_solid-js@1.3.13:
-    resolution: {integrity: sha512-5cS/Ircfs/Y0J00oEToL+MWd9V07KgQlw+qRD8kpd6azb2Ri5SjXg/ocqT8U8Wgdx1VQPx45HyopQN+UumkVGQ==}
     peerDependencies:
       solid-js: ^1.0.0
     dependencies:

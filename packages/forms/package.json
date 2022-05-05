@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "description": "Hooks for forms used by @solsy/daisyui.",
   "files": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.d.ts"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "tsc --build",
