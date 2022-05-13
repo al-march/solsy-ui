@@ -29,6 +29,17 @@ describe('Popover', () => {
         expect(screen.getByTestId(CONTENT)).toBeInTheDocument();
     });
 
+    test('should not open by click on trigger with false prop', () => {
+        render(() => (
+            <Popover openByTriggerClick={false} trigger={<button>trigger</button>}>
+                <div>content</div>
+            </Popover>
+        ));
+
+        fireEvent.click(screen.getByTestId(TRIGGER));
+        expect(screen.queryByTestId(CONTENT)).not.toBeInTheDocument();
+    })
+
     test('should be closed by backdrop click', async () => {
         render(() => (
             <Popover show trigger={<button>trigger</button>}>

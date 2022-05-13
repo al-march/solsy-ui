@@ -44,6 +44,7 @@ export type PopoverProps = {
     show?: boolean;
     onOpen?: () => void;
     onClose?: () => void;
+    openByTriggerClick?: boolean;
 }
 
 export const Popover: Component<PopoverProps> = (props) => {
@@ -115,7 +116,7 @@ export const Popover: Component<PopoverProps> = (props) => {
                 data-testid={PopoverSelectors.TRIGGER}
                 class="inline-block"
                 ref={setRef}
-                onClick={open}
+                onClick={() => props.openByTriggerClick !== false && open()}
             >
                 {props.trigger}
             </div>
