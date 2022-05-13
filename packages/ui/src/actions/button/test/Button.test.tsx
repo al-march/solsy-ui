@@ -1,7 +1,8 @@
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { Button, ButtonColor } from '../Button';
+import { Button, ButtonColor, ButtonSelectors } from '../Button';
 import { ObjectKeys } from '../../../utils/object';
 
+const {BUTTON} = ButtonSelectors;
 
 describe('Button', () => {
 
@@ -14,21 +15,21 @@ describe('Button', () => {
     test('should emit onClick', () => {
         const onClick = jest.fn();
         render(() => <Button onClick={onClick}>button</Button>);
-        fireEvent.click(screen.getByTestId('button'));
+        fireEvent.click(screen.getByTestId(BUTTON));
         expect(onClick).toBeCalled();
     });
 
     test('should emit onFocus', () => {
         const onFocus = jest.fn();
         render(() => <Button onFocus={onFocus}>button</Button>);
-        fireEvent.focus(screen.getByTestId('button'));
+        fireEvent.focus(screen.getByTestId(BUTTON));
         expect(onFocus).toBeCalled();
     });
 
     test('should emit onBlur', () => {
         const onBlur = jest.fn();
         render(() => <Button onBlur={onBlur}>button</Button>);
-        fireEvent.blur(screen.getByTestId('button'));
+        fireEvent.blur(screen.getByTestId(BUTTON));
         expect(onBlur).toBeCalled();
     });
 
@@ -46,41 +47,46 @@ describe('Button', () => {
 
         ObjectKeys(colors).forEach(color => {
             render(() => <Button color={color}>button</Button>);
-            expect(screen.getByTestId('button')).toHaveClass(colors[color]);
+            expect(screen.getByTestId(BUTTON)).toHaveClass(colors[color]);
             cleanup();
         });
 
         render(() => <Button link>button</Button>);
-        expect(screen.getByTestId('button')).toHaveClass('btn-link');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('btn-link');
     });
 
     test('should add type classes', async () => {
         render(() => <Button outline>button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('btn-outline');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('btn-outline');
         cleanup();
 
         render(() => <Button active>button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('btn-active');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('btn-active');
         cleanup();
 
         render(() => <Button disabled>button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('btn-disabled');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('btn-disabled');
         cleanup();
 
         render(() => <Button circle>button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('btn-circle');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('btn-circle');
         cleanup();
 
         render(() => <Button square>button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('btn-square');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('btn-square');
         cleanup();
 
         render(() => <Button loading>button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('loading');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('loading');
         cleanup();
 
         render(() => <Button glass>button</Button>);
-        expect(await screen.findByText('button')).toHaveClass('glass');
+        expect(screen.getByTestId(BUTTON)).toHaveClass('glass');
+        cleanup();
+
+
+        render(() => <Button block>button</Button>);
+        expect(screen.getByTestId(BUTTON)).toHaveClass('btn-block');
         cleanup();
     });
 

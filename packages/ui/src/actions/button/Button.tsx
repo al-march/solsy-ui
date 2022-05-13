@@ -2,6 +2,10 @@ import { Component } from 'solid-js';
 import { DOMElement } from 'solid-js/jsx-runtime';
 import { DaisyColor, DaisySize } from '../../types';
 
+export const ButtonSelectors = {
+    BUTTON: 'button'
+}
+
 export type ClickButtonEvent = MouseEvent & { currentTarget: HTMLButtonElement; target: DOMElement };
 export type FocusButtonEvent = FocusEvent & { currentTarget: HTMLButtonElement; target: DOMElement };
 
@@ -39,7 +43,7 @@ export const Button: Component<Props> = (props) => {
 
     return (
         <button
-            data-testid="button"
+            data-testid={ButtonSelectors.BUTTON}
             ref={props.ref}
             onClick={props.onClick}
             onFocus={props.onFocus}
@@ -68,6 +72,7 @@ export const Button: Component<Props> = (props) => {
                 'btn-disabled':  props.disabled,
                 'btn-circle':    props.circle,
                 'btn-square':    props.square,
+                'btn-block':     props.block,
                 'loading':       props.loading,
                 'glass':         props.glass
             }}
