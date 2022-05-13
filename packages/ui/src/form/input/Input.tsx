@@ -15,6 +15,7 @@ type Props = {
 
     color?: InputColor;
     size?: InputSize;
+    class?: string;
     error?: boolean;
     bordered?: boolean;
 
@@ -37,7 +38,7 @@ export const Input: Component<Props> = (props) => {
             autocomplete={props.autocomplete}
             disabled={props.disabled}
 
-            class="input"
+            class={`input ${props.class || ''}`}
             classList={{
                 'input-lg': props.size === 'lg',
                 'input-md': props.size === 'md',

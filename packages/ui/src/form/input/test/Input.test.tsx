@@ -110,4 +110,10 @@ describe('Input', () => {
             cleanup();
         });
     });
+
+    test('should set custom class', () => {
+        const className = 'custom-class';
+        render(() => <Input class={className}/>);
+        expect(screen.getByTestId('input')).toHaveClass(className);
+    });
 });
