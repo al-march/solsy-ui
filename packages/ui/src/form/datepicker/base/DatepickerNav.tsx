@@ -11,7 +11,6 @@ type CalendarNavProps = {
 }
 
 export const DatepickerNav: Component<CalendarNavProps> = (props) => {
-
     return (
         <nav
             data-testid={DatepickerSelectors.DATEPICKER_NAV}
@@ -26,9 +25,9 @@ export const DatepickerNav: Component<CalendarNavProps> = (props) => {
             >
                 <i class="fas fa-angle-left text-lg"/>
             </Button>
-            <div class="text-lg font-semibold px-1 flex flex-col w-28 items-center">
-                <span class="leading-none">{props.month.format('MMMM')}</span>
-                <span class="text-xs font-normal">{props.month.format('YYYY')}</span>
+            <div class="text-lg font-semibold px-1 flex flex-1 flex-col w-28 items-center">
+                <span class="text-sm font-normal p-0 h-auto min-h-0 font-bold">{props.month.format('YYYY')}</span>
+                <span class="leading-none uppercase text-sm">{props.month.format('MMMM')}</span>
             </div>
             <Button
                 size="sm"

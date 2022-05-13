@@ -84,22 +84,26 @@ export const Popover: Component<PopoverProps> = (props) => {
     });
 
     const open = () => {
-        setState('_isOpen', true);
-        props.onOpen?.();
+        if (state.isClose) {
+            setState('_isOpen', true);
+            props.onOpen?.();
+        }
     };
 
     const close = () => {
-        setState('_isOpen', false);
-        props.onClose?.();
+        if (state.isOpen) {
+            setState('_isOpen', false);
+            props.onClose?.();
+        }
     };
 
-    function onBackdropClick(e: Event) {
+    const onBackdropClick = (e: Event) => {
         const target = e.target as HTMLElement;
         if (ref()?.contains(target)) {
             return;
         }
         close();
-    }
+    };
 
     return (
         <PopoverContext.Provider value={{
@@ -111,7 +115,7 @@ export const Popover: Component<PopoverProps> = (props) => {
                 data-testid={PopoverSelectors.TRIGGER}
                 class="inline-block"
                 ref={setRef}
-                onClick={() => state.isOpen ? close() : open()}
+                onClick={open}
             >
                 {props.trigger}
             </div>

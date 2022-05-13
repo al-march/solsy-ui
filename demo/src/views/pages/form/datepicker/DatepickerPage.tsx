@@ -7,7 +7,10 @@ export const DatepickerPage = () => {
             <h2 class="text-2xl">Datepicker</h2>
             <br/>
 
-            <Datepicker closeOnSelect/>
+            <Datepicker
+                placeholder="Select date"
+                bordered
+            />
         </Page>
     );
 };

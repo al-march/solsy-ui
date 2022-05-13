@@ -19,7 +19,7 @@ export const Month = (props: MonthProps) => {
             data-testid={DatepickerSelectors.MONTH}
             class="month w-full flex flex-col flex-1"
         >
-            <header class="py-1 pt-3 grid grid-cols-7">
+            <header class="py-1 grid grid-cols-7">
                 <For each={week()}>
                     {day => (
                         <div class="justify-self-center self-center font-semibold text-sm">
@@ -33,7 +33,12 @@ export const Month = (props: MonthProps) => {
 
             <section class="month-days flex-1 grid grid-cols-7">
                 <For each={month()}>
-                    {day => <Day day={day} onSelect={() => props.onSelectDay?.(day.date)}/>}
+                    {day => (
+                        <Day
+                            day={day}
+                            onSelect={() => props.onSelectDay?.(day.date)}
+                        />
+                    )}
                 </For>
             </section>
         </div>

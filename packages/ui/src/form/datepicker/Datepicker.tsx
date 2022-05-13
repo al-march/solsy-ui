@@ -1,6 +1,6 @@
 import { Component, createContext, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
-import { Input } from '../input';
+import { Input, InputColor, InputSize } from '../input';
 import { DatepickerNav, Month } from './base';
 import { Popover } from '../../data-display';
 import dayjs, { Dayjs } from 'dayjs';
@@ -48,12 +48,20 @@ type DatepickerState = {
 
 export type DatepickerProps = {
     show?: boolean;
+    value?: string | number | Dayjs | Date;
     month?: Dayjs;
     onNextMonth?: (month: Dayjs) => void;
     onPrevMonth?: (month: Dayjs) => void;
     onSelectDay?: (day: Dayjs) => void;
     onOpen?: () => void;
     onClose?: () => void;
+
+    placeholder?: string;
+    color?: InputColor;
+    size?: InputSize;
+    class?: string;
+    bordered?: boolean;
+    error?: boolean;
 
     weekHolidays?: number[];
     closeOnSelect?: boolean;
@@ -63,7 +71,7 @@ export const Datepicker: Component<DatepickerProps> = (props) => {
 
     const [state, setState] = createStore<DatepickerState>({
         _show: !!props.show,
-        _selected: undefined,
+        _selected: props.value ? dayjs(props.value) : undefined,
         _month: props.month || dayjs(),
         _weekHolidays: props.weekHolidays || [],
 
@@ -82,13 +90,17 @@ export const Datepicker: Component<DatepickerProps> = (props) => {
     });
 
     const open = () => {
-        setState('_show', true);
-        props.onOpen?.();
+        if (!state.show) {
+            setState('_show', true);
+            props.onOpen?.();
+        }
     };
 
     const close = () => {
-        setState('_show', false);
-        props.onClose?.();
+        if (state.show) {
+            setState('_show', false);
+            props.onClose?.();
+        }
     };
 
     const onNextMonth = () => {
@@ -111,6 +123,16 @@ export const Datepicker: Component<DatepickerProps> = (props) => {
         }
     };
 
+    const onInput = (value: string) => {
+        const date = dayjs(value);
+        const format = date.format('YYYY.MM.DD');
+
+        if (format !== 'Invalid Date') {
+            setState('_selected', date);
+            setState('_month', date);
+        }
+    };
+
     return (
         <DatepickerContext.Provider value={{
             state,
@@ -127,9 +149,17 @@ export const Datepicker: Component<DatepickerProps> = (props) => {
 
                 trigger={
                     <Input
-                        placeholder="date"
+                        placeholder={props.placeholder}
+                        size={props.size}
+                        color={props.color}
+                        class={props.class}
+                        error={props.error}
+                        bordered={props.bordered}
+
                         value={state.selected?.format('YYYY.MM.DD')}
-                        bordered
+
+                        onChange={e => onInput(e.currentTarget.value)}
+                        onFocus={() => open()}
                     />
                 }>
                 <div
