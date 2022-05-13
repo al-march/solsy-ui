@@ -3,12 +3,17 @@ import { Component } from 'solid-js';
 
 type Props = {
     appear?: boolean;
-    onExit?: () => void;
+    onExitDone?: () => void;
+    onEnterDone?: () => void;
 }
 
 export const SlideUpTransition: Component<Props> = (props) => {
+    const onEnterDone = () => {
+        props.onEnterDone?.();
+    };
+
     const onExitDone = () => {
-        props.onExit?.()
+        props.onExitDone?.();
     };
 
     return (
@@ -26,7 +31,10 @@ export const SlideUpTransition: Component<Props> = (props) => {
                     duration: 120,
                     easing: 'cubic-bezier(0.55, 0, 0.55, 0.2)'
                 }).finished || Promise.resolve();
-                a.then(done);
+                a.then(() => {
+                    onEnterDone();
+                    done();
+                });
             }}
             onAfterEnter={(el) => ((el as HTMLElement).style.opacity = '1')}
             onExit={(el, done) => {

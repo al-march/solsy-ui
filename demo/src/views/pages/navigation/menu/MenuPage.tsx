@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
-import { Page } from '../../base/Page';
 import { Menu, MenuOption } from '../../../../../../packages/ui/src/navigation';
+import { Page } from '../../base/Page';
 
 type State = {
     show: boolean;

@@ -1,0 +1,15 @@
+.day {
+    @apply
+    h-full
+    w-full
+    m-auto
+    flex
+    justify-center
+    items-center
+    relative
+    transition-opacity
+    text-sm
+    p-0
+    px-2
+    rounded-none
+}

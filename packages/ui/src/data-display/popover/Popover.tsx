@@ -60,7 +60,24 @@ export const Popover: Component<PopoverProps> = (props) => {
         }
     });
 
-    const instance = usePopper(ref, popper);
+    const instance = usePopper(ref, popper, {
+        modifiers: [{
+            name: 'offset',
+            options: {
+                offset: [0, 8],
+            },
+        }]
+    });
+
+    /*
+    * Open/close Popover according props.show
+    */
+    createEffect(() => {
+        const isOpen = props.show;
+        if (typeof isOpen === 'boolean') {
+            setState('_isOpen', isOpen);
+        }
+    });
 
     onCleanup(() => {
         instance()?.destroy();
@@ -119,8 +136,9 @@ const PopoverContent: Component<PopoverContentProps> = (props) => {
     const [show, setShow] = createSignal(popover.state.isOpen);
 
     createEffect(() => {
-        if (popover.state.isOpen) {
-            setShow(popover.state.isOpen);
+        const isOpen = popover.state.isOpen;
+        if (isOpen) {
+            setShow(isOpen);
         }
     });
 
@@ -134,7 +152,7 @@ const PopoverContent: Component<PopoverContentProps> = (props) => {
                 >
                     <SlideUpTransition
                         appear={true}
-                        onExit={() => setShow(false)}
+                        onExitDone={() => setShow(false)}
                     >
                         {popover.state.isOpen && (
                             props.children

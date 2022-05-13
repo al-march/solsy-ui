@@ -25,7 +25,10 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
-    "solid-transition-group": "^0.0.10",
+    "dayjs": "^1.11.2",
+    "solid-transition-group": "^0.0.10"
+  },
+  "devDependencies": {
     "rollup": "^2.28.2",
     "rollup-preset-solid": "^1.4.0"
   },

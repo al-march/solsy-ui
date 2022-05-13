@@ -3,6 +3,7 @@ export enum RoutersComponentsEnum {
     FORM_SELECT = 'select',
     FORM_INPUT = 'input',
     FORM_AUTOCOMPLETE = 'autocomplete',
+    FORM_DATEPICKER = 'datepicker',
     MENU = 'menu',
     TABS = 'tabs',
     BTN_GROUPS = 'btn-groups',
