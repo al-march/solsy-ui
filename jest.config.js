@@ -22,6 +22,7 @@ module.exports = {
     "solid-js/web": `${solidjsPath}/web/dist/web.cjs`,
     "solid-js/store": `${solidjsPath}/store/dist/store.cjs`,
     "solid-js": `${solidjsPath}/dist/solid.cjs`,
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy"
   },
   setupFilesAfterEnv: ["./setup.test.ts"]
 };

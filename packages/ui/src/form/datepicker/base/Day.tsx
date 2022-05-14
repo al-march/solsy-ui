@@ -3,6 +3,9 @@ import { DayModel } from '../models';
 import { useDatepicker } from '../Datepicker';
 import { Button, ButtonColor } from '../../../actions';
 import './Day.css';
+import { Dayjs } from 'dayjs';
+
+const toISOString = (date?: Dayjs) => date?.toDate().toISOString();
 
 type DayProps = {
     day: DayModel;
@@ -13,14 +16,9 @@ export const Day: Component<DayProps> = (props) => {
 
     const datepicker = useDatepicker();
 
-    const isSelected = createMemo(() => (
-        datepicker.state.selected?.toDate().toISOString() === props.day.date.toDate().toISOString()
-    ));
-
-    const isHoliday = createMemo(() => (
-        datepicker.state.weekHolidays.includes(props.day.date.weekday())
-    ));
-
+    const getDayNumber = createMemo(() => props.day.date.format('D'));
+    const isSelected = createMemo(() => toISOString(datepicker.state.selected) === toISOString(props.day.date));
+    const isHoliday = createMemo(() => datepicker.state.weekHolidays.includes(props.day.date.weekday()));
     const isToday = createMemo(() => props.day.isToday);
 
     const setColor = (): ButtonColor | undefined => {
@@ -46,7 +44,7 @@ export const Day: Component<DayProps> = (props) => {
             color={setColor()}
             onClick={props.onSelect}
         >
-            {props.day.date.format('D')}
+            {getDayNumber()}
         </Button>
     );
 };

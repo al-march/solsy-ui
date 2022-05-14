@@ -1,6 +1,10 @@
 import { Component } from 'solid-js';
 import { DaisyColor, DaisySize, PropChangeEvent, PropFocusEvent, PropInputEvent } from '../../types';
 
+export const InputSelectors = {
+    INPUT: 'input'
+}
+
 export type InputColor = DaisyColor | 'ghost';
 export type InputSize = DaisySize;
 
@@ -29,7 +33,7 @@ export const Input: Component<Props> = (props) => {
 
     return (
         <input
-            data-testid="input"
+            data-testid={InputSelectors.INPUT}
             ref={props.ref}
             type={props.type || 'text'}
             placeholder={props.placeholder}

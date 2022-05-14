@@ -1,80 +1,82 @@
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { Input, InputColor, InputSize } from '../Input';
+import { Input, InputColor, InputSelectors, InputSize } from '../Input';
 import { ObjectKeys } from '../../../utils/object';
+
+const {INPUT} = InputSelectors;
 
 describe('Input', () => {
 
     test('should be rendered', () => {
         render(() => <Input/>);
-        expect(screen.getByTestId('input')).toBeInTheDocument();
+        expect(screen.getByTestId(INPUT)).toBeInTheDocument();
     });
 
     test('should set value', () => {
         const value = '10';
         render(() => <Input value={value}/>);
-        expect(screen.getByTestId('input')).toHaveValue(value);
+        expect(screen.getByTestId(INPUT)).toHaveValue(value);
     });
 
     test('should set placeholder', () => {
         const placeholder = 'placeholder';
         render(() => <Input placeholder={placeholder}/>);
-        expect(screen.getByTestId('input')).toHaveAttribute('placeholder', placeholder);
+        expect(screen.getByTestId(INPUT)).toHaveAttribute('placeholder', placeholder);
     });
 
     test('should set type', () => {
         const type = 'text';
         render(() => <Input type={type}/>);
-        expect(screen.getByTestId('input')).toHaveAttribute('type', type);
+        expect(screen.getByTestId(INPUT)).toHaveAttribute('type', type);
     });
 
     test('should set name', () => {
         const name = 'name';
         render(() => <Input name={name}/>);
-        expect(screen.getByTestId('input')).toHaveAttribute('name', name);
+        expect(screen.getByTestId(INPUT)).toHaveAttribute('name', name);
     });
 
     test('should set autocomplete', () => {
         const autocomplete = 'autocomplete';
         render(() => <Input autocomplete={autocomplete}/>);
-        expect(screen.getByTestId('input')).toHaveAttribute('autocomplete', autocomplete);
+        expect(screen.getByTestId(INPUT)).toHaveAttribute('autocomplete', autocomplete);
     });
 
     test('should disable input', () => {
         render(() => <Input disabled/>);
-        expect(screen.getByTestId('input')).toBeDisabled();
+        expect(screen.getByTestId(INPUT)).toBeDisabled();
     });
 
     test('should emit onInput', () => {
         const onInput = jest.fn();
         render(() => <Input onInput={onInput}/>);
-        fireEvent.input(screen.getByTestId('input'));
+        fireEvent.input(screen.getByTestId(INPUT));
         expect(onInput).toBeCalled();
     });
 
     test('should emit onChange', () => {
         const onChange = jest.fn();
         render(() => <Input onChange={onChange}/>);
-        fireEvent.change(screen.getByTestId('input'));
+        fireEvent.change(screen.getByTestId(INPUT));
         expect(onChange).toBeCalled();
     });
 
     test('should emit onFocus', () => {
         const onFocus = jest.fn();
         render(() => <Input onFocus={onFocus}/>);
-        fireEvent.focus(screen.getByTestId('input'));
+        fireEvent.focus(screen.getByTestId(INPUT));
         expect(onFocus).toBeCalled();
     });
 
     test('should emit onBlur', () => {
         const onBlur = jest.fn();
         render(() => <Input onBlur={onBlur}/>);
-        fireEvent.blur(screen.getByTestId('input'));
+        fireEvent.blur(screen.getByTestId(INPUT));
         expect(onBlur).toBeCalled();
     });
 
     test('should be bordered', () => {
         render(() => <Input bordered/>);
-        expect(screen.getByTestId('input')).toHaveClass('input-bordered');
+        expect(screen.getByTestId(INPUT)).toHaveClass('input-bordered');
     });
 
     test('should set size classes', () => {
@@ -87,7 +89,7 @@ describe('Input', () => {
 
         ObjectKeys(sizes).forEach(size => {
             render(() => <Input size={size}/>);
-            expect(screen.getByTestId('input')).toHaveClass(sizes[size]);
+            expect(screen.getByTestId(INPUT)).toHaveClass(sizes[size]);
             cleanup();
         });
     });
@@ -106,7 +108,7 @@ describe('Input', () => {
 
         ObjectKeys(colors).forEach(color => {
             render(() => <Input color={color}/>);
-            expect(screen.getByTestId('input')).toHaveClass(colors[color]);
+            expect(screen.getByTestId(INPUT)).toHaveClass(colors[color]);
             cleanup();
         });
     });
@@ -114,6 +116,6 @@ describe('Input', () => {
     test('should set custom class', () => {
         const className = 'custom-class';
         render(() => <Input class={className}/>);
-        expect(screen.getByTestId('input')).toHaveClass(className);
+        expect(screen.getByTestId(INPUT)).toHaveClass(className);
     });
 });

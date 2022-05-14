@@ -13,16 +13,9 @@ dayjs.extend(isoWeek);
 dayjs.extend(weekday);
 dayjs.extend(localizedFormat);
 
-/*
-* Todo:
-*  1) Add props for Input
-*  2) Add tests
-*  3) Bind Input with Datepicker value <=>
-*/
-
 export const DatepickerSelectors = {
     DATEPICKER: 'datepicker',
-    DATEPICKER_NAV: 'nav',
+    NAV: 'nav',
     MONTH: 'month',
 };
 

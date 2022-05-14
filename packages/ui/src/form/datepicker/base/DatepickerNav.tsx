@@ -13,13 +13,12 @@ type CalendarNavProps = {
 export const DatepickerNav: Component<CalendarNavProps> = (props) => {
     return (
         <nav
-            data-testid={DatepickerSelectors.DATEPICKER_NAV}
+            data-testid={DatepickerSelectors.NAV}
             class="navbar flex justify-between items-center p-1 pt-2"
         >
             <Button
                 size="sm"
                 color="ghost"
-                class="h-full"
                 square
                 onClick={props.onPrev}
             >
