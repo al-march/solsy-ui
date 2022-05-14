@@ -72,6 +72,7 @@ export const SelectDropdown: Component<Props> = (props) => {
                     <div
                         data-testid={SelectSelectors.DROPDOWN}
                         ref={setDropdown}
+                        class="z-50"
                         style={{'min-width': props.reference()?.offsetWidth + 'px'}}
                     >
                         <ScaleTransition

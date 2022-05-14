@@ -78,6 +78,7 @@ export const Menu: Component<MenuProps> = (props) => {
                 >
                     <div
                         ref={setPopper}
+                        class="z-50"
                         style={{'min-width': props.minWidth + 'px'}}
                         onClick={e => e.stopPropagation()}
                     >
