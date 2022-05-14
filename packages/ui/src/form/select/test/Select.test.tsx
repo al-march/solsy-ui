@@ -133,6 +133,12 @@ describe('Select', () => {
                 cleanup();
             });
         });
+
+        test('should set custom classes', () => {
+            const className = 'custom-class';
+            render(() => <Select class={className}/>);
+            expect(screen.getByTestId(SELECT)).toHaveClass(className);
+        });
     });
 
     describe('SelectDropdown', () => {

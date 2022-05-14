@@ -21,6 +21,7 @@ export type ToggleProps = {
 
     color?: ToggleColor;
     size?: ToggleSize;
+    class?: string;
 
     indeterminate?: boolean
 }
@@ -43,7 +44,7 @@ export const Toggle: Component<ToggleProps> = (props) => {
                 setRef(el);
                 props.ref?.(el);
             }}
-            class="toggle"
+            class={`toggle ${props.class || ''}`}
             classList={{
                 'toggle-accent': props.color === 'accent',
                 'toggle-primary': props.color === 'primary',

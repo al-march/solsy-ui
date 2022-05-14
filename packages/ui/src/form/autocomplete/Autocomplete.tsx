@@ -27,6 +27,7 @@ export type AutocompleteProps = {
 
     color?: InputColor;
     size?: InputSize;
+    class?: string;
     error?: boolean;
     bordered?: boolean;
     disabled?: boolean;
@@ -98,6 +99,7 @@ export const Autocomplete: Component<AutocompleteProps> = (props) => {
 
                 size={props.size}
                 color={props.color}
+                class={props.class}
 
                 error={props.error}
                 bordered={props.bordered}

@@ -75,4 +75,10 @@ describe('Radio', () => {
             cleanup();
         });
     });
+
+    test('should set custom classes', () => {
+        const className = 'custom-class';
+        render(() => <Radio class={className}/>);
+        expect(screen.getByTestId(RADIO)).toHaveClass(className);
+    });
 });

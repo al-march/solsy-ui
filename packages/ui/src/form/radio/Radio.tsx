@@ -14,6 +14,7 @@ export type RadioProps = {
 
     size?: RadioSize;
     color?: RadioColor;
+    class?: string;
 
     onInput?: (e: PropInputEvent) => void;
     onChange?: (e: PropChangeEvent) => void;
@@ -29,7 +30,7 @@ export const Radio: Component<RadioProps> = (props) => {
             name={props.name}
             checked={props.value}
 
-            class="radio"
+            class={`radio ${props.class || ''}`}
             classList={{
                 'radio-accent': props.color === 'accent',
                 'radio-primary': props.color === 'primary',

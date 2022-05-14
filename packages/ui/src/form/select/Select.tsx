@@ -35,6 +35,7 @@ export type SelectProps = {
 
     color?: SelectColor;
     size?: SelectSize;
+    class?: string;
     bordered?: boolean;
     error?: boolean;
 
@@ -101,7 +102,7 @@ export const Select: Component<SelectProps> = (props) => {
             <input
                 data-testid={SelectSelectors.SELECT}
                 ref={setReference}
-                class="select"
+                class={`select ${props.class || ''}`}
                 classList={{
                     'select-lg': props.size === 'lg',
                     'select-md': props.size === 'md',

@@ -26,7 +26,7 @@ const classes: CheckboxClasses = {
         xs: addPrefix('xs'),
     },
     addPrefix(name: string) {
-        return `${this.main}-${name}`
+        return `${this.main}-${name}`;
     }
 };
 
@@ -95,6 +95,12 @@ describe('Checkbox', () => {
             expect(screen.getByTestId(CHECKBOX)).toHaveClass(sizes[size]);
             cleanup();
         });
+    });
+
+    test('should set custom classes', () => {
+        const className = 'custom-class';
+        render(() => <Checkbox class={className}/>);
+        expect(screen.getByTestId(CHECKBOX)).toHaveClass(className);
     });
 
     test('should be indeterminate', () => {

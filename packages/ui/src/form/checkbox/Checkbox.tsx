@@ -20,6 +20,7 @@ export type CheckboxProps = {
 
     size?: CheckboxSize;
     color?: CheckboxColor;
+    class?: string;
 
     onInput?: (e: CheckboxInputEvent) => void;
     onChange?: (e: CheckboxChangeEvent) => void;
@@ -43,7 +44,7 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
         <input
             data-testid={CheckboxSelectors.CHECKBOX}
             type="checkbox"
-            class="checkbox"
+            class={`checkbox ${props.class || ''}`}
             checked={props.value}
 
             ref={el => {

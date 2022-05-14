@@ -2,6 +2,8 @@ import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
 import { Range, RangeColor, RangeSelectors, RangeSize } from '../Range';
 import { ObjectKeys } from '../../../utils/object';
 
+const {INPUT} = RangeSelectors;
+
 type RangeClasses = {
     main: string,
     colors: Record<RangeColor, string>,
@@ -29,28 +31,28 @@ describe('Range', () => {
 
     test('should be rendered', () => {
         render(() => <Range/>);
-        expect(screen.getByTestId(RangeSelectors.INPUT)).toBeInTheDocument();
+        expect(screen.getByTestId(INPUT)).toBeInTheDocument();
     });
 
     test('should set value', () => {
         const value = 10;
         render(() => <Range value={value}/>);
-        expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveValue(value.toString());
+        expect(screen.getByTestId(INPUT)).toHaveValue(value.toString());
     });
 
     test('should set max range', () => {
         render(() => <Range max={10}/>);
-        expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveAttribute('max', '10');
+        expect(screen.getByTestId(INPUT)).toHaveAttribute('max', '10');
     });
 
     test('should set min range', () => {
         render(() => <Range min={10}/>);
-        expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveAttribute('min', '10');
+        expect(screen.getByTestId(INPUT)).toHaveAttribute('min', '10');
     });
 
     test('should set step attribute', () => {
         render(() => <Range step={10}/>);
-        expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveAttribute('step', '10');
+        expect(screen.getByTestId(INPUT)).toHaveAttribute('step', '10');
     });
 
     test('should render steps', () => {
@@ -63,7 +65,7 @@ describe('Range', () => {
     test('should onInput emit', () => {
         const stub = jest.fn();
         render(() => <Range onInput={stub} step={10}/>);
-        fireEvent.input(screen.getByTestId(RangeSelectors.INPUT));
+        fireEvent.input(screen.getByTestId(INPUT));
         expect(stub).toBeCalled();
     });
 
@@ -71,7 +73,7 @@ describe('Range', () => {
         const {colors} = classes;
         ObjectKeys(colors).forEach((color) => {
             render(() => <Range color={color}/>);
-            expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveClass(colors[color]);
+            expect(screen.getByTestId(INPUT)).toHaveClass(colors[color]);
             cleanup();
         });
     });
@@ -80,8 +82,14 @@ describe('Range', () => {
         const {sizes} = classes;
         ObjectKeys(sizes).forEach((size) => {
             render(() => <Range size={size}/>);
-            expect(screen.getByTestId(RangeSelectors.INPUT)).toHaveClass(sizes[size]);
+            expect(screen.getByTestId(INPUT)).toHaveClass(sizes[size]);
             cleanup();
         });
+    });
+
+    test('should set custom classes', () => {
+        const className = 'custom-class';
+        render(() => <Range class={className}/>);
+        expect(screen.getByTestId(INPUT)).toHaveClass(className);
     });
 });

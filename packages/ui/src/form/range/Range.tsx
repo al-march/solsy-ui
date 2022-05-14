@@ -20,6 +20,7 @@ type Props = {
 
     size?: RangeSize;
     color?: RangeColor;
+    class?: string;
 }
 
 export const Range: Component<Props> = (props) => {
@@ -41,7 +42,7 @@ export const Range: Component<Props> = (props) => {
                 max={props.max || 100}
                 value={props.value}
                 step={props.step}
-                class={`range ${setColor(props.color)} ${setSize(props.size)}`}
+                class={`range ${setColor(props.color)} ${setSize(props.size)} ${props.class || ''}`}
 
                 classList={{
                     'range-lg': props.size === 'lg',

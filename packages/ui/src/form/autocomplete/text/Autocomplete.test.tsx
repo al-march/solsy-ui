@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from 'solid-testing-library';
+import { For } from 'solid-js';
 import { Autocomplete, AutocompleteSelectors } from '../Autocomplete';
 import { AutocompleteOption } from '../AutocompleteOption';
-import { For } from 'solid-js';
+import { InputSelectors } from '../../input';
 
 const {AUTOCOMPLETE, DROPDOWN, OPTION} = AutocompleteSelectors;
+const {INPUT} = InputSelectors;
 
 const options = ['1', '2', '3', '4'];
 
@@ -72,5 +74,11 @@ describe('Autocomplete', () => {
         ));
 
         expect(screen.getByTestId(OPTION)).toBeDisabled();
+    });
+
+    test('should set custom classes', () => {
+        const className = 'custom-class';
+        render(() => <Autocomplete class={className}/>);
+        expect(screen.getByTestId(INPUT)).toHaveClass(className);
     });
 });
