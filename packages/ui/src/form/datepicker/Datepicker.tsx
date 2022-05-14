@@ -8,6 +8,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import weekday from 'dayjs/plugin/weekday';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { Placement } from '@popperjs/core';
 
 dayjs.extend(isoWeek);
 dayjs.extend(weekday);
@@ -59,6 +60,7 @@ export type DatepickerProps = {
     bordered?: boolean;
     error?: boolean;
 
+    placement?: Placement;
     weekHolidays?: number[];
     closeOnSelect?: boolean;
 }
@@ -142,6 +144,7 @@ export const Datepicker: Component<DatepickerProps> = (props) => {
                 onClose={close}
                 onOpen={open}
                 show={state.show}
+                placement={props.placement}
 
                 trigger={
                     <Input

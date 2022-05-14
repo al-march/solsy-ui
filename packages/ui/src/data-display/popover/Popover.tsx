@@ -11,6 +11,7 @@ import {
 import { BackdropClick, SlideUpTransition, usePopper } from '../../utils';
 import { Portal } from 'solid-js/web';
 import { createStore } from 'solid-js/store';
+import { Placement } from '@popperjs/core';
 
 export const PopoverSelectors = {
     TRIGGER: 'popover-trigger',
@@ -41,6 +42,7 @@ const usePopover = () => {
 
 export type PopoverProps = {
     trigger: JSXElement;
+    placement?: Placement;
     show?: boolean;
     onOpen?: () => void;
     onClose?: () => void;
@@ -62,6 +64,7 @@ export const Popover: Component<PopoverProps> = (props) => {
     });
 
     const instance = usePopper(ref, popper, {
+        placement: props.placement || 'auto',
         modifiers: [{
             name: 'offset',
             options: {

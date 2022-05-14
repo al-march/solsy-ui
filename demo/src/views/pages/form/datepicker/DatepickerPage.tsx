@@ -11,6 +11,7 @@ export const DatepickerPage = () => {
                 placeholder="Select date"
                 bordered
                 weekHolidays={[0, 6]}
+                placement="right"
             />
         </Page>
     );
