@@ -17,6 +17,7 @@ export const DatepickerSelectors = {
     DATEPICKER: 'datepicker',
     NAV: 'nav',
     MONTH: 'month',
+    DAY: 'day'
 };
 
 type DatepickerContext = {

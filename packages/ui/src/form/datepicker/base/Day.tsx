@@ -1,50 +1,64 @@
 import { Component, createMemo } from 'solid-js';
 import { DayModel } from '../models';
-import { useDatepicker } from '../Datepicker';
-import { Button, ButtonColor } from '../../../actions';
+import { DatepickerSelectors, useDatepicker } from '../Datepicker';
 import './Day.css';
 import { Dayjs } from 'dayjs';
 
 const toISOString = (date?: Dayjs) => date?.toDate().toISOString();
 
+export const DayBaseClasses = {
+    selected: 'btn-primary',
+    today: 'btn-secondary',
+    holiday: 'btn-ghost',
+};
+
+type DayBaseProps = {
+    selected?: boolean;
+    holiday?: boolean;
+    today?: boolean;
+    disabled?: boolean;
+    onSelect?: () => void;
+}
+
+export const DayBase: Component<DayBaseProps> = (props) => {
+    return (
+        <button
+            data-testid={DatepickerSelectors.DAY}
+            class="btn day"
+            classList={{
+                [DayBaseClasses.selected]: props.selected,
+                [DayBaseClasses.today]: props.today && !props.selected,
+                [DayBaseClasses.holiday]: !props.holiday && !props.today && !props.selected
+            }}
+            disabled={props.disabled}
+            onClick={props.onSelect}
+        >
+            {props.children}
+        </button>
+    );
+};
+
 type DayProps = {
     day: DayModel;
-    onSelect: () => void;
+    onSelect?: () => void;
 }
 
 export const Day: Component<DayProps> = (props) => {
 
     const datepicker = useDatepicker();
 
-    const getDayNumber = createMemo(() => props.day.date.format('D'));
     const isSelected = createMemo(() => toISOString(datepicker.state.selected) === toISOString(props.day.date));
     const isHoliday = createMemo(() => datepicker.state.weekHolidays.includes(props.day.date.weekday()));
-    const isToday = createMemo(() => props.day.isToday);
-
-    const setColor = (): ButtonColor | undefined => {
-        if (isSelected()) {
-            return 'primary';
-        }
-
-        if (isToday()) {
-            return 'secondary';
-        }
-
-        if (isHoliday()) {
-            return;
-        }
-
-        return 'ghost';
-    };
 
     return (
-        <Button
-            class="day"
+        <DayBase
+            selected={isSelected()}
+            holiday={isHoliday()}
+            today={props.day.isToday}
             disabled={!props.day.fromCurrentMonth}
-            color={setColor()}
-            onClick={props.onSelect}
+            onSelect={props.onSelect}
         >
-            {getDayNumber()}
-        </Button>
+            {props.day.date.format('D')}
+        </DayBase>
     );
 };
