@@ -1,7 +1,6 @@
 import { Component, createMemo } from 'solid-js';
 import { DayModel } from '../models';
 import { DatepickerSelectors, useDatepicker } from '../Datepicker';
-import './Day.css';
 import { Dayjs } from 'dayjs';
 
 const toISOString = (date?: Dayjs) => date?.toDate().toISOString();
@@ -25,7 +24,21 @@ export const DayBase: Component<DayBaseProps> = (props) => {
     return (
         <button
             data-testid={DatepickerSelectors.DAY}
-            class="btn day"
+            class={`
+                btn 
+                h-full
+                w-full
+                m-auto
+                flex
+                justify-center
+                items-center
+                relative
+                transition-opacity
+                text-sm
+                p-0
+                px-2
+                rounded-none
+            `}
             classList={{
                 [DayBaseClasses.selected]: props.selected,
                 [DayBaseClasses.today]: props.today && !props.selected,
