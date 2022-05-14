@@ -4,11 +4,11 @@ import { Input, InputColor, InputSize } from '../input';
 import { DatepickerNav, Month } from './base';
 import { Popover } from '../../data-display';
 import dayjs, { Dayjs } from 'dayjs';
+import { Placement } from '@popperjs/core';
 
 import isoWeek from 'dayjs/plugin/isoWeek';
 import weekday from 'dayjs/plugin/weekday';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import { Placement } from '@popperjs/core';
 
 dayjs.extend(isoWeek);
 dayjs.extend(weekday);

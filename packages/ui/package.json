@@ -29,6 +29,7 @@
     "solid-transition-group": "^0.0.10"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
     "rollup": "^2.28.2",
     "rollup-preset-solid": "^1.4.0"
   },
