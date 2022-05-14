@@ -16,6 +16,8 @@ dayjs.extend(localizedFormat);
 export const DatepickerSelectors = {
     DATEPICKER: 'datepicker',
     NAV: 'nav',
+    NAV_MONTH_LABEL: 'month-label',
+    NAV_YEAR_LABEL: 'year-label',
     MONTH: 'month',
     DAY: 'day'
 };

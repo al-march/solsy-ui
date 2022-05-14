@@ -7,9 +7,10 @@ import { Dayjs } from 'dayjs';
 const toISOString = (date?: Dayjs) => date?.toDate().toISOString();
 
 export const DayBaseClasses = {
+    default: 'btn-ghost',
     selected: 'btn-primary',
     today: 'btn-secondary',
-    holiday: 'btn-ghost',
+    holiday: 'holiday',
 };
 
 type DayBaseProps = {
@@ -28,7 +29,8 @@ export const DayBase: Component<DayBaseProps> = (props) => {
             classList={{
                 [DayBaseClasses.selected]: props.selected,
                 [DayBaseClasses.today]: props.today && !props.selected,
-                [DayBaseClasses.holiday]: !props.holiday && !props.today && !props.selected
+                [DayBaseClasses.default]: !props.holiday && !props.today && !props.selected,
+                [DayBaseClasses.holiday]: props.holiday && !props.today && !props.selected
             }}
             disabled={props.disabled}
             onClick={props.onSelect}

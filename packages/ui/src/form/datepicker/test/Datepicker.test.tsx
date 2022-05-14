@@ -2,9 +2,9 @@ import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
 import { Datepicker, DatepickerSelectors } from '../Datepicker';
 import { InputSelectors } from '../../input';
 import dayjs, { Dayjs } from 'dayjs';
-import { DayBase, DayBaseClasses } from '../base';
+import { DatepickerNav, DayBase, DayBaseClasses } from '../base';
 
-const {DATEPICKER, NAV, MONTH, DAY} = DatepickerSelectors;
+const {DATEPICKER, NAV, NAV_YEAR_LABEL, NAV_MONTH_LABEL, MONTH, DAY} = DatepickerSelectors;
 const {INPUT} = InputSelectors;
 const DEFAULT_FORMAT = 'YYYY.MM.DD';
 
@@ -194,6 +194,49 @@ describe('Datepicker', () => {
                 expect(screen.getByText(value.year())).toBeInTheDocument();
                 expect(screen.getByText(value.format('MMMM'))).toBeInTheDocument();
             }
+        });
+    });
+
+    describe('Nav', () => {
+        test('should be rendered', () => {
+            render(() => <DatepickerNav month={dayjs()}/>);
+            expect(screen.getByTestId(NAV)).toBeInTheDocument();
+        });
+
+        test('should show valid month label', () => {
+            const date = dayjs();
+            for (let i = 0; i < 12; i++) {
+                const month = date.add(i, 'month');
+                render(() => <DatepickerNav month={month}/>);
+                expect(screen.getByTestId(NAV_MONTH_LABEL)).toHaveTextContent(month.format('MMMM'));
+                cleanup();
+            }
+        });
+
+        test('should show valid year label', () => {
+            const date = dayjs();
+            for (let i = 0; i < 12; i++) {
+                const month = date.add(i, 'year');
+                render(() => <DatepickerNav month={month}/>);
+                expect(screen.getByTestId(NAV_YEAR_LABEL)).toHaveTextContent(month.format('YYYY'));
+                cleanup();
+            }
+        });
+
+        test('should emit onNextMonth', () => {
+            const onNext = jest.fn();
+            render(() => <DatepickerNav month={dayjs()} onNext={onNext}/>);
+            const [, next] = screen.getAllByTestId('button');
+            fireEvent.click(next);
+            expect(onNext).toBeCalled();
+        });
+
+        test('should emit onPrevMonth', () => {
+            const onPrev = jest.fn();
+            render(() => <DatepickerNav month={dayjs()} onPrev={onPrev}/>);
+            const [prev] = screen.getAllByTestId('button');
+            fireEvent.click(prev);
+            expect(onPrev).toBeCalled();
         });
     });
 
