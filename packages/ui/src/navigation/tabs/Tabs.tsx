@@ -1,4 +1,4 @@
-import { Component, createContext, createSignal, JSXElement, useContext } from 'solid-js';
+import { Component, createContext, createSignal, JSXElement, Show, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { DaisySize } from '../../types';
 
@@ -101,7 +101,9 @@ export const Tabs: Component<TabsProps> = (props) => {
             </div>
 
             <div class="p-4">
-                {state.tabContent}
+                <Show when={state.tabContent}>
+                    {state.tabContent}
+                </Show>
             </div>
         </TabsContext.Provider>
     );
