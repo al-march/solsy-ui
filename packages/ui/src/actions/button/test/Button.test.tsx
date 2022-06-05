@@ -100,4 +100,13 @@ describe('Button', () => {
         expect(await screen.findByText('button')).toBeDisabled();
         expect(await screen.findByText('button')).toHaveClass('btn-disabled');
     });
+
+    test('should set type', () => {
+        const types: Array<'button' | 'submit' | 'reset' | undefined> = [undefined, 'button', 'submit', 'reset'];
+        types.forEach((type) => {
+            render(() => <Button type={type}>button</Button>);
+            expect(screen.getByTestId(BUTTON)).toHaveAttribute('type', type);
+            cleanup();
+        });
+    });
 });
