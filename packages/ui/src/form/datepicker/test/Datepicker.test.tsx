@@ -4,7 +4,7 @@ import { InputSelectors } from '../../input';
 import dayjs, { Dayjs } from 'dayjs';
 import { DatepickerNav, DayBase, DayBaseClasses } from '../base';
 
-const {DATEPICKER, NAV, NAV_YEAR_LABEL, NAV_MONTH_LABEL, MONTH, DAY} = DatepickerSelectors;
+const {DATEPICKER, NAV, NAV_YEAR_LABEL, NAV_MONTH_LABEL, DAY} = DatepickerSelectors;
 const {INPUT} = InputSelectors;
 const DEFAULT_FORMAT = 'YYYY.MM.DD';
 
@@ -53,7 +53,7 @@ describe('Datepicker', () => {
         test('should emit onSelectDay', () => {
             const onSelectDay = jest.fn();
             render(() => <Datepicker show onSelectDay={onSelectDay}/>);
-            const days = screen.getByTestId(MONTH).querySelectorAll('button.day');
+            const days = screen.getAllByTestId(DAY);
             const activeDay = [...days].find(btn => !(btn as HTMLButtonElement).disabled);
             if (activeDay) {
                 fireEvent.click(activeDay);
@@ -144,7 +144,7 @@ describe('Datepicker', () => {
                     />
                 ));
 
-                const days = screen.getByTestId(MONTH).querySelectorAll('button.day');
+                const days = screen.getAllByTestId(DAY);
                 const daysFromMonth = [...days].filter(day => !(day as HTMLButtonElement).disabled);
                 expect(daysFromMonth).toHaveLength(nextMonth.daysInMonth());
                 cleanup();
@@ -162,7 +162,7 @@ describe('Datepicker', () => {
                 />
             ));
 
-            const days = screen.getByTestId(MONTH).querySelectorAll('button.day');
+            const days = screen.getAllByTestId(DAY);
             [...days].forEach(day => {
                 const btn = day as HTMLButtonElement;
                 if (!btn.disabled) {
