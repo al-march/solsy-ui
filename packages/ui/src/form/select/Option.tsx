@@ -1,9 +1,9 @@
-import { Component } from 'solid-js';
+import { Component, createMemo } from 'solid-js';
 import { SelectSelectors, useSelect } from './Select';
 import { PropFocusEvent, PropMouseEvent } from '../../types';
 
 type Props = {
-    value: string | number;
+    value: any;
     disabled?: boolean;
     onClick?: (e: PropMouseEvent) => void;
     onFocus?: (e: PropFocusEvent) => void;
@@ -18,6 +18,17 @@ export const Option: Component<Props> = (props) => {
         select.check(props.value);
         props.onClick?.(e);
     };
+
+    const active = createMemo(() => {
+        if (typeof select.state.value === 'object') {
+            const key = select.state.compareKey || '';
+            if (!key) {
+                console.error('cannot find "compareKey" for compare value as object');
+            }
+            return select.state.value[key] === props.value[key];
+        }
+        return select.state.value === props.value;
+    });
 
     return (
         <li
@@ -35,7 +46,7 @@ export const Option: Component<Props> = (props) => {
 
                 class={SelectSelectors.OPTION_BUTTON}
                 classList={{
-                    active: select.state.value === props.value,
+                    active: active(),
                 }}
 
                 disabled={props.disabled}

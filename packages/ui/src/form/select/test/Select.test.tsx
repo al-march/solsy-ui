@@ -34,7 +34,7 @@ const classes: Classes = {
     }
 };
 
-const {SELECT, DROPDOWN, OPTION_BUTTON, OPTION} = SelectSelectors;
+const {SELECT, INPUT, DROPDOWN, OPTION_BUTTON, OPTION, CUSTOM_VIEW} = SelectSelectors;
 
 const options = [
     'option 1',
@@ -61,10 +61,10 @@ describe('Select', () => {
             });
         });
 
-        test('should set placeholder bty prop', () => {
+        test('should set placeholder', () => {
             const placeholder = 'placeholder';
             render(() => <Select placeholder={placeholder}></Select>);
-            expect(screen.getByTestId(SELECT)).toHaveAttribute('placeholder', placeholder);
+            expect(screen.getByTestId(INPUT)).toHaveAttribute('placeholder', placeholder);
         });
 
         test('should open dropdown by click', () => {
@@ -138,6 +138,27 @@ describe('Select', () => {
             const className = 'custom-class';
             render(() => <Select class={className}/>);
             expect(screen.getByTestId(SELECT)).toHaveClass(className);
+        });
+
+        test('should set custom view', () => {
+            render(() => (
+                <Select value="car" customValue={v => <p data-testid="custom">id: {v}</p>}>
+                    <Option value="car">Car</Option>
+                </Select>
+            ));
+
+            expect(screen.getByTestId(CUSTOM_VIEW)).toBeInTheDocument();
+            expect(screen.getByTestId('custom')).toHaveTextContent('id: car');
+        });
+
+        test('should compare objects in option value', () => {
+            render(() => (
+                <Select show={true} value="car">
+                    <Option value="car">Car</Option>
+                </Select>
+            ));
+
+            expect(screen.getByTestId(OPTION_BUTTON)).toHaveClass('active');
         });
     });
 

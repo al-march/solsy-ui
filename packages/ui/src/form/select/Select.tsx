@@ -3,17 +3,20 @@ import {
     createContext,
     createEffect,
     createSignal,
+    JSXElement,
     useContext
 } from 'solid-js';
 import { SelectDropdown } from './SelectDropdown';
 import { DaisyColor, DaisySize } from '../../types';
-import { createStore } from 'solid-js/store';
+import { createStore, reconcile } from 'solid-js/store';
 
 export type SelectColor = DaisyColor | 'ghost';
 export type SelectSize = DaisySize;
 
 export const SelectSelectors = {
     SELECT: 'select',
+    INPUT: 'select-input',
+    CUSTOM_VIEW: 'select-custom',
     DROPDOWN: 'select-dropdown',
     OPTION: 'select-option',
     OPTION_BUTTON: 'select-option-btn',
@@ -25,12 +28,13 @@ type SelectState = {
     _isOpen: boolean;
     isOpen: boolean;
     isClose: boolean;
+    compareKey?: string;
 }
 
 export type SelectProps = {
     placeholder?: string;
     name?: string;
-    value?: string | number;
+    value?: any;
     show?: boolean;
 
     color?: SelectColor;
@@ -46,6 +50,9 @@ export type SelectProps = {
 
     onOpen?: () => void;
     onClose?: () => void;
+
+    customValue?: (v: any) => JSXElement;
+    compareKey?: string;
 }
 
 export const Select: Component<SelectProps> = (props) => {
@@ -55,6 +62,8 @@ export const Select: Component<SelectProps> = (props) => {
     const [state, setState] = createStore<SelectState>({
         _value: props.value,
         _isOpen: !!props.show,
+        compareKey: props.compareKey,
+
         get value() {
             return this._value;
         },
@@ -68,11 +77,16 @@ export const Select: Component<SelectProps> = (props) => {
 
     createEffect(() => {
         const value = props.value;
-        setState('_value', value);
+        setState('_value', reconcile(value, {merge: true}));
     });
 
-    const setValue = (value: string) => {
-        setState('_value', value);
+    const setValue = (value: any) => {
+        if (typeof value === 'object') {
+            setState('_value', {...value});
+        } else {
+            setState('_value', value);
+        }
+
         props.onInput?.(value);
     };
 
@@ -99,33 +113,47 @@ export const Select: Component<SelectProps> = (props) => {
             close,
             check
         }}>
-            <input
+            <div
                 data-testid={SelectSelectors.SELECT}
                 ref={setReference}
-                class={`select ${props.class || ''}`}
+                class={`select z-10 flex items-center ${props.class || ''}`}
                 classList={{
                     'select-lg': props.size === 'lg',
                     'select-md': props.size === 'md',
                     'select-sm': props.size === 'sm',
                     'select-xs': props.size === 'xs',
 
-                    'select-primary':   props.color === 'primary',
+                    'select-primary': props.color === 'primary',
                     'select-secondary': props.color === 'secondary',
-                    'select-accent':    props.color === 'accent',
-                    'select-info':      props.color === 'info',
-                    'select-success':   props.color === 'success',
-                    'select-warning':   props.color === 'warning',
-                    'select-error':     props.color === 'error' || props.error,
-                    'select-ghost':     props.color === 'ghost',
+                    'select-accent': props.color === 'accent',
+                    'select-info': props.color === 'info',
+                    'select-success': props.color === 'success',
+                    'select-warning': props.color === 'warning',
+                    'select-error': props.color === 'error' || props.error,
+                    'select-ghost': props.color === 'ghost',
 
                     'select-bordered': props.bordered,
                 }}
-                value={state.value}
-                placeholder={props.placeholder || ''}
-                name={props.name}
                 onClick={open}
                 onFocus={open}
-            />
+            >
+                <span data-testid={SelectSelectors.CUSTOM_VIEW}>
+                    {state.value && props.customValue?.(state.value)}
+                </span>
+
+                <input
+                    data-testid={SelectSelectors.INPUT}
+                    type="text"
+                    class="bg-inherit h-full border-none cursor-pointer"
+                    classList={{
+                        'hidden': !!props.customValue && state.value,
+                    }}
+                    disabled
+                    value={state.value}
+                    placeholder={props.placeholder || ''}
+                    name={props.name}
+                />
+            </div>
 
             <SelectDropdown
                 show={state.isOpen}
