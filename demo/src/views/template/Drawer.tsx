@@ -36,6 +36,7 @@ export const Drawer: Component = (props) => {
                         <MenuTitle>Form</MenuTitle>
                         <MenuLink href={`/${RoutersComponentsEnum.FORM_SELECT}`}>Select</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.FORM_INPUT}`}>Input</MenuLink>
+                        <MenuLink href={`/${RoutersComponentsEnum.FORM_TEXTAREA}`}>Textarea</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.FORM_AUTOCOMPLETE}`}>Autocomplete</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.FORM_DATEPICKER}`}>Datepicker</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.RANGE}`}>Range</MenuLink>

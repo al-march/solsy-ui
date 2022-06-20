@@ -17,6 +17,7 @@ import { InputPage } from '../../views/pages/form/input/InputPage';
 import { FormPage } from '../../views/pages/sdk/form/FormPage';
 import { PopoverPage } from '../../views/pages/data/popover/PopoverPage';
 import { AutocompletePage } from '../../views/pages/form/autocomplete/AutocompletePage';
+import { TextareaPage } from '../../views/pages/form/textarea/TextareaPage';
 
 
 export const Routers: Component = () => {
@@ -26,6 +27,7 @@ export const Routers: Component = () => {
             <Route path={`/`} element={<HomePage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_SELECT}`} element={<SelectPage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_INPUT}`} element={<InputPage/>}/>
+            <Route path={`/${RoutersComponentsEnum.FORM_TEXTAREA}`} element={<TextareaPage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_AUTOCOMPLETE}`} element={<AutocompletePage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_DATEPICKER}`} element={<DatepickerPage/>}/>
             <Route path={`/${RoutersComponentsEnum.MENU}`} element={<MenuPage/>}/>

@@ -2,6 +2,7 @@ export enum RoutersComponentsEnum {
     HOME = '',
     FORM_SELECT = 'select',
     FORM_INPUT = 'input',
+    FORM_TEXTAREA = 'textarea',
     FORM_AUTOCOMPLETE = 'autocomplete',
     FORM_DATEPICKER = 'datepicker',
     MENU = 'menu',
