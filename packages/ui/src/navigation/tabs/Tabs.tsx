@@ -1,6 +1,7 @@
 import {
   Component,
   createContext,
+  createSignal,
   For,
   JSXElement,
   Match,
@@ -9,6 +10,7 @@ import {
 } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { DaisySize } from '../../types';
+import { Fade } from '../../utils';
 
 export const TabSelectors = {
   TAB_GROUP: 'tab-group',
@@ -36,6 +38,7 @@ export type TabsProps = {
   onInput?: (i: number) => void;
   view?: TabView;
   size?: TabSize;
+  animation?: boolean;
 }
 
 /**
@@ -52,7 +55,8 @@ export type TabsProps = {
  * </Tabs>
  */
 export const Tabs: Component<TabsProps> = (props) => {
-
+  const animationDuration = 200;
+  const [pending, setPending] = createSignal();
   const [state, setState] = createStore<TabsState>({
     active: props.value ?? 0,
     tabs: [],
@@ -70,9 +74,20 @@ export const Tabs: Component<TabsProps> = (props) => {
   };
 
   const setActive = (index: number) => {
-    setState('active', index);
+    setPending(true);
     props.onInput?.(index);
+    if (props.animation === false) {
+      setState('active', index);
+    } else {
+      setTimeout(() => {
+        setState('active', index);
+      }, animationDuration);
+    }
   };
+
+  function onAnimationDone() {
+    setPending(false);
+  }
 
   return (
     <TabsContext.Provider value={{
@@ -95,7 +110,13 @@ export const Tabs: Component<TabsProps> = (props) => {
           <For each={state.tabs}>
             {(tab, i) => (
               <Match when={state.active === i()}>
-                {tab}
+                {props.animation !== false ? (
+                  <Fade onExit={onAnimationDone} duration={animationDuration}>
+                    {!pending() && tab}
+                  </Fade>
+                ) : (
+                  tab
+                )}
               </Match>
             )}
           </For>

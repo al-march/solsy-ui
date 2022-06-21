@@ -4,6 +4,14 @@ import { Tabs, TabSelectors, TabSize, TabsProps, TabView } from '../Tabs';
 import { Tab } from '../Tab';
 import { ObjectKeys } from '../../../utils/object';
 
+jest.mock('solid-transition-group', () => {
+  const FakeTransition = jest.fn(({children}) => children)
+  const FakeCSSTransition = jest.fn(props =>
+    <FakeTransition>{props.children}</FakeTransition>
+  )
+  return {CSSTransition: FakeCSSTransition, Transition: FakeTransition}
+})
+
 const {TAB, TAB_GROUP} = TabSelectors;
 
 type ToggleClasses = {
@@ -90,7 +98,7 @@ describe('Tabs', () => {
         expect(value).toBe(1);
     });
     test('should update tab content by click', async () => {
-        render(() => <TabsTest/>);
+        render(() => <TabsTest animation={false}/>);
         const [first, second] = screen.getAllByTestId(TAB);
         fireEvent.click(second);
         expect(await screen.findByText(tabs[1].content));
