@@ -1,39 +1,41 @@
-import { Component, createContext, createSignal, JSXElement, Show, useContext } from 'solid-js';
+import {
+  Component,
+  createContext,
+  For,
+  JSXElement,
+  Match,
+  Switch,
+  useContext
+} from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { DaisySize } from '../../types';
 
 export const TabSelectors = {
-    TAB_GROUP: 'tab-group',
-    TAB: 'tab',
+  TAB_GROUP: 'tab-group',
+  TAB: 'tab',
 };
 
 export type TabView = 'bordered' | 'lifted' | 'boxed';
 export type TabSize = DaisySize;
 
 type TabsContext = {
-    state: TabsState;
-    initTab: (node: HTMLElement) => number;
-    setActiveTabIndex: (i: number) => void;
-    setTabContent: (content: JSXElement) => void;
+  state: TabsState;
+  initTab: (node: JSXElement) => number;
+  setActive: (i: number) => void;
 }
 
 type TabsState = {
-    _activeTabIndex: number;
-    _tabContent: JSXElement;
-
-    activeTabIndex: number;
-    tabContent: JSXElement;
-    size?: TabSize;
-    view?: TabView;
+  active: number;
+  tabs: JSXElement[]
+  size?: TabSize;
+  view?: TabView;
 }
 
-const TabsContext = createContext<TabsContext>();
-
 export type TabsProps = {
-    value?: number;
-    onInput?: (i: number) => void;
-    view?: TabView;
-    size?: TabSize;
+  value?: number;
+  onInput?: (i: number) => void;
+  view?: TabView;
+  size?: TabSize;
 }
 
 /**
@@ -51,68 +53,64 @@ export type TabsProps = {
  */
 export const Tabs: Component<TabsProps> = (props) => {
 
-    const [tabs, setTabs] = createSignal<HTMLElement[]>([]);
-    const [state, setState] = createStore<TabsState>({
-        _activeTabIndex: props.value ?? 0,
-        get activeTabIndex() {
-            return this._activeTabIndex;
-        },
-        _tabContent: '',
-        get tabContent() {
-            return this._tabContent;
-        },
-        get size() {
-            return props.size;
-        },
-        get view() {
-            return props.view;
-        }
-    });
+  const [state, setState] = createStore<TabsState>({
+    active: props.value ?? 0,
+    tabs: [],
+    get size() {
+      return props.size;
+    },
+    get view() {
+      return props.view;
+    }
+  });
 
-    const initTab = (tab: HTMLElement) => {
-        setTabs(tabs => ([...tabs, tab]));
-        return tabs().length - 1;
-    };
+  const initTab = (tab: JSXElement) => {
+    setState('tabs', [...state.tabs, tab]);
+    return state.tabs.length - 1;
+  };
 
-    const setActiveTabIndex = (index: number) => {
-        setState('_activeTabIndex', index);
-        props.onInput?.(index);
-    };
+  const setActive = (index: number) => {
+    setState('active', index);
+    props.onInput?.(index);
+  };
 
-    const setTabContent = (content: JSXElement) => {
-        setState('_tabContent', content);
-    };
+  return (
+    <TabsContext.Provider value={{
+      state,
+      initTab,
+      setActive,
+    }}>
+      <div
+        data-testid={TabSelectors.TAB_GROUP}
+        class="tabs"
+        classList={{
+          'tabs-boxed': state.view === 'boxed'
+        }}
+      >
+        {props.children}
+      </div>
 
-    return (
-        <TabsContext.Provider value={{
-            state,
-            initTab,
-            setActiveTabIndex,
-            setTabContent
-        }}>
-            <div
-                data-testid={TabSelectors.TAB_GROUP}
-                class="tabs"
-                classList={{
-                    'tabs-boxed': state.view === 'boxed'
-                }}
-            >
-                {props.children}
-            </div>
-
-            <div class="p-4">
-                <Show when={state.tabContent}>
-                    {state.tabContent}
-                </Show>
-            </div>
-        </TabsContext.Provider>
-    );
+      <div class="p-4">
+        <Switch>
+          <For each={state.tabs}>
+            {(tab, i) => (
+              <Match when={state.active === i()}>
+                {tab}
+              </Match>
+            )}
+          </For>
+        </Switch>
+      </div>
+    </TabsContext.Provider>
+  );
 };
 
+const TabsContext = createContext<TabsContext>();
+
 export const useTabs = () => {
-    const context = useContext(TabsContext);
-    if (context) {
-        return context;
-    }
-    throw new Error('No context for Tabs');
+  const context = useContext(TabsContext);
+  if (context) {
+    return context;
+  }
+  throw new Error('No context for Tabs');
 };

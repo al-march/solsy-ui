@@ -50,26 +50,22 @@ const TabsTest: Component<TabsProps> = (props) => {
 const isActive = (tab: HTMLElement) => tab.classList.contains('tab-active');
 
 describe('Tabs', () => {
-
     test('should be rendered', async () => {
         render(() => <TabsTest/>);
         const [first, second] = tabs;
         expect(await screen.findByText(first.label)).toBeInTheDocument();
         expect(await screen.findByText(second.label)).toBeInTheDocument();
     });
-
     test('should render first tab without value prop', async () => {
         render(() => <TabsTest/>);
         const [tab] = tabs;
         expect(await screen.findByText(tab.content)).toBeInTheDocument();
     });
-
     test('should render tab by defaultValue', async () => {
         const value = 1;
         render(() => <TabsTest value={value}/>);
         expect(await screen.findByText(tabs[value].content)).toBeInTheDocument();
     });
-
     test('should set tab active by prop', async () => {
         render(() => <TabsTest value={0}/>);
         expect(isActive(screen.getAllByTestId(TAB)[0])).toBeTruthy();
@@ -77,7 +73,6 @@ describe('Tabs', () => {
         render(() => <TabsTest value={1}/>);
         expect(isActive(screen.getAllByTestId(TAB)[1])).toBeTruthy();
     });
-
     test('should emit onInput', () => {
         const onInput = jest.fn();
         render(() => <TabsTest onInput={onInput}/>);
@@ -85,7 +80,6 @@ describe('Tabs', () => {
         fireEvent.click(tab);
         expect(onInput).toBeCalled();
     });
-
     test('should update value by changes', () => {
         let value = -1;
         render(() => <TabsTest onInput={v => value = v}/>);
@@ -95,7 +89,6 @@ describe('Tabs', () => {
         fireEvent.click(second);
         expect(value).toBe(1);
     });
-
     test('should update tab content by click', async () => {
         render(() => <TabsTest/>);
         const [first, second] = screen.getAllByTestId(TAB);
@@ -104,7 +97,6 @@ describe('Tabs', () => {
         fireEvent.click(first);
         expect(await screen.findByText(tabs[0].content));
     });
-
     test('should set size class', () => {
         const {sizes} = classes;
         ObjectKeys(sizes).forEach(size => {
@@ -115,7 +107,6 @@ describe('Tabs', () => {
             cleanup();
         });
     });
-
     test('should tab emit onFocus event', () => {
         const onFocus = jest.fn();
         render(() => (
@@ -126,7 +117,6 @@ describe('Tabs', () => {
         fireEvent.focus(screen.getByTestId(TAB));
         expect(onFocus).toBeCalled();
     });
-
     test('should tab emit onBlur event', () => {
         const onBlur = jest.fn();
         render(() => (
@@ -137,7 +127,6 @@ describe('Tabs', () => {
         fireEvent.blur(screen.getByTestId(TAB));
         expect(onBlur).toBeCalled();
     });
-
     test('should set view class', () => {
         const viewsClassMap: Record<TabView, string> = {
             boxed: classes.boxed,
