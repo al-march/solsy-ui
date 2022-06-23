@@ -1,63 +1,53 @@
-import { Component, createSignal } from 'solid-js';
-import { fireEvent, render } from 'solid-testing-library';
-import { Menu, MenuProps } from '../Menu';
-import { MenuOption } from '../MenuOption';
-
-const MenuTest: Component<MenuProps> = (props) => {
-    const [ref, setRef] = createSignal<HTMLElement>();
-    const [show, setShow] = createSignal<boolean>(props.isShow);
-
-    const toggle = () => setShow(!show());
-
-    return (
-        <>
-            <button
-                class="test-btn"
-                ref={setRef}
-                onClick={toggle}
-            >
-                Menu
-            </button>
-            <Menu
-                isShow={show()}
-                reference={ref()}
-                onBackdropClick={toggle}
-            >
-                <div class="menu-test">
-                    <MenuOption><i class="fa-solid fa-car pr-2"/>Cars</MenuOption>
-                    <MenuOption><i class="fa-solid fa-plane-departure pr-2"/>Plane</MenuOption>
-                    <MenuOption><i class="fa-solid fa-building pr-2"/>Buildings</MenuOption>
-                </div>
-            </Menu>
-        </>
-    );
-};
-
-const getMenuContent = () => document.body.querySelector('.menu-test');
+import { fireEvent, render, screen } from 'solid-testing-library';
+import { Menu, MenuSelectors } from '../Menu';
 
 describe('Menu', () => {
+  test('should be rendered', () => {
+    render(() => <Menu isShow/>);
+    expect(screen.getByTestId(MenuSelectors.MENU)).toBeInTheDocument();
+  });
+  test('should emit click backdrop', () => {
+    const onBackdropClick = jest.fn();
+    render(() => <Menu isShow onBackdropClick={onBackdropClick}/>);
+    fireEvent.click(document.body);
+    expect(onBackdropClick).toBeCalled();
+  });
+});
 
-    test('should be rendered', () => {
-        render(() => <MenuTest isShow={true}/>);
-        expect(getMenuContent()).toBeInTheDocument();
-    });
-
-    test('should be opened by trigger', () => {
-        const result = render(() => <MenuTest isShow={false}/>);
-
-        const trigger = result.container.querySelector('.test-btn');
-        expect(trigger).toBeInTheDocument();
-        if (trigger) {
-            fireEvent.click(trigger);
-            expect(getMenuContent()).toBeInTheDocument();
-        }
-    });
-
-    test('should be closed by backdrop', async () => {
-        render(() => <MenuTest isShow={true}/>);
-        fireEvent.click(document.body);
-        // await finish of animation
-        await Promise.resolve();
-        expect(getMenuContent()).not.toBeInTheDocument();
-    });
+describe('Menu.Item', () => {
+  it('should be rendered', () => {
+    render(() => (
+      <Menu isShow reference={document.body}>
+        <Menu.Item>Item</Menu.Item>
+      </Menu>
+    ));
+    expect(screen.getByTestId(MenuSelectors.OPTION)).toBeInTheDocument();
+  });
+  it('should be active', () => {
+    render(() => (
+      <Menu isShow reference={document.body}>
+        <Menu.Item active>Item</Menu.Item>
+      </Menu>
+    ));
+    expect(document.querySelector('a.active')).toBeInTheDocument();
+  });
+  it('should be disabled', () => {
+    render(() => (
+      <Menu isShow reference={document.body}>
+        <Menu.Item disabled>Item</Menu.Item>
+      </Menu>
+    ));
+    expect(document.querySelector('li.disabled')).toBeInTheDocument();
+  });
+  it('should emit onClick', () => {
+    const onClick = jest.fn();
+    render(() => (
+      <Menu isShow reference={document.body}>
+        <Menu.Item onClick={onClick}>Item</Menu.Item>
+      </Menu>
+    ));
+    const option = screen.getByTestId(MenuSelectors.OPTION);
+    fireEvent.click(option);
+    expect(onClick).toBeCalled();
+  });
 });

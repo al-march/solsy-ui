@@ -23,3 +23,9 @@ export type PropFocusEvent<Target extends HTMLElement = HTMLElement> =
     currentTarget: Target;
     target: DOMElement;
 }
+
+export type PropClickEvent<Target extends HTMLElement = HTMLElement> =
+    MouseEvent & {
+    currentTarget: Target;
+    target: DOMElement;
+}

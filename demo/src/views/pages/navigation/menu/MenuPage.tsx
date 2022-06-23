@@ -1,51 +1,45 @@
-import { Component, createSignal } from 'solid-js';
-import { Menu, MenuOption } from '../../../../../../packages/ui/src/navigation';
+import { Component } from 'solid-js';
+import { Menu } from '../../../../../../packages/ui/src/navigation';
 import { Page } from '../../base/Page';
+import { createStore } from 'solid-js/store';
 
 type State = {
-    show: boolean;
-    reference?: HTMLElement;
+  show: boolean;
+  reference?: HTMLElement;
 }
 
 export const MenuPage: Component = () => {
-    const [state, setState] = createSignal<State>({
-        show: false,
-        reference: undefined
-    });
+  const [state, setState] = createStore<State>({
+    show: true,
+  });
 
-    function setReference(reference: HTMLElement) {
-        setState(state => ({
-            ...state,
-            reference
-        }));
-    }
+  function setReference(reference: HTMLElement) {
+    setState('reference', reference);
+  }
 
-    function toggle() {
-        setState(state => {
-            const show = !state.show;
-            return {...state, show};
-        });
-    }
+  function toggle() {
+    setState('show', !state.show);
+  }
 
-    return (
-        <Page full class="p-4">
-            <button
-                class="btn btn-primary"
-                ref={setReference}
-                onClick={toggle}
-            >
-                Menu
-            </button>
-            <Menu
-                isShow={state().show}
-                reference={state().reference}
-                onBackdropClick={toggle}
-                minWidth={state().reference?.scrollWidth}
-            >
-                <MenuOption><i class="fa-solid fa-car pr-2"/>Cars</MenuOption>
-                <MenuOption><i class="fa-solid fa-plane-departure pr-2"/>Plane</MenuOption>
-                <MenuOption><i class="fa-solid fa-building pr-2"/>Buildings</MenuOption>
-            </Menu>
-        </Page>
-    );
+  return (
+    <Page full class="p-4">
+      <button
+        class="btn btn-primary"
+        ref={setReference}
+        onClick={toggle}
+      >
+        Menu
+      </button>
+      <Menu
+        isShow={state.show}
+        reference={state.reference}
+        onBackdropClick={toggle}
+        minWidth={state.reference?.scrollWidth}
+      >
+        <Menu.Item><i class="fa-solid fa-car pr-2"/>Cars</Menu.Item>
+        <Menu.Item disabled><i class="fa-solid fa-plane-departure pr-2"/>Plane</Menu.Item>
+        <Menu.Item><i class="fa-solid fa-building pr-2"/>Buildings</Menu.Item>
+      </Menu>
+    </Page>
+  );
 };
