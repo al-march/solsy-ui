@@ -83,7 +83,7 @@ describe('Tabs', () => {
     });
     test('should emit onInput', () => {
         const onInput = jest.fn();
-        render(() => <TabsTest onInput={onInput}/>);
+        render(() => <TabsTest value={1} onInput={onInput}/>);
         const [tab] = screen.getAllByTestId(TAB);
         fireEvent.click(tab);
         expect(onInput).toBeCalled();
@@ -91,9 +91,7 @@ describe('Tabs', () => {
     test('should update value by changes', () => {
         let value = -1;
         render(() => <TabsTest onInput={v => value = v}/>);
-        const [first, second] = screen.getAllByTestId(TAB);
-        fireEvent.click(first);
-        expect(value).toBe(0);
+        const [, second] = screen.getAllByTestId(TAB);
         fireEvent.click(second);
         expect(value).toBe(1);
     });

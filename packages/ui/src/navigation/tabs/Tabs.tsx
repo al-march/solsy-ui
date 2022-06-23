@@ -74,6 +74,9 @@ export const Tabs: Component<TabsProps> = (props) => {
   };
 
   const setActive = (index: number) => {
+    if (index === state.active) {
+      return;
+    }
     setPending(true);
     props.onInput?.(index);
     if (props.animation === false) {
