@@ -1,8 +1,8 @@
 import { Link } from 'solid-app-router';
-import { Component } from 'solid-js';
+import { ParentProps } from 'solid-js';
 import { RoutersComponentsEnum, RouterSDKEnum } from '../../shared/router/RoutersComponentsEnum';
 
-export const Drawer: Component = (props) => {
+export const Drawer = (props: ParentProps) => {
     return (
         <div class="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle"/>
@@ -55,6 +55,7 @@ export const Drawer: Component = (props) => {
                         <MenuTitle>Data view</MenuTitle>
                         <MenuLink href={`/${RoutersComponentsEnum.TOOLTIP}`}>Tooltip</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.POPOVER}`}>Popover</MenuLink>
+                        <MenuLink href={`/${RoutersComponentsEnum.COLLAPSE}`}>Collapse</MenuLink>
                     </Menu>
                 </div>
             </div>
@@ -62,19 +63,19 @@ export const Drawer: Component = (props) => {
     );
 };
 
-const Menu: Component = (props) => (
+const Menu = (props: ParentProps) => (
     <ul class="menu menu-compact gap-1 flex flex-col p-0 px-2">
         {props.children}
     </ul>
 );
 
-const MenuTitle: Component = (props) => (
+const MenuTitle = (props: ParentProps) => (
     <li class="menu-title">
         <span>{props.children}</span>
     </li>
 );
 
-const MenuLink: Component<{ href: string }> = (props) => (
+const MenuLink = (props: ParentProps<{ href: string }>) => (
     <li>
         <Link href={props.href}>{props.children}</Link>
     </li>
