@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'solid-js';
+import { ParentProps } from 'solid-js';
 import { DaisyColor, DaisySize, PropClickEvent, PropFocusEvent } from '../../types';
 
 export const ButtonSelectors = {
@@ -35,7 +35,7 @@ export type ButtonProps = {
   ref?: (button: HTMLButtonElement) => void;
 }
 
-export const Button = (props: PropsWithChildren<ButtonProps>) => {
+export const Button = (props: ParentProps<ButtonProps>) => {
 
   return (
     <button

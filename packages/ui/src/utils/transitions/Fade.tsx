@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { ParentProps } from 'solid-js';
 import { Transition } from 'solid-transition-group';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   duration?: number;
 }
 
-export const Fade: Component<Props> = (props) => {
+export const Fade = (props: ParentProps<Props>) => {
   const onExitDone = () => {
     props.onExit?.();
   };
@@ -19,7 +19,7 @@ export const Fade: Component<Props> = (props) => {
   }];
 
   const options = {
-    duration: props.duration,
+    duration: props.duration || 200,
     easing: 'cubic-bezier(0.55, 0, 0.55, 0.2)'
   };
 

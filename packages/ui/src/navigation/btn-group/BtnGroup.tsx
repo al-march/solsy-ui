@@ -1,4 +1,4 @@
-import { createContext, createSignal, PropsWithChildren, useContext } from 'solid-js';
+import { createContext, ParentProps, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { DaisySize } from '../../types';
 import { BtnGroupItem } from './BtnGroupItem';
@@ -12,6 +12,7 @@ export type BtnGroupSize = DaisySize;
 
 type BtnGroupState = {
   activeButtons: Set<any>;
+  buttons: HTMLElement[];
   size?: BtnGroupSize;
 }
 
@@ -22,6 +23,14 @@ type BtnGroupCtx = {
 }
 
 const BtnGroupCtx = createContext<BtnGroupCtx>();
+
+export const useBtnGroup = () => {
+  const ctx = useContext(BtnGroupCtx);
+  if (ctx) {
+    return ctx;
+  }
+  throw new Error('No context for ToggleButtons');
+};
 
 export type BtnGroupProps<T extends any> = {
   value?: T;
@@ -44,11 +53,11 @@ export type BtnGroupProps<T extends any> = {
  *   <BtnGroup.Item>3</BtnGroup.Item>
  * </BtnGroup>
  */
-const BtnGroupBase = <T extends any>(props: PropsWithChildren<BtnGroupProps<T>>) => {
+const BtnGroupBase = <T extends any>(props: ParentProps<BtnGroupProps<T>>) => {
 
-  const [buttons, setButtons] = createSignal<HTMLElement[]>([]);
   const [state, setState] = createStore<BtnGroupState>({
     activeButtons: initActiveButtons(),
+    buttons: [],
     get size() {
       return props.size;
     }
@@ -74,9 +83,9 @@ const BtnGroupBase = <T extends any>(props: PropsWithChildren<BtnGroupProps<T>>)
     return output;
   }
 
-  function initButton(node: HTMLElement) {
-    setButtons(buttons => ([...buttons, node]));
-    return buttons().length - 1;
+  function initButton(button: HTMLElement) {
+    setState('buttons', [...state.buttons, button]);
+    return state.buttons.length - 1;
   }
 
   function setActive(value: any) {
@@ -122,14 +131,6 @@ const BtnGroupBase = <T extends any>(props: PropsWithChildren<BtnGroupProps<T>>)
       </div>
     </BtnGroupCtx.Provider>
   );
-};
-
-export const useBtnGroup = () => {
-  const ctx = useContext(BtnGroupCtx);
-  if (ctx) {
-    return ctx;
-  }
-  throw new Error('No context for ToggleButtons');
 };
 
 export const BtnGroup = Object.assign(BtnGroupBase, {Item: BtnGroupItem});

@@ -1,18 +1,18 @@
-import { Component, createEffect, createSignal, Show } from 'solid-js';
+import { createEffect, createSignal, ParentProps, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { ScaleTransition } from '../../utils';
 
 export const ModalSelectors = {
-    MODAL: 'modal',
-    BACKDROP: 'modal-backdrop'
+  MODAL: 'modal',
+  BACKDROP: 'modal-backdrop'
 };
 
 export type ModalProps = {
-    isShow?: boolean;
-    class?: string;
+  isShow?: boolean;
+  class?: string;
 
-    onBackdropClick?: () => void;
-    onClose?: () => void;
+  onBackdropClick?: () => void;
+  onClose?: () => void;
 }
 
 /**
@@ -27,49 +27,46 @@ export type ModalProps = {
  *     </ModalAction>
  * </Modal>
  */
-export const Modal: Component<ModalProps> = (props) => {
+export const Modal = (props: ParentProps<ModalProps>) => {
 
-    const [show, setShow] = createSignal(false);
+  const [show, setShow] = createSignal(false);
 
-    createEffect(() => {
-        if (props.isShow) {
-            setShow(true);
-        }
-    });
+  createEffect(() => {
+    if (props.isShow) {
+      setShow(true);
+    }
+  });
 
-    const close = () => {
-        setShow(false);
-        props.onClose?.();
-    };
+  const close = () => {
+    setShow(false);
+    props.onClose?.();
+  };
 
-    const backdropClickHandler = () => {
-        props.onBackdropClick?.();
-    };
+  const backdropClickHandler = () => {
+    props.onBackdropClick?.();
+  };
 
-    return (
-        <Show when={show()}>
-            <Portal>
-                <div
-                    data-testid={ModalSelectors.BACKDROP}
-                    class="modal opacity-100 visible z-50 pointer-events-auto"
-                    onClick={backdropClickHandler}
-                >
-                    <ScaleTransition
-                        appear={true}
-                        onExit={close}
-                    >
-                        <Show when={props.isShow}>
-                            <div
-                                data-testid={ModalSelectors.MODAL}
-                                class={`modal-box transition-none transform-none opacity-100 ${props.class || ''}`}
-                                onClick={e => e.stopPropagation()}
-                            >
-                                {props.children}
-                            </div>
-                        </Show>
-                    </ScaleTransition>
-                </div>
-            </Portal>
-        </Show>
-    );
+  return (
+    <Show when={show()}>
+      <Portal>
+        <div
+          data-testid={ModalSelectors.BACKDROP}
+          class="modal opacity-100 visible z-50 pointer-events-auto"
+          onClick={backdropClickHandler}
+        >
+          <ScaleTransition appear onExit={close}>
+            <Show when={props.isShow}>
+              <div
+                data-testid={ModalSelectors.MODAL}
+                class={`modal-box transition-none transform-none opacity-100 ${props.class || ''}`}
+                onClick={e => e.stopPropagation()}
+              >
+                {props.children}
+              </div>
+            </Show>
+          </ScaleTransition>
+        </div>
+      </Portal>
+    </Show>
+  );
 };

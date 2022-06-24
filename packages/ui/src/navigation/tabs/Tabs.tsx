@@ -1,15 +1,7 @@
-import {
-  Component,
-  createContext,
-  createSignal,
-  For,
-  JSXElement,
-  Match,
-  Switch,
-  useContext
-} from 'solid-js';
-import { createStore } from 'solid-js/store';
 import { DaisySize } from '../../types';
+import { createContext, For, JSXElement, Match, ParentProps, Switch, useContext } from 'solid-js';
+import { createStore } from 'solid-js/store';
+import { Tab } from './Tab';
 import { Fade } from '../../utils';
 
 export const TabSelectors = {
@@ -20,18 +12,28 @@ export const TabSelectors = {
 export type TabView = 'bordered' | 'lifted' | 'boxed';
 export type TabSize = DaisySize;
 
-type TabsContext = {
-  state: TabsState;
-  initTab: (node: JSXElement) => number;
-  setActive: (i: number) => void;
-}
-
 type TabsState = {
   active: number;
   tabs: JSXElement[]
   size?: TabSize;
   view?: TabView;
 }
+
+type TabsCtx = {
+  state: TabsState;
+  initTab: (node: JSXElement) => number;
+  setActive: (i: number) => void;
+}
+
+const TabsCtx = createContext<TabsCtx>();
+
+export const useTabs = () => {
+  const ctx = useContext(TabsCtx);
+  if (ctx) {
+    return ctx;
+  }
+  throw new Error('No context for Tabs');
+};
 
 export type TabsProps = {
   value?: number;
@@ -42,21 +44,17 @@ export type TabsProps = {
 }
 
 /**
- * Tabs
- *
  * @example
  * <Tabs>
- *      <Tab label="Tab label 1">
- *          Tab content 1
- *      </Tab>
- *      <Tab label="Tab label 2">
- *          Tab content 2
- *      </Tab>
+ *   <Tab label="Tab label 1">
+ *     Tab content 1
+ *   </Tab>
+ *   <Tab label="Tab label 2">
+ *     Tab content 2
+ *   </Tab>
  * </Tabs>
  */
-export const Tabs: Component<TabsProps> = (props) => {
-  const animationDuration = 200;
-  const [pending, setPending] = createSignal();
+export const TabsBase = (props: ParentProps<TabsProps>) => {
   const [state, setState] = createStore<TabsState>({
     active: props.value ?? 0,
     tabs: [],
@@ -68,32 +66,21 @@ export const Tabs: Component<TabsProps> = (props) => {
     }
   });
 
-  const initTab = (tab: JSXElement) => {
-    setState('tabs', [...state.tabs, tab]);
+  function initTab(tab: JSXElement) {
+    setState('tabs', tabs => [...tabs, tab]);
     return state.tabs.length - 1;
-  };
+  }
 
-  const setActive = (index: number) => {
+  function setActive(index: number) {
     if (index === state.active) {
       return;
     }
-    setPending(true);
     props.onInput?.(index);
-    if (props.animation === false) {
-      setState('active', index);
-    } else {
-      setTimeout(() => {
-        setState('active', index);
-      }, animationDuration);
-    }
-  };
-
-  function onAnimationDone() {
-    setPending(false);
+    setState('active', index);
   }
 
   return (
-    <TabsContext.Provider value={{
+    <TabsCtx.Provider value={{
       state,
       initTab,
       setActive,
@@ -113,28 +100,16 @@ export const Tabs: Component<TabsProps> = (props) => {
           <For each={state.tabs}>
             {(tab, i) => (
               <Match when={state.active === i()}>
-                {props.animation !== false ? (
-                  <Fade onExit={onAnimationDone} duration={animationDuration}>
-                    {!pending() && tab}
-                  </Fade>
-                ) : (
-                  tab
-                )}
+                <Fade appear>
+                  <div>{tab}</div>
+                </Fade>
               </Match>
             )}
           </For>
         </Switch>
       </div>
-    </TabsContext.Provider>
+    </TabsCtx.Provider>
   );
 };
 
-const TabsContext = createContext<TabsContext>();
-
-export const useTabs = () => {
-  const context = useContext(TabsContext);
-  if (context) {
-    return context;
-  }
-  throw new Error('No context for Tabs');
-};
+export const Tabs = Object.assign(TabsBase, {Item: Tab});

@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal, onCleanup, PropsWithChildren, Show } from 'solid-js';
+import { createEffect, createSignal, onCleanup, ParentProps, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { BackdropClick, ScaleTransition, usePopper } from '../../utils';
 import { createStore } from 'solid-js/store';
@@ -39,7 +39,7 @@ export type MenuProps = {
  *    <Menu.Item>Bike</Menu.Item>
  *  </Menu>
  */
-const MenuBase = (props: PropsWithChildren<MenuProps>) => {
+const MenuBase = (props: ParentProps<MenuProps>) => {
 
   const [state, setState] = createStore<MenuState>({
     show: props.isShow
@@ -117,7 +117,7 @@ type MenuOptionProps = {
   onClick?: (e: PropClickEvent<HTMLLIElement>) => void;
 }
 
-export const MenuOption: Component<MenuOptionProps> = (props) => {
+export const MenuOption = (props: ParentProps<MenuOptionProps>) => {
   return (
     <li
       data-testid={MenuSelectors.OPTION}

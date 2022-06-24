@@ -1,4 +1,4 @@
-import { Component, createContext, useContext } from 'solid-js';
+import { createContext, ParentProps, useContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { Input, InputColor, InputSize } from '../input';
 import { DatepickerNav, Month } from './base';
@@ -15,178 +15,161 @@ dayjs.extend(weekday);
 dayjs.extend(localizedFormat);
 
 export const DatepickerSelectors = {
-    DATEPICKER: 'datepicker',
-    NAV: 'nav',
-    NAV_MONTH_LABEL: 'month-label',
-    NAV_YEAR_LABEL: 'year-label',
-    MONTH: 'month',
-    DAY: 'day'
+  DATEPICKER: 'datepicker',
+  NAV: 'nav',
+  NAV_MONTH_LABEL: 'month-label',
+  NAV_YEAR_LABEL: 'year-label',
+  MONTH: 'month',
+  DAY: 'day'
 };
 
 type DatepickerContext = {
-    state: DatepickerState;
-    onSelectDay: (day: Dayjs) => void;
-    onNextMonth: (month: Dayjs) => void;
-    onPrevMonth: (month: Dayjs) => void;
-    close: () => void;
-    open: () => void;
+  state: DatepickerState;
+  onSelectDay: (day: Dayjs) => void;
+  onNextMonth: (month: Dayjs) => void;
+  onPrevMonth: (month: Dayjs) => void;
+  close: () => void;
+  open: () => void;
 }
 
 type DatepickerState = {
-    _show: boolean;
-    show: boolean;
-    _selected?: Dayjs;
-    selected?: Dayjs;
-    _month: Dayjs;
-    month: Dayjs;
-    _weekHolidays: number[];
-    weekHolidays: number[];
+  show: boolean;
+  selected?: Dayjs;
+  month: Dayjs;
+  weekHolidays: number[];
 }
 
 export type DatepickerProps = {
-    show?: boolean;
-    value?: string | number | Dayjs | Date;
-    month?: Dayjs;
-    onNextMonth?: (month: Dayjs) => void;
-    onPrevMonth?: (month: Dayjs) => void;
-    onSelectDay?: (day: Dayjs) => void;
-    onOpen?: () => void;
-    onClose?: () => void;
+  show?: boolean;
+  value?: string | number | Dayjs | Date;
+  month?: Dayjs;
+  onNextMonth?: (month: Dayjs) => void;
+  onPrevMonth?: (month: Dayjs) => void;
+  onSelectDay?: (day: Dayjs) => void;
+  onOpen?: () => void;
+  onClose?: () => void;
 
-    placeholder?: string;
-    color?: InputColor;
-    size?: InputSize;
-    class?: string;
-    bordered?: boolean;
-    error?: boolean;
+  placeholder?: string;
+  color?: InputColor;
+  size?: InputSize;
+  class?: string;
+  bordered?: boolean;
+  error?: boolean;
 
-    placement?: Placement;
-    weekHolidays?: number[];
-    closeOnSelect?: boolean;
+  placement?: Placement;
+  weekHolidays?: number[];
+  closeOnSelect?: boolean;
 }
 
-export const Datepicker: Component<DatepickerProps> = (props) => {
+export const Datepicker = (props: ParentProps<DatepickerProps>) => {
 
-    const [state, setState] = createStore<DatepickerState>({
-        _show: !!props.show,
-        _selected: props.value ? dayjs(props.value) : undefined,
-        _month: props.month || dayjs(),
-        _weekHolidays: props.weekHolidays || [],
+  const [state, setState] = createStore<DatepickerState>({
+    show: !!props.show,
+    selected: props.value ? dayjs(props.value) : undefined,
+    month: props.month || dayjs(),
+    weekHolidays: props.weekHolidays || [],
+  });
 
-        get show() {
-            return this._show;
-        },
-        get selected() {
-            return this._selected;
-        },
-        get month() {
-            return this._month;
-        },
-        get weekHolidays() {
-            return this._weekHolidays;
-        }
-    });
+  function open() {
+    if (!state.show) {
+      setState('show', true);
+      props.onOpen?.();
+    }
+  }
 
-    const open = () => {
-        if (!state.show) {
-            setState('_show', true);
-            props.onOpen?.();
-        }
-    };
+  function close() {
+    if (state.show) {
+      setState('show', false);
+      props.onClose?.();
+    }
+  }
 
-    const close = () => {
-        if (state.show) {
-            setState('_show', false);
-            props.onClose?.();
-        }
-    };
+  function onNextMonth() {
+    const month = state.month.add(1, 'month');
+    setState('month', month);
+    props.onNextMonth?.(month);
+  }
 
-    const onNextMonth = () => {
-        const month = state.month.add(1, 'month');
-        setState('_month', month);
-        props.onNextMonth?.(month);
-    };
+  function onPrevMonth() {
+    const month = state.month.subtract(1, 'month');
+    setState('month', month);
+    props.onPrevMonth?.(month);
+  }
 
-    const onPrevMonth = () => {
-        const month = state.month.subtract(1, 'month');
-        setState('_month', month);
-        props.onPrevMonth?.(month);
-    };
+  function onSelectDay(day: Dayjs) {
+    setState('selected', day);
+    props.onSelectDay?.(day);
+    if (props.closeOnSelect) {
+      close();
+    }
+  }
 
-    const onSelectDay = (day: Dayjs) => {
-        setState('_selected', day);
-        props.onSelectDay?.(day);
-        if (props.closeOnSelect) {
-            close();
-        }
-    };
+  function onInput(value: string) {
+    const date = dayjs(value);
+    const format = date.format('YYYY.MM.DD');
 
-    const onInput = (value: string) => {
-        const date = dayjs(value);
-        const format = date.format('YYYY.MM.DD');
+    if (format !== 'Invalid Date') {
+      setState('selected', date);
+      setState('month', date);
+    }
+  }
 
-        if (format !== 'Invalid Date') {
-            setState('_selected', date);
-            setState('_month', date);
-        }
-    };
+  return (
+    <DatepickerCtx.Provider value={{
+      state,
+      close,
+      open,
+      onSelectDay,
+      onNextMonth,
+      onPrevMonth,
+    }}>
+      <Popover
+        onClose={close}
+        onOpen={open}
+        show={state.show}
+        placement={props.placement}
 
-    return (
-        <DatepickerContext.Provider value={{
-            state,
-            close,
-            open,
-            onSelectDay,
-            onNextMonth,
-            onPrevMonth,
-        }}>
-            <Popover
-                onClose={close}
-                onOpen={open}
-                show={state.show}
-                placement={props.placement}
+        trigger={
+          <Input
+            placeholder={props.placeholder}
+            size={props.size}
+            color={props.color}
+            class={props.class}
+            error={props.error}
+            bordered={props.bordered}
 
-                trigger={
-                    <Input
-                        placeholder={props.placeholder}
-                        size={props.size}
-                        color={props.color}
-                        class={props.class}
-                        error={props.error}
-                        bordered={props.bordered}
+            value={state.selected?.format('YYYY.MM.DD')}
 
-                        value={state.selected?.format('YYYY.MM.DD')}
+            onChange={e => onInput(e.currentTarget.value)}
+            onFocus={() => open()}
+          />
+        }>
+        <div
+          data-testid={DatepickerSelectors.DATEPICKER}
+          class="shadow-xl bg-base-300 rounded-lg overflow-hidden"
+        >
+          <DatepickerNav
+            month={state.month}
+            onNext={onNextMonth}
+            onPrev={onPrevMonth}
+          />
 
-                        onChange={e => onInput(e.currentTarget.value)}
-                        onFocus={() => open()}
-                    />
-                }>
-                <div
-                    data-testid={DatepickerSelectors.DATEPICKER}
-                    class="shadow-xl bg-base-300 rounded-lg overflow-hidden"
-                >
-                    <DatepickerNav
-                        month={state.month}
-                        onNext={onNextMonth}
-                        onPrev={onPrevMonth}
-                    />
-
-                    <Month
-                        month={state.month}
-                        onSelectDay={onSelectDay}
-                    />
-                </div>
-            </Popover>
-        </DatepickerContext.Provider>
-    );
+          <Month
+            month={state.month}
+            onSelectDay={onSelectDay}
+          />
+        </div>
+      </Popover>
+    </DatepickerCtx.Provider>
+  );
 };
 
-const DatepickerContext = createContext<DatepickerContext>();
+const DatepickerCtx = createContext<DatepickerContext>();
 
 export const useDatepicker = () => {
-    const ctx = useContext(DatepickerContext);
-    if (ctx) {
-        return ctx;
-    }
-    throw new Error('No context for datepicker');
+  const ctx = useContext(DatepickerCtx);
+  if (ctx) {
+    return ctx;
+  }
+  throw new Error('No context for datepicker');
 };

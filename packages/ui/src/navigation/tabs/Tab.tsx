@@ -1,4 +1,4 @@
-import { Component, createSignal, JSXElement, onMount } from 'solid-js';
+import { createSignal, JSXElement, ParentProps } from 'solid-js';
 import { TabSelectors, useTabs } from './Tabs';
 import { PropFocusEvent } from '../../types';
 
@@ -8,40 +8,37 @@ export type TabProps = {
   onBlur?: (e: PropFocusEvent) => void;
 }
 
-export const Tab: Component<TabProps> = (props) => {
-  const tabs = useTabs();
+export const Tab = (props: ParentProps<TabProps>) => {
+  const ctx = useTabs();
   const [index, setIndex] = createSignal(-1);
 
-  onMount(() => {
-    initTab();
-  });
-
-  const initTab = () => {
-    const index = tabs.initTab(props.children);
+  function initTab() {
+    const index = ctx.initTab(props.children);
     setIndex(index);
-  };
+  }
 
-  const isActive = () => {
-    return tabs.state.active === index();
-  };
+  function isActive() {
+    return ctx.state.active === index();
+  }
 
-  const setTab = () => {
-    tabs.setActive(index());
-  };
+  function setTab() {
+    ctx.setActive(index());
+  }
 
   return (
     <button
       data-testid={TabSelectors.TAB}
+      ref={initTab}
       class="tab"
       classList={{
         'tab-active': isActive(),
-        'tab-bordered': tabs.state.view === 'bordered',
-        'tab-lifted': tabs.state.view === 'lifted',
+        'tab-bordered': ctx.state.view === 'bordered',
+        'tab-lifted': ctx.state.view === 'lifted',
 
-        'tab-xs': tabs.state.size === 'xs',
-        'tab-sm': tabs.state.size === 'sm',
-        'tab-md': tabs.state.size === 'md',
-        'tab-lg': tabs.state.size === 'lg',
+        'tab-xs': ctx.state.size === 'xs',
+        'tab-sm': ctx.state.size === 'sm',
+        'tab-md': ctx.state.size === 'md',
+        'tab-lg': ctx.state.size === 'lg',
       }}
       onClick={setTab}
       onFocus={props.onFocus}
