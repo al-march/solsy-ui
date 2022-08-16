@@ -1,29 +1,41 @@
-import { DaisySize } from '../../types';
-import { createContext, For, JSXElement, Match, ParentProps, Switch, useContext } from 'solid-js';
-import { createStore } from 'solid-js/store';
-import { Tab } from './Tab';
-import { Fade } from '../../utils';
+import { DaisySize } from "../../types";
+import { Fade } from "../../utils";
+import { Tab } from "./Tab";
+import {
+  createContext,
+  For,
+  JSXElement,
+  Match,
+  ParentProps,
+  Switch,
+  useContext,
+} from "solid-js";
+import { createStore } from "solid-js/store";
 
 export const TabSelectors = {
-  TAB_GROUP: 'tab-group',
-  TAB: 'tab',
+  TAB_WRAPPER: "tab-wrapper",
+  TAB_GROUP: "tab-group",
+  TAB: "tab",
 };
 
-export type TabView = 'bordered' | 'lifted' | 'boxed';
+export type TabView = "bordered" | "lifted" | "boxed";
+export type TabOrientation = "horizontal" | "vertical";
 export type TabSize = DaisySize;
 
 type TabsState = {
   active: number;
-  tabs: JSXElement[]
+  tabs: JSXElement[];
   size?: TabSize;
   view?: TabView;
-}
+  orientation?: TabOrientation;
+  class?: string;
+};
 
 type TabsCtx = {
   state: TabsState;
   initTab: (node: JSXElement) => number;
   setActive: (i: number) => void;
-}
+};
 
 const TabsCtx = createContext<TabsCtx>();
 
@@ -32,7 +44,7 @@ export const useTabs = () => {
   if (ctx) {
     return ctx;
   }
-  throw new Error('No context for Tabs');
+  throw new Error("No context for Tabs");
 };
 
 export type TabsProps = {
@@ -41,7 +53,9 @@ export type TabsProps = {
   view?: TabView;
   size?: TabSize;
   animation?: boolean;
-}
+  orientation?: TabOrientation;
+  class?: string;
+};
 
 /**
  * @example
@@ -63,11 +77,17 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
     },
     get view() {
       return props.view;
-    }
+    },
+    get orientation() {
+      return props.orientation || "horizontal";
+    },
+    get class() {
+      return props.class || TabSelectors.TAB_WRAPPER;
+    },
   });
 
   function initTab(tab: JSXElement) {
-    setState('tabs', tabs => [...tabs, tab]);
+    setState("tabs", (tabs) => [...tabs, tab]);
     return state.tabs.length - 1;
   }
 
@@ -76,40 +96,52 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
       return;
     }
     props.onInput?.(index);
-    setState('active', index);
+    setState("active", index);
   }
 
   return (
-    <TabsCtx.Provider value={{
-      state,
-      initTab,
-      setActive,
-    }}>
+    <TabsCtx.Provider
+      value={{
+        state,
+        initTab,
+        setActive,
+      }}
+    >
       <div
-        data-testid={TabSelectors.TAB_GROUP}
-        class="tabs"
+        class={`flex ${state.class}`}
         classList={{
-          'tabs-boxed': state.view === 'boxed'
+          "flex-col": state.orientation === "horizontal",
+          "flex-row": state.orientation === "vertical",
         }}
       >
-        {props.children}
-      </div>
+        <div
+          data-testid={TabSelectors.TAB_GROUP}
+          class="tabs flex"
+          classList={{
+            "tabs-boxed": state.view === "boxed",
+            "flex-col": state.orientation === "vertical",
+            "flex-row": state.orientation === "horizontal",
+          }}
+        >
+          {props.children}
+        </div>
 
-      <div class="p-4">
-        <Switch>
-          <For each={state.tabs}>
-            {(tab, i) => (
-              <Match when={state.active === i()}>
-                <Fade appear>
-                  <div>{tab}</div>
-                </Fade>
-              </Match>
-            )}
-          </For>
-        </Switch>
+        <div class="p-4">
+          <Switch>
+            <For each={state.tabs}>
+              {(tab, i) => (
+                <Match when={state.active === i()}>
+                  <Fade appear>
+                    <div>{tab}</div>
+                  </Fade>
+                </Match>
+              )}
+            </For>
+          </Switch>
+        </div>
       </div>
     </TabsCtx.Provider>
   );
 };
 
-export const Tabs = Object.assign(TabsBase, {Item: Tab});
+export const Tabs = Object.assign(TabsBase, { Item: Tab });
