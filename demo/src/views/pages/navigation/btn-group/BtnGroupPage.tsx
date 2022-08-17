@@ -21,6 +21,19 @@ export const BtnGroupPage: Component = () => {
         <BtnGroup.Item>2</BtnGroup.Item>
         <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
       </BtnGroup>
+
+      <span class="divider"/>
+
+      <div class="w-32">
+        <BtnGroup
+          size="sm"
+          orientation="vertical"
+        >
+          <BtnGroup.Item>1</BtnGroup.Item>
+          <BtnGroup.Item>2</BtnGroup.Item>
+          <BtnGroup.Item>3</BtnGroup.Item>
+        </BtnGroup>
+      </div>
     </Page>
   );
 };
