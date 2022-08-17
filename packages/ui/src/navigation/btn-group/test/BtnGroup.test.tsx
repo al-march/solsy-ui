@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { BtnGroupSelectors, BtnGroupSize, BtnGroup } from '../BtnGroup';
+import { BtnGroup, BtnGroupSelectors, BtnGroupSize } from '../BtnGroup';
 import { ObjectKeys } from '../../../utils/object';
 
 const toggleButtons = ['first', 'second', 'third'];
@@ -165,4 +165,32 @@ describe('ToggleButtons', () => {
       expect(isButtonActive(button)).toBeTruthy();
     });
   });
+  test('should set custom class', () => {
+    const customClass = 'custom-class';
+
+    render(() => (
+      <BtnGroup
+        multiple
+        class={customClass}
+      >
+        <For each={toggleButtons}>
+          {(btn) => <BtnGroup.Item value={btn} class={customClass}>{btn}</BtnGroup.Item>}
+        </For>
+      </BtnGroup>
+    ));
+
+    expect(screen.getByTestId(BtnGroupSelectors.GROUP)).toHaveClass(customClass);
+    screen.getAllByTestId(BtnGroupSelectors.BUTTON).forEach(btn => {
+      expect(btn).toHaveClass(customClass);
+    });
+  });
+
+  test('should be vertical', () => {
+    render(() => (
+      <BtnGroup orientation="vertical">
+        <For each={toggleButtons}>{(btn) => <BtnGroup.Item>{btn}</BtnGroup.Item>}</For>
+      </BtnGroup>
+    ));
+    expect(screen.getByTestId(BtnGroupSelectors.GROUP)).toHaveClass('btn-group-vertical')
+  })
 });

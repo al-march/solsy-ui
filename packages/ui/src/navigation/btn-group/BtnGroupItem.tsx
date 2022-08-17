@@ -7,10 +7,10 @@ type Props<T = any> = {
   disabled?: boolean;
   defaultChecked?: boolean;
   onClick?: (v: T | number) => void;
+  class?: string;
 }
 
 export const BtnGroupItem = <T extends any>(props: ParentProps<Props<T>>) => {
-
   const ctx = useBtnGroup();
   const [value, setValue] = createSignal<T | number>(props.value || 0);
 
@@ -44,6 +44,7 @@ export const BtnGroupItem = <T extends any>(props: ParentProps<Props<T>>) => {
       active={isActive()}
       onClick={onClick}
       size={ctx.state.size}
+      class={props.class}
     >
       {props.children}
     </Button>

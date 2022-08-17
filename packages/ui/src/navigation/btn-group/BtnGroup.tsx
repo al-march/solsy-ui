@@ -37,6 +37,8 @@ export type BtnGroupProps<T extends any> = {
   multiple?: boolean;
   onInput?: (v: T) => void;
   size?: BtnGroupSize;
+  orientation?: 'horizontal' | 'vertical';
+  class?: string;
 }
 
 /**
@@ -126,6 +128,10 @@ const BtnGroupBase = <T extends any>(props: ParentProps<BtnGroupProps<T>>) => {
       <div
         data-testid={BtnGroupSelectors.GROUP}
         class="btn-group"
+        classList={{
+          [props.class || '']: !!props.class,
+          'btn-group-vertical': props.orientation === 'vertical',
+        }}
       >
         {props.children}
       </div>
