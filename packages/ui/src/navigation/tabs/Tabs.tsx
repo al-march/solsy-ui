@@ -10,20 +10,23 @@ export const TabSelectors = {
 };
 
 export type TabView = 'bordered' | 'lifted' | 'boxed';
+export type TabOrientation = 'horizontal' | 'vertical';
 export type TabSize = DaisySize;
 
 type TabsState = {
   active: number;
-  tabs: JSXElement[]
+  tabs: JSXElement[];
   size?: TabSize;
   view?: TabView;
-}
+  orientation?: TabOrientation;
+  class?: string;
+};
 
 type TabsCtx = {
   state: TabsState;
   initTab: (node: JSXElement) => number;
   setActive: (i: number) => void;
-}
+};
 
 const TabsCtx = createContext<TabsCtx>();
 
@@ -41,7 +44,9 @@ export type TabsProps = {
   view?: TabView;
   size?: TabSize;
   animation?: boolean;
-}
+  orientation?: TabOrientation;
+  class?: string;
+};
 
 /**
  * @example
@@ -63,11 +68,17 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
     },
     get view() {
       return props.view;
-    }
+    },
+    get orientation() {
+      return props.orientation || 'horizontal';
+    },
+    get class() {
+      return props.class;
+    },
   });
 
   function initTab(tab: JSXElement) {
-    setState('tabs', tabs => [...tabs, tab]);
+    setState('tabs', (tabs) => [...tabs, tab]);
     return state.tabs.length - 1;
   }
 
@@ -86,27 +97,38 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
       setActive,
     }}>
       <div
-        data-testid={TabSelectors.TAB_GROUP}
-        class="tabs"
+        class="flex"
         classList={{
-          'tabs-boxed': state.view === 'boxed'
+          'flex-col': state.orientation === 'horizontal',
+          'flex-row': state.orientation === 'vertical',
         }}
       >
-        {props.children}
-      </div>
+        <div
+          data-testid={TabSelectors.TAB_GROUP}
+          class="tabs flex"
+          classList={{
+            [state.class || '']: !!state.class,
+            'tabs-boxed': state.view === 'boxed',
+            'flex-col': state.orientation === 'vertical',
+            'flex-row': state.orientation === 'horizontal',
+          }}
+        >
+          {props.children}
+        </div>
 
-      <div class="p-4">
-        <Switch>
-          <For each={state.tabs}>
-            {(tab, i) => (
-              <Match when={state.active === i()}>
-                <Fade appear>
-                  <div>{tab}</div>
-                </Fade>
-              </Match>
-            )}
-          </For>
-        </Switch>
+        <div class="p-4">
+          <Switch>
+            <For each={state.tabs}>
+              {(tab, i) => (
+                <Match when={state.active === i()}>
+                  <Fade appear>
+                    <div>{tab}</div>
+                  </Fade>
+                </Match>
+              )}
+            </For>
+          </Switch>
+        </div>
       </div>
     </TabsCtx.Provider>
   );
