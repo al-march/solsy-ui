@@ -7,7 +7,7 @@ module.exports = {
   quoteProps: 'consistent',
   jsxSingleQuote: true,
   bracketSpacing: false,
-  bracketSameLine: true,
+  bracketSameLine: false,
   arrowParens: 'avoid',
   endOfLine: 'lf',
   plugins: [
