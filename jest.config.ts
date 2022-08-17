@@ -16,7 +16,7 @@ module.exports = {
             babelConfig: {
                 presets: ["babel-preset-solid", "@babel/preset-env"],
             },
-        },
+        },        
     },
     moduleNameMapper: {
         "solid-js/web": `${solidjsPath}/web/dist/web.cjs`,
@@ -25,6 +25,6 @@ module.exports = {
         "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     },
     setupFilesAfterEnv: [
-        "./jest.setup.ts",
+        "<rootDir>/jest.setup.ts",
     ]
 };
