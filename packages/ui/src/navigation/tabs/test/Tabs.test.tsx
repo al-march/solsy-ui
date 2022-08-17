@@ -13,6 +13,8 @@ type ToggleClasses = {
   boxed: string;
   bordered: string;
   lifted: string;
+  vertical: string;
+  horizontal: string;
 }
 
 const addPrefix = (name: string) => `tab-${name}`;
@@ -28,6 +30,8 @@ const classes: ToggleClasses = {
   boxed: 'tabs-boxed',
   bordered: addPrefix('bordered'),
   lifted: addPrefix('lifted'),
+  vertical: 'flex-col',
+  horizontal: 'flex-row',
 };
 
 const tabs = [{
@@ -103,6 +107,18 @@ describe('Tabs', () => {
       });
       cleanup();
     });
+  });
+  test('should set custom class', () => {
+    const myClass = 'my-custom-class';
+    render(() => <TabsTest class={myClass}/>);
+    expect(screen.getByTestId(TabSelectors.TAB_GROUP)).toHaveClass(myClass);
+  });
+  test('should set orientation classes', () => {
+    render(() => <TabsTest orientation='vertical'/>);
+    expect(screen.getByTestId(TabSelectors.TAB_GROUP)).toHaveClass(classes.vertical);
+    cleanup();
+    render(() => <TabsTest/>);
+    expect(screen.getByTestId(TabSelectors.TAB_GROUP)).toHaveClass(classes.horizontal);
   });
   test('should tab emit onFocus event', () => {
     const onFocus = jest.fn();

@@ -1,25 +1,16 @@
-import { DaisySize } from "../../types";
-import { Fade } from "../../utils";
-import { Tab } from "./Tab";
-import {
-  createContext,
-  For,
-  JSXElement,
-  Match,
-  ParentProps,
-  Switch,
-  useContext,
-} from "solid-js";
-import { createStore } from "solid-js/store";
+import { DaisySize } from '../../types';
+import { createContext, For, JSXElement, Match, ParentProps, Switch, useContext } from 'solid-js';
+import { createStore } from 'solid-js/store';
+import { Tab } from './Tab';
+import { Fade } from '../../utils';
 
 export const TabSelectors = {
-  TAB_WRAPPER: "tab-wrapper",
-  TAB_GROUP: "tab-group",
-  TAB: "tab",
+  TAB_GROUP: 'tab-group',
+  TAB: 'tab',
 };
 
-export type TabView = "bordered" | "lifted" | "boxed";
-export type TabOrientation = "horizontal" | "vertical";
+export type TabView = 'bordered' | 'lifted' | 'boxed';
+export type TabOrientation = 'horizontal' | 'vertical';
 export type TabSize = DaisySize;
 
 type TabsState = {
@@ -44,7 +35,7 @@ export const useTabs = () => {
   if (ctx) {
     return ctx;
   }
-  throw new Error("No context for Tabs");
+  throw new Error('No context for Tabs');
 };
 
 export type TabsProps = {
@@ -79,15 +70,15 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
       return props.view;
     },
     get orientation() {
-      return props.orientation || "horizontal";
+      return props.orientation || 'horizontal';
     },
     get class() {
-      return props.class || TabSelectors.TAB_WRAPPER;
+      return props.class;
     },
   });
 
   function initTab(tab: JSXElement) {
-    setState("tabs", (tabs) => [...tabs, tab]);
+    setState('tabs', (tabs) => [...tabs, tab]);
     return state.tabs.length - 1;
   }
 
@@ -96,31 +87,30 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
       return;
     }
     props.onInput?.(index);
-    setState("active", index);
+    setState('active', index);
   }
 
   return (
-    <TabsCtx.Provider
-      value={{
-        state,
-        initTab,
-        setActive,
-      }}
-    >
+    <TabsCtx.Provider value={{
+      state,
+      initTab,
+      setActive,
+    }}>
       <div
-        class={`flex ${state.class}`}
+        class="flex"
         classList={{
-          "flex-col": state.orientation === "horizontal",
-          "flex-row": state.orientation === "vertical",
+          'flex-col': state.orientation === 'horizontal',
+          'flex-row': state.orientation === 'vertical',
         }}
       >
         <div
           data-testid={TabSelectors.TAB_GROUP}
           class="tabs flex"
           classList={{
-            "tabs-boxed": state.view === "boxed",
-            "flex-col": state.orientation === "vertical",
-            "flex-row": state.orientation === "horizontal",
+            [state.class || '']: !!state.class,
+            'tabs-boxed': state.view === 'boxed',
+            'flex-col': state.orientation === 'vertical',
+            'flex-row': state.orientation === 'horizontal',
           }}
         >
           {props.children}
@@ -144,4 +134,4 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
   );
 };
 
-export const Tabs = Object.assign(TabsBase, { Item: Tab });
+export const Tabs = Object.assign(TabsBase, {Item: Tab});
