@@ -16,7 +16,7 @@ module.exports = {
             babelConfig: {
                 presets: ["babel-preset-solid", "@babel/preset-env"],
             },
-        },        
+        },
     },
     moduleNameMapper: {
         "solid-js/web": `${solidjsPath}/web/dist/web.cjs`,
