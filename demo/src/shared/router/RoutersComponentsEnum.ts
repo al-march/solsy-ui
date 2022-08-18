@@ -14,6 +14,7 @@ export enum RoutersComponentsEnum {
   TOOLTIP = 'tooltip',
   POPOVER = 'popover',
   COLLAPSE = 'collapse',
+  DIVIDER = 'divider',
   TOGGLE = 'toggle',
   DIVIDER = 'divider',
 }
