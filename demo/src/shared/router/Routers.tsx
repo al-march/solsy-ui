@@ -19,6 +19,7 @@ import { PopoverPage } from '../../views/pages/data/popover/PopoverPage';
 import { AutocompletePage } from '../../views/pages/form/autocomplete/AutocompletePage';
 import { TextareaPage } from '../../views/pages/form/textarea/TextareaPage';
 import { CollapsePage } from '../../views/pages/data/collapse/CollapsePage';
+import { BadgePage } from '../../views/pages/data/badge/BadgePage';
 
 
 export const Routers: Component = () => {
@@ -37,6 +38,7 @@ export const Routers: Component = () => {
             <Route path={`/${RoutersComponentsEnum.RANGE}`} element={<RangePage/>}/>
             <Route path={`/${RoutersComponentsEnum.MODALS}`} element={<ModalPage/>}/>
             <Route path={`/${RoutersComponentsEnum.BUTTON}`} element={<ButtonPage/>}/>
+            <Route path={`/${RoutersComponentsEnum.BADGE}`} element={<BadgePage/>}/>
             <Route path={`/${RoutersComponentsEnum.TOOLTIP}`} element={<TooltipPage/>}/>
             <Route path={`/${RoutersComponentsEnum.POPOVER}`} element={<PopoverPage/>}/>
             <Route path={`/${RoutersComponentsEnum.COLLAPSE}`} element={<CollapsePage/>}/>

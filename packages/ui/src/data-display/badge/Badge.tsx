@@ -12,6 +12,7 @@ export type BadgeProps = {
   color?: BadgeColor;
   size?: BadgeSize;
   outline?: boolean;
+  class?: string;
 }
 
 export const Badge = (props: ParentProps<BadgeProps>) => {
@@ -20,12 +21,12 @@ export const Badge = (props: ParentProps<BadgeProps>) => {
       data-testid={BadgeSelectors.BADGE}
       class="badge"
 
-      classList={{
+      classList={{        
         'badge-lg': props.size === 'lg',
         'badge-md': props.size === 'md',
         'badge-sm': props.size === 'sm',
-        'badge-xs': props.size === 'xs',
-
+        'badge-xs py-1.5 text-xxs': props.size === 'xs',
+        
         'badge-primary': props.color === 'primary',
         'badge-secondary': props.color === 'secondary',
         'badge-accent': props.color === 'accent',
@@ -34,8 +35,10 @@ export const Badge = (props: ParentProps<BadgeProps>) => {
         'badge-warning': props.color === 'warning',
         'badge-error': props.color === 'error',
         'badge-ghost': props.color === 'ghost',
-
-        'badge-outline': props.outline
+        
+        'badge-outline': props.outline,
+        
+        [props.class || '']: !!props.class,
       }}
     >
       {props.children}

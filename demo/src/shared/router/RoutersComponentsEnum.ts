@@ -14,6 +14,7 @@ export enum RoutersComponentsEnum {
   TOOLTIP = 'tooltip',
   POPOVER = 'popover',
   COLLAPSE = 'collapse',
+  BADGE = 'badge',
 }
 
 export enum RouterSDKEnum {

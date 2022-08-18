@@ -53,6 +53,7 @@ export const Drawer = (props: ParentProps) => {
 
                     <Menu>
                         <MenuTitle>Data view</MenuTitle>
+                        <MenuLink href={`/${RoutersComponentsEnum.BADGE}`}>Badge</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.TOOLTIP}`}>Tooltip</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.POPOVER}`}>Popover</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.COLLAPSE}`}>Collapse</MenuLink>
