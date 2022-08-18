@@ -5,6 +5,7 @@ import { Modal, ModalAction } from '../../../../../../packages/ui/src/actions';
 export const ModalPage: Component = () => {
 
     const [show, setShow] = createSignal(false);
+    let closeButton;
 
     function toggleModal() {
         setShow(!show());
@@ -15,9 +16,9 @@ export const ModalPage: Component = () => {
             <h2 class="text-2xl">Modals</h2>
             <br/>
 
-            <button class="btn btn-primary" onClick={toggleModal}>Open</button>
+            <button ref={closeButton} class="btn btn-primary" onClick={toggleModal}>Open</button>
 
-            <Modal isShow={show()} onBackdropClick={toggleModal}>
+            <Modal isShow={show()} onBackdropClick={toggleModal} trigger={closeButton}>
                 <h3 class="font-bold text-2xl">Modal title</h3>
                 <div class="divider"/>
                 <p>Modal description</p>
