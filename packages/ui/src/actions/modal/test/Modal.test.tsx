@@ -5,14 +5,15 @@ import { Component, createSignal } from 'solid-js';
 const ModalTest: Component<ModalProps> = (props) => {
     const [show, setShow] = createSignal(props.isShow);
     const toggle = () => setShow(!show());
+    let closeButton: HTMLButtonElement | undefined;
 
     return (
         <>
             <button data-testid="modal-btn" onClick={toggle}>btn</button>
-            <Modal isShow={show()} onBackdropClick={toggle} onClose={props.onClose}>
+            <Modal isShow={show()} onBackdropClick={toggle} onClose={props.onClose} trigger={closeButton}>
                 <div data-testid="modal-content">
                     <h3 class="font-bold text-lg">Modal title</h3>
-                    <button data-testid="close-modal-btn" onClick={toggle}>close</button>
+                    <button ref={closeButton} data-testid="close-modal-btn" onClick={toggle}>close</button>
                 </div>
             </Modal>
         </>
@@ -83,5 +84,18 @@ describe('Modal', () => {
 
         fireEvent.click(screen.getByTestId(ModalSelectors.BACKDROP));
         expect(onBackdropClick).toBeCalled();
+    });
+
+    test('should focused on show', async () => {
+        await render(() => <ModalTest isShow={false}/>);
+        fireEvent.click(await btn());
+        expect(await content()).toHaveFocus();
+    });
+    
+    test('should focused on trigger after closing', async () => {
+        await render(() => <ModalTest isShow={true}/>);
+        fireEvent.click(screen.getByTestId('close-modal-btn'));
+        await Promise.resolve();
+        expect(await btn()).toHaveFocus();
     });
 });
