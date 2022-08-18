@@ -44,6 +44,12 @@ export const Drawer = (props: ParentProps) => {
                     </Menu>
 
                     <Menu>
+                      <MenuTitle>Layout</MenuTitle>
+                      <MenuLink href={`/${RoutersComponentsEnum.DIVIDER}`}>Divider</MenuLink>
+                      <MenuDivider/>
+                    </Menu>
+
+                    <Menu>
                         <MenuTitle>Navigation</MenuTitle>
                         <MenuLink href={`/${RoutersComponentsEnum.MENU}`}>Menu</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.TABS}`}>Tabs</MenuLink>
