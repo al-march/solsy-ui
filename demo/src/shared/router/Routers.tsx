@@ -8,7 +8,8 @@ import {
         NotFound,
         RangePage,
         SelectPage,
-        TabsPage
+        TabsPage,
+        TogglePage
 } from '../../views/pages';
 import { RoutersComponentsEnum, RouterSDKEnum } from './RoutersComponentsEnum';
 import { ButtonPage, ModalPage } from '../../views/pages/actions';
@@ -31,6 +32,7 @@ export const Routers: Component = () => {
             <Route path={`/${RoutersComponentsEnum.FORM_TEXTAREA}`} element={<TextareaPage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_AUTOCOMPLETE}`} element={<AutocompletePage/>}/>
             <Route path={`/${RoutersComponentsEnum.FORM_DATEPICKER}`} element={<DatepickerPage/>}/>
+            <Route path={`/${RoutersComponentsEnum.TOGGLE}`} element={<TogglePage/>} />
             <Route path={`/${RoutersComponentsEnum.MENU}`} element={<MenuPage/>}/>
             <Route path={`/${RoutersComponentsEnum.TABS}`} element={<TabsPage/>}/>
             <Route path={`/${RoutersComponentsEnum.BTN_GROUPS}`} element={<BtnGroupPage/>}/>
