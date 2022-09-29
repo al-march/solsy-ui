@@ -71,7 +71,7 @@
     "prettier-plugin-sort-json": "^0.0.2",
     "regenerator-runtime": "^0.13.9",
     "solid-jest": "^0.2.0",
-    "solid-js": "^1.4.4",
+    "solid-js": "^1.5.7",
     "solid-testing-library": "^0.3.0",
     "ts-jest": "^27.1.5",
     "ts-node": "^10.8.1",

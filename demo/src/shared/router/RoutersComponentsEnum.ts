@@ -15,6 +15,7 @@ export enum RoutersComponentsEnum {
   POPOVER = 'popover',
   COLLAPSE = 'collapse',
   AVATAR = 'avatar',
+  TOGGLE = 'toggle',
 }
 
 export enum RouterSDKEnum {

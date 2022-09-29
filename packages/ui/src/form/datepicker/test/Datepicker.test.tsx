@@ -91,7 +91,7 @@ describe('Datepicker', () => {
     });
 
     test('should emit valid prev month', () => {
-      let onPrevValue: any = null;
+      let onPrevValue!: Dayjs;
       const month = dayjs();
       render(() => (
         <Datepicker
@@ -101,18 +101,17 @@ describe('Datepicker', () => {
         />
       ));
 
-      const toISOString = (date: Dayjs) => date.toDate().toISOString();
       const [prev] = screen.getByTestId(NAV).querySelectorAll('button');
 
       for (let i = 1; i <= 12; i++) {
         fireEvent.click(prev);
         const prevMonth = month.subtract(i, 'month');
-        expect(toISOString(onPrevValue)).toBe(toISOString(prevMonth));
+        expect(onPrevValue.get('month')).toBe(prevMonth.get('month'));
       }
     });
 
     test('should emit valid next month', () => {
-      let onNextValue: any = null;
+      let onNextValue!: Dayjs;
       const month = dayjs();
       render(() => (
         <Datepicker
@@ -125,8 +124,8 @@ describe('Datepicker', () => {
 
       for (let i = 1; i <= 12; i++) {
         fireEvent.click(next);
-        const prevMonth = month.add(i, 'month');
-        expect(toISOString(onNextValue)).toBe(toISOString(prevMonth));
+        const nextMonth = month.add(i, 'month');
+        expect(onNextValue.get('month')).toBe(nextMonth.get('month'));
       }
     });
 
