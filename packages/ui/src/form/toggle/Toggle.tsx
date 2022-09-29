@@ -21,6 +21,7 @@ export type ToggleProps = {
 
   color?: ToggleColor;
   size?: ToggleSize;
+  disabled?: boolean;
   class?: string;
 
   indeterminate?: boolean
@@ -44,7 +45,7 @@ export const Toggle = (props: ToggleProps) => {
         setRef(el);
         props.ref?.(el);
       }}
-      class={`toggle ${props.class || ''}`}
+      class="toggle"
       classList={{
         'toggle-accent': props.color === 'accent',
         'toggle-primary': props.color === 'primary',
@@ -54,9 +55,12 @@ export const Toggle = (props: ToggleProps) => {
         'toggle-md': props.size === 'md',
         'toggle-sm': props.size === 'sm',
         'toggle-xs': props.size === 'xs',
+
+        [props.class || '']: !!props.class,
       }}
       type="checkbox"
       checked={props.value}
+      disabled={props.disabled}
 
       onInput={props.onInput}
       onChange={props.onChange}

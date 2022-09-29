@@ -40,6 +40,7 @@ export const Drawer = (props: ParentProps) => {
                         <MenuLink href={`/${RoutersComponentsEnum.FORM_AUTOCOMPLETE}`}>Autocomplete</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.FORM_DATEPICKER}`}>Datepicker</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.RANGE}`}>Range</MenuLink>
+                        <MenuLink href={`/${RoutersComponentsEnum.TOGGLE}`}>Toggle</MenuLink>
                         <MenuDivider/>
                     </Menu>
 
@@ -62,6 +63,7 @@ export const Drawer = (props: ParentProps) => {
                         <MenuLink href={`/${RoutersComponentsEnum.TOOLTIP}`}>Tooltip</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.POPOVER}`}>Popover</MenuLink>
                         <MenuLink href={`/${RoutersComponentsEnum.COLLAPSE}`}>Collapse</MenuLink>
+                        <MenuLink href={`/${RoutersComponentsEnum.AVATAR}`}>Avatar</MenuLink>
                     </Menu>
                 </div>
             </div>
