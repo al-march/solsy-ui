@@ -20,6 +20,7 @@ import { PopoverPage } from '../../views/pages/data/popover/PopoverPage';
 import { AutocompletePage } from '../../views/pages/form/autocomplete/AutocompletePage';
 import { TextareaPage } from '../../views/pages/form/textarea/TextareaPage';
 import { CollapsePage } from '../../views/pages/data/collapse/CollapsePage';
+import { DividerPage } from '../../views/pages/layout/divider/DividerPage';
 import { AvatarPage } from '../../views/pages/data/avatar/AvatarPage';
 
 
@@ -43,6 +44,7 @@ export const Routers: Component = () => {
             <Route path={`/${RoutersComponentsEnum.TOOLTIP}`} element={<TooltipPage/>}/>
             <Route path={`/${RoutersComponentsEnum.POPOVER}`} element={<PopoverPage/>}/>
             <Route path={`/${RoutersComponentsEnum.COLLAPSE}`} element={<CollapsePage/>}/>
+            <Route path={`/${RoutersComponentsEnum.DIVIDER}`} element={<DividerPage/>}/>
             <Route path={`/${RoutersComponentsEnum.AVATAR}`} element={<AvatarPage/>}/>
             <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage/>}/>
 
