@@ -43,8 +43,8 @@ export const Modal = (props: ParentProps<ModalProps>) => {
     if (props.isShow) {
       setShow(true);
     }
-    if (show()) {
-      modalRef && focusOn(modalRef);
+    if (modalRef) {
+      focusOn(modalRef);
     }
   });
 
@@ -65,7 +65,9 @@ export const Modal = (props: ParentProps<ModalProps>) => {
   };
 
   const focusOn = (el: HTMLElement) => {
-    el && el.focus();
+    setTimeout(() => {
+      el?.focus();
+    });
   };
 
   onMount(() => {
@@ -81,18 +83,22 @@ export const Modal = (props: ParentProps<ModalProps>) => {
   });
 
   return (
-    <Show when={show()}>
+    <Show when={show()} keyed>
       <Portal>
         <div
           data-testid={ModalSelectors.BACKDROP}
-          class='modal opacity-100 visible z-50 pointer-events-auto'
+          class="modal opacity-100 visible z-50 pointer-events-auto"
           onClick={backdropClickHandler}
         >
           <ScaleTransition appear onExit={close}>
-            <Show when={props.isShow}>
+            <Show when={props.isShow} keyed>
               <div
                 data-testid={ModalSelectors.MODAL}
-                ref={modalRef}
+                tabIndex="0"
+                ref={ref => {
+                  modalRef = ref;
+                  focusOn(ref);
+                }}
                 class={`modal-box transition-none transform-none opacity-100 ${
                   props.class || ''
                 }`}
