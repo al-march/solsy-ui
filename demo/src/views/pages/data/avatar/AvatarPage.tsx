@@ -1,5 +1,5 @@
-import {Avatar} from '../../../../../../packages/ui/src/data-display';
-import {Page} from '../../base/Page';
+import {Page} from '@page/base';
+import {Avatar} from '@ui/data-display';
 
 export const AvatarPage = () => {
   return (

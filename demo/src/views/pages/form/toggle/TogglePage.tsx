@@ -1,5 +1,5 @@
-import {Toggle} from '../../../../../../packages/ui/src/form';
-import {Page} from '../../base/Page';
+import {Page} from '@page/base';
+import {Toggle} from '@ui/form';
 import {Component} from 'solid-js';
 
 export const TogglePage: Component = () => {

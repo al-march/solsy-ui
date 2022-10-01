@@ -1,10 +1,10 @@
-export enum RoutersComponentsEnum {
+export enum Points {
   HOME = '',
-  FORM_SELECT = 'select',
-  FORM_INPUT = 'input',
-  FORM_TEXTAREA = 'textarea',
-  FORM_AUTOCOMPLETE = 'autocomplete',
-  FORM_DATEPICKER = 'datepicker',
+  SELECT = 'select',
+  INPUT = 'input',
+  TEXTAREA = 'textarea',
+  AUTOCOMPLETE = 'autocomplete',
+  DATEPICKER = 'datepicker',
   MENU = 'menu',
   TABS = 'tabs',
   BTN_GROUPS = 'btn-groups',
@@ -20,5 +20,5 @@ export enum RoutersComponentsEnum {
 }
 
 export enum RouterSDKEnum {
-  FORM = 'sdk/form'
+  FORM = 'sdk/form',
 }

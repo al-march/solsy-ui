@@ -12,7 +12,11 @@
     "noEmit": true,
     "isolatedModules": true,
     "paths": {
-      "@ui/*": ["../packages/ui/src/*"]
+      "@ui/*": ["../packages/ui/src/*"],
+      "@src/*": ["./src/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@page/*": ["./src/views/pages/*"],
+      "@template/*": ["./src/views/template/*"],
     }
   }
 }
