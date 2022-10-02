@@ -18,11 +18,8 @@ const capitalize = (word: string) => {
 const AlertsPageContent = () => {
   const alerts = useAlerts();
 
-  function onActionAlert(message: string) {
+  function onCloseAction(message: string, alertId: number) {
     console.log('[alert.message]:', message);
-  }
-
-  function onCloseAlert(alertId: number) {
     alerts.close(alertId);
   }
 
@@ -34,14 +31,11 @@ const AlertsPageContent = () => {
     alert.action = () => (
       <div class="flex gap-2">
         <Button
-          onClick={() => onActionAlert(message)}
+          onClick={() => onCloseAction(message, alert.id)}
           size="sm"
-          color="primary"
+          color="ghost"
         >
-          Log message
-        </Button>
-        <Button onClick={() => onCloseAlert(alert.id)} size="sm" color="ghost">
-          Close
+          x
         </Button>
       </div>
     );

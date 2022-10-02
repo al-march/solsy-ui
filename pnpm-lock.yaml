@@ -113,11 +113,11 @@ importers:
       rollup: ^2.75.7
       rollup-preset-solid: ^1.4.0
       solid-js: ^1.5.0
-      solid-transition-group: ^0.0.10
+      solid-transition-group: ^0.0.11
     dependencies:
       '@popperjs/core': 2.11.6
       dayjs: 1.11.5
-      solid-transition-group: 0.0.10_solid-js@1.5.7
+      solid-transition-group: 0.0.11_solid-js@1.5.7
     devDependencies:
       '@rollup/plugin-commonjs': 22.0.2_rollup@2.78.0
       rollup: 2.78.0
@@ -7745,8 +7745,8 @@ packages:
       solid-js: 1.5.7
     dev: true
 
-  /solid-transition-group/0.0.10_solid-js@1.5.7:
-    resolution: {integrity: sha512-b3O9z6BUP60CG1WnTdqFuvHms0reDNYwQF+eAEEaSaoDEmiOu9+Lu7zQgWGySJjaAdSAClhmFCmx/eAjQgfIoA==}
+  /solid-transition-group/0.0.11_solid-js@1.5.7:
+    resolution: {integrity: sha512-WcMhZvaQKAWfByVgtJuKwR2naXQHG1tJHDvqsC/EyNsoNWRkDu+9AWcwaUWW1kXZ24n17We0IIRe7z4G5dEYRw==}
     peerDependencies:
       solid-js: ^1.0.0
     dependencies:

@@ -1,6 +1,6 @@
-import {SlideUpTransition} from '../../utils';
 import {Alert} from './Alert';
 import {AlertType} from './types';
+import {AlertTransition} from './utils/AlertTransition';
 import {
   createContext,
   createMemo,
@@ -122,19 +122,21 @@ export const AlertsContainer = (props: ParentProps) => {
 
       <Portal>
         <div class="container fixed bottom-2 left-0 right-0 flex flex-col gap-2">
-          <For each={stack()}>
-            {alert => (
-              <SlideUpTransition appear>
-                <Alert
-                  type={alert.type}
-                  action={alert.action}
-                  onClose={() => close(alert.id)}
-                >
-                  {alert.message}
-                </Alert>
-              </SlideUpTransition>
-            )}
-          </For>
+          <AlertTransition>
+            <For each={stack()}>
+              {alert => (
+                <div class="overflow-hidden">
+                  <Alert
+                    type={alert.type}
+                    action={alert.action}
+                    onClose={() => close(alert.id)}
+                  >
+                    {alert.message}
+                  </Alert>
+                </div>
+              )}
+            </For>
+          </AlertTransition>
         </div>
       </Portal>
     </AlertsCtx.Provider>
