@@ -23,10 +23,9 @@ const AlertsPageContent = () => {
     alerts.close(alertId);
   }
 
-  function create(type: AlertType) {
-    const message = capitalize(type);
-    const timeout = 6000;
-    const alert = createAlert(message, type, timeout);
+  function create(type?: AlertType) {
+    const message = capitalize(type || 'default');
+    const alert = createAlert(message, type);
 
     alert.action = () => (
       <div class="flex gap-2">
@@ -42,7 +41,7 @@ const AlertsPageContent = () => {
     return alert;
   }
 
-  const showAlert = (type: AlertType) => {
+  const showAlert = (type?: AlertType) => {
     const alert = create(type);
     alerts.show(alert);
   };
@@ -62,7 +61,7 @@ const AlertsPageContent = () => {
       </div>
 
       <div class="flex flex-row gap-3 py-6">
-        <For each={AlertTypes}>
+        <For each={[undefined, ...AlertTypes]}>
           {type => (
             <Button color="primary" onClick={() => showAlert(type)}>
               <span>{capitalize(type || 'default')}</span>

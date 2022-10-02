@@ -12,14 +12,15 @@ import {
 import {createStore} from 'solid-js/store';
 import {Portal} from 'solid-js/web';
 
+const DEFAULT_TIMEOUT = 5000;
+
 let alertId = 0;
 
 class AlertsStackItem {
   constructor(
     public id: number,
-    public message: string,
+    public message: JSXElement,
     public type?: AlertType,
-    public timeout = 3000,
     public action?: JSXElement
   ) {}
 }
@@ -53,45 +54,68 @@ export const useAlerts = () => {
 };
 
 export function createAlert(
-  msg: string,
-  type: AlertType,
-  timeout = 3000,
+  msg: JSXElement,
+  type?: AlertType,
   action?: JSXElement
 ) {
-  return new AlertsStackItem(alertId++, msg, type, timeout, action);
+  return new AlertsStackItem(alertId++, msg, type, action);
 }
 
-export const AlertsContainer = (props: ParentProps) => {
+export type AlertsProps = {
+  timeout?: number;
+};
+
+export const AlertsContainer = (props: ParentProps<AlertsProps>) => {
+  const ALERT_TIMEOUT = props.timeout || DEFAULT_TIMEOUT;
+
   const [state, setState] = createStore<AlertsState>({
     alerts: new Map(),
   });
 
-  const stack = createMemo(() => Array.from(state.alerts.values()).reverse());
+  const stack = createMemo(() => {
+    return Array.from(state.alerts.values()).reverse();
+  });
 
   function show(alert: AlertsStackItem) {
     addAlert(alert);
   }
 
-  function info(message: string, timeout = 3000, action?: JSXElement) {
-    addAlert(createAlert(message, 'info', timeout, action));
+  function info(
+    message: JSXElement,
+    timeout = ALERT_TIMEOUT,
+    action?: JSXElement
+  ) {
+    addAlert(createAlert(message, 'info', action));
   }
 
-  function success(message: string, timeout = 3000, action?: JSXElement) {
-    addAlert(createAlert(message, 'success', timeout, action));
+  function success(
+    message: JSXElement,
+    timeout = ALERT_TIMEOUT,
+    action?: JSXElement
+  ) {
+    addAlert(createAlert(message, 'success', action), timeout);
   }
 
-  function warning(message: string, timeout = 3000, action?: JSXElement) {
-    addAlert(createAlert(message, 'warning', timeout, action));
+  function warning(
+    message: JSXElement,
+    timeout = ALERT_TIMEOUT,
+    action?: JSXElement
+  ) {
+    addAlert(createAlert(message, 'warning', action), timeout);
   }
 
-  function error(message: string, timeout = 3000, action?: JSXElement) {
-    addAlert(createAlert(message, 'error', timeout, action));
+  function error(
+    message: JSXElement,
+    timeout = ALERT_TIMEOUT,
+    action?: JSXElement
+  ) {
+    addAlert(createAlert(message, 'error', action), timeout);
   }
 
-  function addAlert(alert: AlertsStackItem) {
+  function addAlert(alert: AlertsStackItem, timeout = ALERT_TIMEOUT) {
     const alerts = new Map(state.alerts.set(alert.id, alert));
     setState('alerts', alerts);
-    setAlertTimeout(alert.id, alert.timeout);
+    setAlertTimeout(alert.id, timeout);
   }
 
   function close(alertId: number) {
