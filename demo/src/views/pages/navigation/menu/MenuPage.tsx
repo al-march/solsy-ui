@@ -1,12 +1,12 @@
-import { Component } from 'solid-js';
-import { Menu } from '../../../../../../packages/ui/src/navigation';
-import { Page } from '../../base/Page';
-import { createStore } from 'solid-js/store';
+import {Page} from '@page/base';
+import {Menu} from '@ui/navigation';
+import {Component} from 'solid-js';
+import {createStore} from 'solid-js/store';
 
 type State = {
   show: boolean;
   reference?: HTMLElement;
-}
+};
 
 export const MenuPage: Component = () => {
   const [state, setState] = createStore<State>({
@@ -23,11 +23,7 @@ export const MenuPage: Component = () => {
 
   return (
     <Page full class="p-4">
-      <button
-        class="btn btn-primary"
-        ref={setReference}
-        onClick={toggle}
-      >
+      <button class="btn btn-primary" ref={setReference} onClick={toggle}>
         Menu
       </button>
       <Menu
@@ -36,9 +32,18 @@ export const MenuPage: Component = () => {
         onBackdropClick={toggle}
         minWidth={state.reference?.scrollWidth}
       >
-        <Menu.Item><i class="fa-solid fa-car pr-2"/>Cars</Menu.Item>
-        <Menu.Item disabled><i class="fa-solid fa-plane-departure pr-2"/>Plane</Menu.Item>
-        <Menu.Item><i class="fa-solid fa-building pr-2"/>Buildings</Menu.Item>
+        <Menu.Item>
+          <i class="fa-solid fa-car pr-2" />
+          Cars
+        </Menu.Item>
+        <Menu.Item disabled>
+          <i class="fa-solid fa-plane-departure pr-2" />
+          Plane
+        </Menu.Item>
+        <Menu.Item>
+          <i class="fa-solid fa-building pr-2" />
+          Buildings
+        </Menu.Item>
       </Menu>
     </Page>
   );

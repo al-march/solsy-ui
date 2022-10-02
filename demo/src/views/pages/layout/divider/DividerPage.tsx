@@ -1,5 +1,5 @@
-import {Divider} from '../../../../../../packages/ui/src/layout';
-import {Page} from '../../base/Page';
+import {Page} from '@page/base';
+import {Divider} from '@ui/layout';
 
 export const DividerPage = () => {
   return (
@@ -21,9 +21,13 @@ export const DividerPage = () => {
       <div class="py-4">Horizontal</div>
 
       <div class="flex w-full">
-        <div class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
+        <div class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
+          content
+        </div>
         <Divider orientation="horizontal">OR</Divider>
-        <div class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
+        <div class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
+          content
+        </div>
       </div>
     </Page>
   );

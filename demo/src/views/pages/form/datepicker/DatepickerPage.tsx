@@ -1,17 +1,13 @@
-import { Datepicker } from '../../../../../../packages/ui/src/form';
-import { Page } from '../../base/Page';
+import {Page} from '@page/base';
+import {Datepicker} from '@ui/form';
 
 export const DatepickerPage = () => {
-  const onNextMonth = (e) => {
-    console.log(e);
-  }
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Datepicker</h2>
-      <br/>
+      <br />
 
       <Datepicker
-        onNextMonth={onNextMonth}
         placeholder="Select date"
         bordered
         weekHolidays={[0, 6]}

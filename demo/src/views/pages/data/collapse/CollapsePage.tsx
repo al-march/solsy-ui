@@ -1,5 +1,5 @@
-import { Page } from '../../base/Page';
-import { Collapse } from '../../../../../../packages/ui/src/data-display';
+import {Page} from '@page/base';
+import {Collapse} from '@ui/data-display';
 
 export const CollapsePage = () => {
   return (

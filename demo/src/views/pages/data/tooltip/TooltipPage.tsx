@@ -1,12 +1,11 @@
-import { Component, createSignal } from 'solid-js';
-import { Page } from '../../base/Page';
-import { Tooltip } from '../../../../../../packages/ui/src/data-display';
-import { BtnGroup } from '../../../../../../packages/ui/src/navigation';
+import {Page} from '@page/base';
+import {Tooltip} from '@ui/data-display';
+import {BtnGroup} from '@ui/navigation';
+import {Component, createSignal} from 'solid-js';
 
 type Position = 'left' | 'top' | 'right' | 'bottom';
 
 export const TooltipPage: Component = () => {
-
   const [position, setPosition] = createSignal<Position>('left');
 
   function updatePosition(position: Position) {
@@ -22,13 +21,23 @@ export const TooltipPage: Component = () => {
       </Tooltip>
 
       <BtnGroup value={position()} onInput={updatePosition} size="sm">
-        <BtnGroup.Item value="left"><Icon type="left"/></BtnGroup.Item>
-        <BtnGroup.Item value="top"><Icon type="up"/></BtnGroup.Item>
-        <BtnGroup.Item value="right"><Icon type="right"/></BtnGroup.Item>
-        <BtnGroup.Item value="bottom"><Icon type="down"/></BtnGroup.Item>
+        <BtnGroup.Item value="left">
+          <Icon type="left" />
+        </BtnGroup.Item>
+        <BtnGroup.Item value="top">
+          <Icon type="up" />
+        </BtnGroup.Item>
+        <BtnGroup.Item value="right">
+          <Icon type="right" />
+        </BtnGroup.Item>
+        <BtnGroup.Item value="bottom">
+          <Icon type="down" />
+        </BtnGroup.Item>
       </BtnGroup>
     </Page>
   );
 };
 
-const Icon = (props: { type: string }) => <i class={`fa-solid fa-angle-${props.type}`}/>;
+const Icon = (props: {type: string}) => (
+  <i class={`fa-solid fa-angle-${props.type}`} />
+);

@@ -1,10 +1,10 @@
-import { Component } from 'solid-js';
-import { Page } from '../base/Page';
+import {Page} from '@page/base';
+import {Component} from 'solid-js';
 
 export const HomePage: Component = () => {
-    return (
-        <Page full>
-            <h2>Home page</h2>
-        </Page>
-    )
-}
+  return (
+    <Page full>
+      <h2>Home page</h2>
+    </Page>
+  );
+};

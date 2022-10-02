@@ -1,54 +1,54 @@
-import { Routes, Route } from 'solid-app-router';
-import { Component } from 'solid-js';
+import {Points, RouterSDKEnum} from './Points';
+import {ButtonPage, ModalPage} from '@page/actions';
 import {
-        BtnGroupPage,
-        DatepickerPage,
-        HomePage,
-        MenuPage,
-        NotFound,
-        RangePage,
-        SelectPage,
-        TabsPage,
-        TogglePage
-} from '../../views/pages';
-import { RoutersComponentsEnum, RouterSDKEnum } from './RoutersComponentsEnum';
-import { ButtonPage, ModalPage } from '../../views/pages/actions';
-import { TooltipPage } from '../../views/pages/data/tooltip/TooltipPage';
-import { InputPage } from '../../views/pages/form/input/InputPage';
-import { FormPage } from '../../views/pages/sdk/form/FormPage';
-import { PopoverPage } from '../../views/pages/data/popover/PopoverPage';
-import { AutocompletePage } from '../../views/pages/form/autocomplete/AutocompletePage';
-import { TextareaPage } from '../../views/pages/form/textarea/TextareaPage';
-import { CollapsePage } from '../../views/pages/data/collapse/CollapsePage';
-import { DividerPage } from '../../views/pages/layout/divider/DividerPage';
-import { AvatarPage } from '../../views/pages/data/avatar/AvatarPage';
-
+  AlertsPage,
+  AvatarPage,
+  CollapsePage,
+  PopoverPage,
+  TooltipPage,
+} from '@page/data';
+import {
+  AutocompletePage,
+  DatepickerPage,
+  InputPage,
+  RangePage,
+  SelectPage,
+  TextareaPage,
+  TogglePage,
+} from '@page/form';
+import {HomePage} from '@page/home';
+import {DividerPage} from '@page/layout';
+import {FormPage} from '@page/sdk';
+import {BtnGroupPage, MenuPage, NotFound, TabsPage} from '@src/views/pages';
+import {Route, Routes} from 'solid-app-router';
+import {Component} from 'solid-js';
 
 export const Routers: Component = () => {
+  return (
+    <Routes>
+      <Route path={`/`} element={<HomePage />} />
+      <Route path={`/${Points.SELECT}`} element={<SelectPage />} />
+      <Route path={`/${Points.INPUT}`} element={<InputPage />} />
+      <Route path={`/${Points.TEXTAREA}`} element={<TextareaPage />} />
+      <Route path={`/${Points.AUTOCOMPLETE}`} element={<AutocompletePage />} />
+      <Route path={`/${Points.DATEPICKER}`} element={<DatepickerPage />} />
+      <Route path={`/${Points.TOGGLE}`} element={<TogglePage />} />
+      <Route path={`/${Points.MENU}`} element={<MenuPage />} />
+      <Route path={`/${Points.TABS}`} element={<TabsPage />} />
+      <Route path={`/${Points.BTN_GROUPS}`} element={<BtnGroupPage />} />
+      <Route path={`/${Points.RANGE}`} element={<RangePage />} />
+      <Route path={`/${Points.MODALS}`} element={<ModalPage />} />
+      <Route path={`/${Points.BUTTON}`} element={<ButtonPage />} />
+      <Route path={`/${Points.TOOLTIP}`} element={<TooltipPage />} />
+      <Route path={`/${Points.POPOVER}`} element={<PopoverPage />} />
+      <Route path={`/${Points.COLLAPSE}`} element={<CollapsePage />} />
+      <Route path={`/${Points.DIVIDER}`} element={<DividerPage />} />
+      <Route path={`/${Points.AVATAR}`} element={<AvatarPage />} />
+      <Route path={`/${Points.ALERTS}`} element={<AlertsPage />} />
 
-    return (
-        <Routes>
-            <Route path={`/`} element={<HomePage/>}/>
-            <Route path={`/${RoutersComponentsEnum.FORM_SELECT}`} element={<SelectPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.FORM_INPUT}`} element={<InputPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.FORM_TEXTAREA}`} element={<TextareaPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.FORM_AUTOCOMPLETE}`} element={<AutocompletePage/>}/>
-            <Route path={`/${RoutersComponentsEnum.FORM_DATEPICKER}`} element={<DatepickerPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.TOGGLE}`} element={<TogglePage/>} />
-            <Route path={`/${RoutersComponentsEnum.MENU}`} element={<MenuPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.TABS}`} element={<TabsPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.BTN_GROUPS}`} element={<BtnGroupPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.RANGE}`} element={<RangePage/>}/>
-            <Route path={`/${RoutersComponentsEnum.MODALS}`} element={<ModalPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.BUTTON}`} element={<ButtonPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.TOOLTIP}`} element={<TooltipPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.POPOVER}`} element={<PopoverPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.COLLAPSE}`} element={<CollapsePage/>}/>
-            <Route path={`/${RoutersComponentsEnum.DIVIDER}`} element={<DividerPage/>}/>
-            <Route path={`/${RoutersComponentsEnum.AVATAR}`} element={<AvatarPage/>}/>
-            <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage/>}/>
+      <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage />} />
 
-            <Route path="/*all" element={<NotFound/>}/>
-        </Routes>
-    );
+      <Route path="/*all" element={<NotFound />} />
+    </Routes>
+  );
 };
