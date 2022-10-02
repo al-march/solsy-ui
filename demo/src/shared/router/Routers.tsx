@@ -1,6 +1,12 @@
 import {Points, RouterSDKEnum} from './Points';
 import {ButtonPage, ModalPage} from '@page/actions';
-import {AvatarPage, CollapsePage, PopoverPage, TooltipPage} from '@page/data';
+import {
+  AlertsPage,
+  AvatarPage,
+  CollapsePage,
+  PopoverPage,
+  TooltipPage,
+} from '@page/data';
 import {
   AutocompletePage,
   DatepickerPage,
@@ -38,6 +44,8 @@ export const Routers: Component = () => {
       <Route path={`/${Points.COLLAPSE}`} element={<CollapsePage />} />
       <Route path={`/${Points.DIVIDER}`} element={<DividerPage />} />
       <Route path={`/${Points.AVATAR}`} element={<AvatarPage />} />
+      <Route path={`/${Points.ALERTS}`} element={<AlertsPage />} />
+
       <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage />} />
 
       <Route path="/*all" element={<NotFound />} />

@@ -17,6 +17,7 @@ export enum Points {
   DIVIDER = 'divider',
   AVATAR = 'avatar',
   TOGGLE = 'toggle',
+  ALERTS = 'alerts',
 }
 
 export enum RouterSDKEnum {

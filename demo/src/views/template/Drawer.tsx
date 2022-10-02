@@ -56,6 +56,7 @@ export const Drawer = (props: ParentProps) => {
 
           <Menu>
             <MenuTitle>Data view</MenuTitle>
+            <MenuLink href={`/${Points.ALERTS}`}>Alerts</MenuLink>
             <MenuLink href={`/${Points.TOOLTIP}`}>Tooltip</MenuLink>
             <MenuLink href={`/${Points.POPOVER}`}>Popover</MenuLink>
             <MenuLink href={`/${Points.COLLAPSE}`}>Collapse</MenuLink>
