@@ -2,6 +2,8 @@ import {AlertType} from './types';
 import {JSXElement, Match, ParentProps, Switch} from 'solid-js';
 
 type Props = {
+  class?: string;
+
   type?: AlertType;
   action?: JSXElement | null;
   onAction?: () => void;
@@ -43,6 +45,7 @@ export const Alert = (props: ParentProps<Props>) => {
     <div
       class="alert shadow-lg"
       classList={{
+        [props.class || '']: !!props.class,
         'alert-info': props.type === 'info',
         'alert-success': props.type === 'success',
         'alert-warning': props.type === 'warning',
