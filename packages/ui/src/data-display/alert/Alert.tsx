@@ -1,6 +1,13 @@
 import {AlertType} from './types';
 import {JSXElement, Match, ParentProps, Switch} from 'solid-js';
 
+export const AlertSelectors = {
+  ALERT: 'alert',
+  DEFAULT_ACTION: 'default-action',
+  CUSTOM_ACTION: 'custom-action',
+  CLOSE_BTN: 'close-btn',
+};
+
 type Props = {
   class?: string;
 
@@ -24,25 +31,36 @@ type Props = {
  * </Alert>
  */
 export const Alert = (props: ParentProps<Props>) => {
-  const defaultAction = () => (
-    <button
-      class="btn btn-sm btn-ghost btn-circle"
-      onClick={() => props.onClose?.()}
-    >
-      <i class="fa-solid fa-xmark" />
-    </button>
+  const DefaultAction = () => (
+    <div data-testid={AlertSelectors.DEFAULT_ACTION}>
+      <button
+        data-testid={AlertSelectors.CLOSE_BTN}
+        class="btn btn-sm btn-ghost btn-circle"
+        onClick={() => props.onClose?.()}
+      >
+        <i class="fa-solid fa-xmark" />
+      </button>
+    </div>
   );
 
   const Action = () => {
-    if (props.action instanceof Function) {
-      return <div onClick={() => props.onAction?.()}>{props.action}</div>;
+    if (!!props.action && props.action !== true) {
+      return (
+        <div
+          data-testid={AlertSelectors.CUSTOM_ACTION}
+          onClick={() => props.onAction?.()}
+        >
+          {props.action}
+        </div>
+      );
     } else {
-      return defaultAction();
+      return <DefaultAction />;
     }
   };
 
   return (
     <div
+      data-testid={AlertSelectors.ALERT}
       class="alert shadow-lg"
       classList={{
         [props.class || '']: !!props.class,
