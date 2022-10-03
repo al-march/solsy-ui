@@ -18,7 +18,6 @@ describe('Autocomplete', () => {
     ));
     expect(screen.getByTestId(AUTOCOMPLETE)).toBeInTheDocument();
   });
-
   test('should open dropdown', () => {
     render(() => (
       <Autocomplete>
@@ -28,7 +27,6 @@ describe('Autocomplete', () => {
     fireEvent.focus(screen.getByTestId(AUTOCOMPLETE));
     expect(screen.getByTestId(DROPDOWN)).toBeInTheDocument();
   });
-
   test('should set value from option', () => {
     const expectValue = 'value';
     render(() => (
@@ -41,7 +39,6 @@ describe('Autocomplete', () => {
     fireEvent.click(screen.getByTestId(OPTION));
     expect(screen.getByTestId(AUTOCOMPLETE)).toHaveValue(expectValue);
   });
-
   test('should render options', () => {
     render(() => (
       <Autocomplete show>
@@ -52,7 +49,6 @@ describe('Autocomplete', () => {
     ));
     expect(screen.getAllByTestId(OPTION).length).toBe(options.length);
   });
-
   test('should filter options', () => {
     render(() => (
       <Autocomplete show value={options[0]}>
@@ -66,7 +62,6 @@ describe('Autocomplete', () => {
     expect(optionsRef.length).toBe(1);
     expect(optionsRef[0]).toHaveTextContent(options[0]);
   });
-
   test('should be option disabled', () => {
     render(() => (
       <Autocomplete show>
@@ -78,10 +73,19 @@ describe('Autocomplete', () => {
 
     expect(screen.getByTestId(OPTION)).toBeDisabled();
   });
-
   test('should set custom classes', () => {
     const className = 'custom-class';
     render(() => <Autocomplete class={className} />);
     expect(screen.getByTestId(INPUT)).toHaveClass(className);
+  });
+  test('should set valid width', () => {
+    render(() => (
+      <Autocomplete show>
+        <AutocompleteOption value="1">1</AutocompleteOption>
+      </Autocomplete>
+    ));
+    expect(screen.getByTestId(INPUT).offsetWidth).toBe(
+      screen.getByTestId(DROPDOWN).offsetWidth
+    );
   });
 });

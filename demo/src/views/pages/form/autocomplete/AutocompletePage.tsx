@@ -9,7 +9,7 @@ export const AutocompletePage: Component = () => {
       <br />
 
       <div class="w-96 grid gap-2">
-        <Autocomplete show placeholder="Выберете город">
+        <Autocomplete show placeholder="Выберете город" bordered>
           <For each={getMockOptions()}>
             {state => (
               <AutocompleteOption disabled={!state.active} value={state.city}>

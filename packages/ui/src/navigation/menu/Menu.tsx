@@ -91,7 +91,7 @@ const MenuBase = (props: ParentProps<MenuProps>) => {
   }
 
   return (
-    <Show when={state.show}>
+    <Show when={state.show} keyed>
       <Portal>
         <BackdropClick onBackdropClick={onBackdropClick}>
           <div
@@ -101,7 +101,7 @@ const MenuBase = (props: ParentProps<MenuProps>) => {
             style={{'min-width': props.minWidth + 'px'}}
             onClick={e => e.stopPropagation()}
           >
-            <ScaleTransition appear={true} onExit={destroy}>
+            <ScaleTransition appear onExit={destroy}>
               {props.isShow && (
                 <ul class="menu bg-base-200 z-10 shadow-xl">
                   {props.children}

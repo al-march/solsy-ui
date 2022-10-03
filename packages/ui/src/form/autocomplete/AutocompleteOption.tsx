@@ -25,7 +25,7 @@ export const AutocompleteOption = (props: ParentProps<OptionProps>) => {
   }
 
   return (
-    <Show when={isShow()}>
+    <Show when={isShow()} keyed>
       <li class="overflow-hidden" classList={{disabled: props.disabled}}>
         <button
           data-testid={AutocompleteSelectors.OPTION}

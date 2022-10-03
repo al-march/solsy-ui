@@ -2,7 +2,14 @@ import {Menu} from '../../navigation';
 import {PropChangeEvent, PropFocusEvent, PropInputEvent} from '../../types';
 import {BackdropClick} from '../../utils';
 import {Input, InputColor, InputSize} from '../input';
-import {createContext, createSignal, ParentProps, useContext} from 'solid-js';
+import {
+  createContext,
+  createEffect,
+  createSignal,
+  on,
+  ParentProps,
+  useContext,
+} from 'solid-js';
 import {createStore} from 'solid-js/store';
 
 export const AutocompleteSelectors = {
@@ -38,6 +45,7 @@ export type AutocompleteProps = {
 
 export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
   const [ref, setRef] = createSignal<HTMLElement>();
+  const [width, setWidth] = createSignal(0);
   const [state, setState] = createStore<AutocompleteState>({
     value: props.value || '',
     isOpen: !!props.show,
@@ -45,6 +53,12 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
       return !this.isOpen;
     },
   });
+
+  createEffect(
+    on(ref, ref => {
+      setWidth(ref?.offsetWidth || 0);
+    })
+  );
 
   function setValue(v: any) {
     setState('value', v);
@@ -69,6 +83,7 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
   }
 
   const onBackdropClick = (e: Event) => {
+    e.stopPropagation();
     const target = e.target as HTMLElement;
     if (ref()?.contains(target)) {
       return;
@@ -105,12 +120,12 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
         onChange={props.onChange}
       />
 
-      <Menu reference={ref()} isShow={state.isOpen}>
+      <Menu reference={ref()} isShow={state.isOpen && !!ref()}>
         <BackdropClick onBackdropClick={onBackdropClick}>
           <div
             data-testid={AutocompleteSelectors.DROPDOWN}
-            class="max-h-60 overflow-y-scroll"
-            style={{width: ref()?.offsetWidth + 'px'}}
+            class="max-h-60 w-32 overflow-y-scroll"
+            style={{width: width() + 'px'}}
           >
             {props.children}
           </div>
