@@ -27,11 +27,11 @@ class AlertsStackItem {
 
 export type AlertsStack = Map<number, AlertsStackItem>;
 
-type AlertsState = {
+export type AlertsState = {
   alerts: AlertsStack;
 };
 
-type AlertsCtx = {
+export type AlertsCtx = {
   state: AlertsState;
 
   show: (alert: AlertsStackItem) => void;

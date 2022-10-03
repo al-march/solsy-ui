@@ -17,7 +17,7 @@ type Classes = {
 
 const addPrefix = (name: string) => `alert-${name}`;
 
-const classes: Classes = {
+export const classes: Classes = {
   main: 'alert',
   colors: {
     info: addPrefix('info'),
