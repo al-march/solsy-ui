@@ -1,14 +1,13 @@
-import { ParentProps, Show } from 'solid-js';
-import { AutocompleteSelectors, useAutocomplete } from './Autocomplete';
+import {AutocompleteSelectors, useAutocomplete} from './Autocomplete';
+import {ParentProps, Show} from 'solid-js';
 
 type OptionProps = {
   value?: string;
   onClick?: (v: any) => void;
   disabled?: boolean;
-}
+};
 
 export const AutocompleteOption = (props: ParentProps<OptionProps>) => {
-
   const autocomplete = useAutocomplete();
 
   function onClick() {

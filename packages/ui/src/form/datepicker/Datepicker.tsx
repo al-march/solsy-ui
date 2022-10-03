@@ -1,14 +1,13 @@
-import { createContext, ParentProps, useContext } from 'solid-js';
-import { createStore } from 'solid-js/store';
-import { Input, InputColor, InputSize } from '../input';
-import { DatepickerNav, Month } from './base';
-import { Popover } from '../../data-display';
-import dayjs, { Dayjs } from 'dayjs';
-import { Placement } from '@popperjs/core';
-
+import {Popover} from '../../data-display';
+import {Input, InputColor, InputSize} from '../input';
+import {DatepickerNav, Month} from './base';
+import {Placement} from '@popperjs/core';
+import dayjs, {Dayjs} from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import weekday from 'dayjs/plugin/weekday';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import weekday from 'dayjs/plugin/weekday';
+import {createContext, ParentProps, useContext} from 'solid-js';
+import {createStore} from 'solid-js/store';
 
 dayjs.extend(isoWeek);
 dayjs.extend(weekday);
@@ -20,7 +19,7 @@ export const DatepickerSelectors = {
   NAV_MONTH_LABEL: 'month-label',
   NAV_YEAR_LABEL: 'year-label',
   MONTH: 'month',
-  DAY: 'day'
+  DAY: 'day',
 };
 
 type DatepickerContext = {
@@ -30,14 +29,14 @@ type DatepickerContext = {
   onPrevMonth: (month: Dayjs) => void;
   close: () => void;
   open: () => void;
-}
+};
 
 type DatepickerState = {
   show: boolean;
   selected?: Dayjs;
   month: Dayjs;
   weekHolidays: number[];
-}
+};
 
 export type DatepickerProps = {
   show?: boolean;
@@ -59,10 +58,9 @@ export type DatepickerProps = {
   placement?: Placement;
   weekHolidays?: number[];
   closeOnSelect?: boolean;
-}
+};
 
 export const Datepicker = (props: ParentProps<DatepickerProps>) => {
-
   const [state, setState] = createStore<DatepickerState>({
     show: !!props.show,
     selected: props.value ? dayjs(props.value) : undefined,
@@ -115,20 +113,21 @@ export const Datepicker = (props: ParentProps<DatepickerProps>) => {
   }
 
   return (
-    <DatepickerCtx.Provider value={{
-      state,
-      close,
-      open,
-      onSelectDay,
-      onNextMonth,
-      onPrevMonth,
-    }}>
+    <DatepickerCtx.Provider
+      value={{
+        state,
+        close,
+        open,
+        onSelectDay,
+        onNextMonth,
+        onPrevMonth,
+      }}
+    >
       <Popover
         onClose={close}
         onOpen={open}
         show={state.show}
         placement={props.placement}
-
         trigger={
           <Input
             placeholder={props.placeholder}
@@ -137,13 +136,12 @@ export const Datepicker = (props: ParentProps<DatepickerProps>) => {
             class={props.class}
             error={props.error}
             bordered={props.bordered}
-
             value={state.selected?.format('YYYY.MM.DD')}
-
             onChange={e => onInput(e.currentTarget.value)}
             onFocus={() => open()}
           />
-        }>
+        }
+      >
         <div
           data-testid={DatepickerSelectors.DATEPICKER}
           class="shadow-xl bg-base-300 rounded-lg overflow-hidden"
@@ -154,10 +152,7 @@ export const Datepicker = (props: ParentProps<DatepickerProps>) => {
             onPrev={onPrevMonth}
           />
 
-          <Month
-            month={state.month}
-            onSelectDay={onSelectDay}
-          />
+          <Month month={state.month} onSelectDay={onSelectDay} />
         </div>
       </Popover>
     </DatepickerCtx.Provider>

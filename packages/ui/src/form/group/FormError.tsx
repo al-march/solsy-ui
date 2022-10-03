@@ -1,9 +1,9 @@
-import { createEffect, createSignal, ParentProps, Show } from 'solid-js';
-import { ScaleTransition } from '../../utils';
+import {ScaleTransition} from '../../utils';
+import {createEffect, createSignal, ParentProps, Show} from 'solid-js';
 
 type Props = {
   show: boolean;
-}
+};
 
 export const FormError = (props: ParentProps<Props>) => {
   const [show, setShow] = createSignal(false);

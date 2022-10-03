@@ -1,7 +1,7 @@
-import { createMemo, ParentProps } from 'solid-js';
-import { DayModel } from '../models';
-import { DatepickerSelectors, useDatepicker } from '../Datepicker';
-import { Dayjs } from 'dayjs';
+import {DatepickerSelectors, useDatepicker} from '../Datepicker';
+import {DayModel} from '../models';
+import {Dayjs} from 'dayjs';
+import {createMemo, ParentProps} from 'solid-js';
 
 const toISOString = (date?: Dayjs) => date?.toDate().toISOString();
 
@@ -18,7 +18,7 @@ type DayBaseProps = {
   today?: boolean;
   disabled?: boolean;
   onSelect?: () => void;
-}
+};
 
 export const DayBase = (props: ParentProps<DayBaseProps>) => {
   return (
@@ -28,8 +28,10 @@ export const DayBase = (props: ParentProps<DayBaseProps>) => {
       classList={{
         [DayBaseClasses.selected]: props.selected,
         [DayBaseClasses.today]: props.today && !props.selected,
-        [DayBaseClasses.default]: !props.holiday && !props.today && !props.selected,
-        [DayBaseClasses.holiday]: props.holiday && !props.today && !props.selected
+        [DayBaseClasses.default]:
+          !props.holiday && !props.today && !props.selected,
+        [DayBaseClasses.holiday]:
+          props.holiday && !props.today && !props.selected,
       }}
       disabled={props.disabled}
       onClick={props.onSelect}
@@ -42,14 +44,17 @@ export const DayBase = (props: ParentProps<DayBaseProps>) => {
 type DayProps = {
   day: DayModel;
   onSelect?: () => void;
-}
+};
 
 export const Day = (props: ParentProps<DayProps>) => {
-
   const datepicker = useDatepicker();
 
-  const isSelected = createMemo(() => toISOString(datepicker.state.selected) === toISOString(props.day.date));
-  const isHoliday = createMemo(() => datepicker.state.weekHolidays?.includes(props.day.date.weekday()));
+  const isSelected = createMemo(
+    () => toISOString(datepicker.state.selected) === toISOString(props.day.date)
+  );
+  const isHoliday = createMemo(() =>
+    datepicker.state.weekHolidays?.includes(props.day.date.weekday())
+  );
 
   return (
     <DayBase

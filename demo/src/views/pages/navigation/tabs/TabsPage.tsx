@@ -1,6 +1,6 @@
-import { Component } from 'solid-js';
-import { Page } from '../../base/Page';
-import { Tab, Tabs } from '../../../../../../packages/ui/src/navigation';
+import {Page} from '@page/base';
+import {Tab, Tabs} from '@ui/navigation';
+import {Component} from 'solid-js';
 
 export const TabsPage: Component = () => {
   function onInput(index: number) {
@@ -32,13 +32,18 @@ export const TabsPage: Component = () => {
 };
 
 const CarTab = () => {
-  const label = <div><i class="fa-solid fa-car pr-2"/>Cars</div>;
+  const label = (
+    <div>
+      <i class="fa-solid fa-car pr-2" />
+      Cars
+    </div>
+  );
 
   return (
     <Tab label={label}>
       <div class="flex flex-col items-start">
         <span class="mb-2">
-          <i class="fa-solid fa-car pr-2"/>
+          <i class="fa-solid fa-car pr-2" />
           Cars tab
         </span>
         <button class="btn btn-sm btn-primary">Car</button>
@@ -48,13 +53,18 @@ const CarTab = () => {
 };
 
 const PlaneTab = () => {
-  const label = <div><i class="fa-solid fa-plane-departure pr-2"/>Plane</div>;
+  const label = (
+    <div>
+      <i class="fa-solid fa-plane-departure pr-2" />
+      Plane
+    </div>
+  );
 
   return (
     <Tab label={label}>
       <div class="flex flex-col items-start">
         <span class="mb-2">
-          <i class="fa-solid fa-plane-departure pr-2"/>
+          <i class="fa-solid fa-plane-departure pr-2" />
           Plane tab
         </span>
         <button class="btn btn-sm btn-primary">Plane</button>
@@ -64,13 +74,18 @@ const PlaneTab = () => {
 };
 
 const BuildingTab = () => {
-  const label = <div><i class="fa-solid fa-building pr-2"/>Buildings</div>;
+  const label = (
+    <div>
+      <i class="fa-solid fa-building pr-2" />
+      Buildings
+    </div>
+  );
 
   return (
     <Tab label={label}>
       <div class="flex flex-col items-start">
         <span class="mb-2">
-          <i class="fa-solid fa-building pr-2"/>
+          <i class="fa-solid fa-building pr-2" />
           Buildings tab
         </span>
         <button class="btn btn-sm btn-primary">Build</button>

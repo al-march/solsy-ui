@@ -1,7 +1,13 @@
-import { DaisyColor, DaisySize, PropChangeEvent, PropFocusEvent, PropInputEvent } from '../../types';
+import {
+  DaisyColor,
+  DaisySize,
+  PropChangeEvent,
+  PropFocusEvent,
+  PropInputEvent,
+} from '../../types';
 
 export const InputSelectors = {
-  INPUT: 'input'
+  INPUT: 'input',
 };
 
 export type InputColor = DaisyColor | 'ghost';
@@ -26,7 +32,7 @@ type Props = {
   onInput?: (e: PropInputEvent<HTMLInputElement>) => void;
   onFocus?: (e: PropFocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: PropFocusEvent<HTMLInputElement>) => void;
-}
+};
 
 export const Input = (props: Props) => {
   return (
@@ -39,7 +45,6 @@ export const Input = (props: Props) => {
       name={props.name}
       autocomplete={props.autocomplete}
       disabled={props.disabled}
-
       class={`input ${props.class || ''}`}
       classList={{
         'input-lg': props.size === 'lg',
@@ -56,9 +61,8 @@ export const Input = (props: Props) => {
         'input-error': props.color === 'error' || props.error,
         'input-ghost': props.color === 'ghost',
 
-        'input-bordered': props.bordered
+        'input-bordered': props.bordered,
       }}
-
       onChange={props.onChange}
       onInput={props.onInput}
       onBlur={props.onBlur}

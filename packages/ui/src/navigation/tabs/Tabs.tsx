@@ -1,8 +1,16 @@
-import { DaisySize } from '../../types';
-import { createContext, For, JSXElement, Match, ParentProps, Switch, useContext } from 'solid-js';
-import { createStore } from 'solid-js/store';
-import { Tab } from './Tab';
-import { Fade } from '../../utils';
+import {DaisySize} from '../../types';
+import {Fade} from '../../utils';
+import {Tab} from './Tab';
+import {
+  createContext,
+  For,
+  JSXElement,
+  Match,
+  ParentProps,
+  Switch,
+  useContext,
+} from 'solid-js';
+import {createStore} from 'solid-js/store';
 
 export const TabSelectors = {
   TAB_GROUP: 'tab-group',
@@ -78,7 +86,7 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
   });
 
   function initTab(tab: JSXElement) {
-    setState('tabs', (tabs) => [...tabs, tab]);
+    setState('tabs', tabs => [...tabs, tab]);
     return state.tabs.length - 1;
   }
 
@@ -91,11 +99,13 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
   }
 
   return (
-    <TabsCtx.Provider value={{
-      state,
-      initTab,
-      setActive,
-    }}>
+    <TabsCtx.Provider
+      value={{
+        state,
+        initTab,
+        setActive,
+      }}
+    >
       <div
         class="flex"
         classList={{

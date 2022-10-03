@@ -1,9 +1,9 @@
-import { createContext, createSignal, ParentProps, useContext } from 'solid-js';
-import { createStore } from 'solid-js/store';
-import { Input, InputColor, InputSize } from '../input';
-import { Menu } from '../../navigation';
-import { PropChangeEvent, PropFocusEvent, PropInputEvent } from '../../types';
-import { BackdropClick } from '../../utils';
+import {Menu} from '../../navigation';
+import {PropChangeEvent, PropFocusEvent, PropInputEvent} from '../../types';
+import {BackdropClick} from '../../utils';
+import {Input, InputColor, InputSize} from '../input';
+import {createContext, createSignal, ParentProps, useContext} from 'solid-js';
+import {createStore} from 'solid-js/store';
 
 export const AutocompleteSelectors = {
   AUTOCOMPLETE: 'input',
@@ -15,7 +15,7 @@ type AutocompleteState = {
   value: string;
   isOpen: boolean;
   isClose: boolean;
-}
+};
 
 export type AutocompleteProps = {
   value?: string;
@@ -34,17 +34,16 @@ export type AutocompleteProps = {
   onChange?: (e: PropChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: PropFocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: PropFocusEvent<HTMLInputElement>) => void;
-}
+};
 
 export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
-
   const [ref, setRef] = createSignal<HTMLElement>();
   const [state, setState] = createStore<AutocompleteState>({
     value: props.value || '',
     isOpen: !!props.show,
     get isClose() {
       return !this.isOpen;
-    }
+    },
   });
 
   function setValue(v: any) {
@@ -78,11 +77,13 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
   };
 
   return (
-    <AutocompleteCtx.Provider value={{
-      state,
-      setValue,
-      checkOption,
-    }}>
+    <AutocompleteCtx.Provider
+      value={{
+        state,
+        setValue,
+        checkOption,
+      }}
+    >
       <Input
         data-testid={AutocompleteSelectors.AUTOCOMPLETE}
         ref={el => {
@@ -91,16 +92,13 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
         }}
         value={state.value}
         placeholder={props.placeholder}
-
         size={props.size}
         color={props.color}
         class={props.class}
-
         error={props.error}
         bordered={props.bordered}
         disabled={props.disabled}
         autocomplete="off"
-
         onInput={onInput}
         onFocus={onFocus}
         onBlur={props.onBlur}
@@ -126,7 +124,7 @@ type AutocompleteCtx = {
   state: AutocompleteState;
   setValue: (v: any) => void;
   checkOption: (v: any) => void;
-}
+};
 
 const AutocompleteCtx = createContext<AutocompleteCtx>();
 

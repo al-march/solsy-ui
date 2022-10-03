@@ -1,14 +1,14 @@
+import {DaisyColor, DaisySize} from '../../types';
+import {SelectDropdown} from './SelectDropdown';
 import {
   createContext,
   createEffect,
   createSignal,
   JSXElement,
   ParentProps,
-  useContext
+  useContext,
 } from 'solid-js';
-import { SelectDropdown } from './SelectDropdown';
-import { DaisyColor, DaisySize } from '../../types';
-import { createStore, reconcile } from 'solid-js/store';
+import {createStore, reconcile} from 'solid-js/store';
 
 export type SelectColor = DaisyColor | 'ghost';
 export type SelectSize = DaisySize;
@@ -27,7 +27,7 @@ type SelectState = {
   isOpen: boolean;
   isClose: boolean;
   compareKey?: string;
-}
+};
 
 export type SelectProps = {
   placeholder?: string;
@@ -51,10 +51,9 @@ export type SelectProps = {
 
   customValue?: (v: any) => JSXElement;
   compareKey?: string;
-}
+};
 
 export const Select = (props: ParentProps<SelectProps>) => {
-
   const [reference, setReference] = createSignal<HTMLElement>();
 
   const [state, setState] = createStore<SelectState>({
@@ -64,7 +63,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
 
     get isClose() {
       return !this._isOpen;
-    }
+    },
   });
 
   createEffect(() => {
@@ -98,13 +97,15 @@ export const Select = (props: ParentProps<SelectProps>) => {
   };
 
   return (
-    <SelectCtx.Provider value={{
-      state,
-      setValue,
-      open,
-      close,
-      check
-    }}>
+    <SelectCtx.Provider
+      value={{
+        state,
+        setValue,
+        open,
+        close,
+        check,
+      }}
+    >
       <div
         data-testid={SelectSelectors.SELECT}
         ref={setReference}
@@ -130,7 +131,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
         onFocus={open}
       >
         <span data-testid={SelectSelectors.CUSTOM_VIEW}>
-            {state.value && props.customValue?.(state.value)}
+          {state.value && props.customValue?.(state.value)}
         </span>
 
         <input
@@ -138,7 +139,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
           type="text"
           class="bg-inherit h-full border-none cursor-pointer"
           classList={{
-            'hidden': !!props.customValue && state.value,
+            hidden: !!props.customValue && state.value,
           }}
           disabled
           value={state.value}
@@ -147,11 +148,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
         />
       </div>
 
-      <SelectDropdown
-        show={state.isOpen}
-        reference={reference}
-        onClose={close}
-      >
+      <SelectDropdown show={state.isOpen} reference={reference} onClose={close}>
         {props.children}
       </SelectDropdown>
     </SelectCtx.Provider>
@@ -164,7 +161,7 @@ type ContextType = {
   open: () => void;
   close: () => void;
   check: (v: any) => void;
-}
+};
 
 const SelectCtx = createContext<ContextType>();
 

@@ -1,18 +1,26 @@
-import { DaisySize } from '../../types';
-import { DOMElement } from 'solid-js/types/jsx';
-import { createEffect, createSignal, ParentProps } from 'solid-js';
+import {DaisySize} from '../../types';
+import {createEffect, createSignal, ParentProps} from 'solid-js';
+import {DOMElement} from 'solid-js/types/jsx';
 
 export const CheckboxSelectors = {
-  CHECKBOX: 'checkbox'
+  CHECKBOX: 'checkbox',
 };
 
-export type CheckboxInputEvent = InputEvent & { currentTarget: HTMLInputElement; target: DOMElement }
-export type CheckboxChangeEvent = Event & { currentTarget: HTMLInputElement; target: DOMElement }
-export type CheckboxFocusEvent = FocusEvent & { currentTarget: HTMLInputElement; target: DOMElement }
+export type CheckboxInputEvent = InputEvent & {
+  currentTarget: HTMLInputElement;
+  target: DOMElement;
+};
+export type CheckboxChangeEvent = Event & {
+  currentTarget: HTMLInputElement;
+  target: DOMElement;
+};
+export type CheckboxFocusEvent = FocusEvent & {
+  currentTarget: HTMLInputElement;
+  target: DOMElement;
+};
 
 export type CheckboxColor = 'primary' | 'secondary' | 'accent';
 export type CheckboxSize = DaisySize;
-
 
 export type CheckboxProps = {
   value?: boolean;
@@ -28,7 +36,7 @@ export type CheckboxProps = {
   onBlur?: (e: CheckboxFocusEvent) => void;
 
   indeterminate?: boolean;
-}
+};
 
 export const Checkbox = (props: ParentProps<CheckboxProps>) => {
   const [ref, setRef] = createSignal<HTMLInputElement>();
@@ -46,13 +54,11 @@ export const Checkbox = (props: ParentProps<CheckboxProps>) => {
       type="checkbox"
       class={`checkbox ${props.class || ''}`}
       checked={props.value}
-
       ref={el => {
         el.indeterminate = !!props.indeterminate;
         setRef(el);
         props.ref?.(el);
       }}
-
       classList={{
         'checkbox-accent': props.color === 'accent',
         'checkbox-primary': props.color === 'primary',
@@ -63,7 +69,6 @@ export const Checkbox = (props: ParentProps<CheckboxProps>) => {
         'checkbox-sm': props.size === 'sm',
         'checkbox-xs': props.size === 'xs',
       }}
-
       onInput={props.onInput}
       onChange={props.onChange}
       onFocus={props.onFocus}

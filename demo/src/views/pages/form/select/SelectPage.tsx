@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {Select, Option, SelectSize, SelectColor} from '@ui/form';
+import {Option, Select, SelectColor, SelectSize} from '@ui/form';
 import {Component, For} from 'solid-js';
 
 const sizes: SelectSize[] = ['lg', 'md', 'sm', 'xs'];

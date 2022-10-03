@@ -1,12 +1,18 @@
-import { DaisySize } from '../../types';
-import { createEffect, createSignal } from 'solid-js';
-import { DOMElement } from 'solid-js/types/jsx';
+import {DaisySize} from '../../types';
+import {createEffect, createSignal} from 'solid-js';
+import {DOMElement} from 'solid-js/types/jsx';
 
-export type ToggleInputEvent = InputEvent & { currentTarget: HTMLInputElement; target: DOMElement }
-export type ToggleChangeEvent = Event & { currentTarget: HTMLInputElement; target: DOMElement }
+export type ToggleInputEvent = InputEvent & {
+  currentTarget: HTMLInputElement;
+  target: DOMElement;
+};
+export type ToggleChangeEvent = Event & {
+  currentTarget: HTMLInputElement;
+  target: DOMElement;
+};
 
 export const ToggleSelectors = {
-  INPUT: 'toggle'
+  INPUT: 'toggle',
 };
 
 export type ToggleColor = 'primary' | 'secondary' | 'accent';
@@ -24,10 +30,9 @@ export type ToggleProps = {
   disabled?: boolean;
   class?: string;
 
-  indeterminate?: boolean
-}
+  indeterminate?: boolean;
+};
 export const Toggle = (props: ToggleProps) => {
-
   const [ref, setRef] = createSignal<HTMLInputElement>();
 
   createEffect(() => {
@@ -61,7 +66,6 @@ export const Toggle = (props: ToggleProps) => {
       type="checkbox"
       checked={props.value}
       disabled={props.disabled}
-
       onInput={props.onInput}
       onChange={props.onChange}
     />

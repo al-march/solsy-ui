@@ -1,8 +1,8 @@
-import { ParentProps } from 'solid-js';
-import { DaisyColor, DaisySize } from '../../types';
+import {DaisyColor, DaisySize} from '../../types';
+import {ParentProps} from 'solid-js';
 
 export const BadgeSelectors = {
-  BADGE: 'badge'
+  BADGE: 'badge',
 };
 
 export type BadgeColor = DaisyColor | 'ghost';
@@ -12,14 +12,13 @@ export type BadgeProps = {
   color?: BadgeColor;
   size?: BadgeSize;
   outline?: boolean;
-}
+};
 
 export const Badge = (props: ParentProps<BadgeProps>) => {
   return (
     <span
       data-testid={BadgeSelectors.BADGE}
       class="badge"
-
       classList={{
         'badge-lg': props.size === 'lg',
         'badge-md': props.size === 'md',
@@ -35,7 +34,7 @@ export const Badge = (props: ParentProps<BadgeProps>) => {
         'badge-error': props.color === 'error',
         'badge-ghost': props.color === 'ghost',
 
-        'badge-outline': props.outline
+        'badge-outline': props.outline,
       }}
     >
       {props.children}

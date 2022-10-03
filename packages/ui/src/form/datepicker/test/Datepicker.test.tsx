@@ -1,38 +1,37 @@
-import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { Datepicker, DatepickerSelectors } from '../Datepicker';
-import { InputSelectors } from '../../input';
-import dayjs, { Dayjs } from 'dayjs';
-import { DatepickerNav, DayBaseClasses } from '../base';
-
+import {InputSelectors} from '../../input';
+import {Datepicker, DatepickerSelectors} from '../Datepicker';
+import {DatepickerNav, DayBaseClasses} from '../base';
+import dayjs, {Dayjs} from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import weekday from 'dayjs/plugin/weekday';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import weekday from 'dayjs/plugin/weekday';
+import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
 
 dayjs.extend(isoWeek);
 dayjs.extend(weekday);
 dayjs.extend(localizedFormat);
 
-const {DATEPICKER, NAV, NAV_YEAR_LABEL, NAV_MONTH_LABEL, DAY} = DatepickerSelectors;
+const {DATEPICKER, NAV, NAV_YEAR_LABEL, NAV_MONTH_LABEL, DAY} =
+  DatepickerSelectors;
 const {INPUT} = InputSelectors;
 const DEFAULT_FORMAT = 'YYYY.MM.DD';
 
 const toISOString = (date: Dayjs) => date.toDate().toISOString();
 
 describe('Datepicker', () => {
-
   describe('main', () => {
     test('should be rendered', () => {
-      render(() => <Datepicker/>);
+      render(() => <Datepicker />);
       expect(screen.queryByTestId(INPUT)).toBeInTheDocument();
     });
 
     test('should be opened with props', () => {
-      render(() => <Datepicker show/>);
+      render(() => <Datepicker show />);
       expect(screen.queryByTestId(DATEPICKER)).toBeInTheDocument();
     });
 
     test('should be opened by click on Input', () => {
-      render(() => <Datepicker/>);
+      render(() => <Datepicker />);
       expect(screen.queryByTestId(DATEPICKER)).not.toBeInTheDocument();
       fireEvent.click(screen.getByTestId(INPUT));
       expect(screen.queryByTestId(DATEPICKER)).toBeInTheDocument();
@@ -40,29 +39,34 @@ describe('Datepicker', () => {
 
     test('should emit onOpen', () => {
       const onOpen = jest.fn();
-      render(() => <Datepicker onOpen={onOpen}/>);
+      render(() => <Datepicker onOpen={onOpen} />);
       fireEvent.click(screen.getByTestId(INPUT));
       expect(onOpen).toBeCalled();
     });
 
     test('should emit onClose', () => {
       const onClose = jest.fn();
-      render(() => <Datepicker show onClose={onClose}/>);
+      render(() => <Datepicker show onClose={onClose} />);
       fireEvent.click(document.body);
       expect(onClose).toBeCalled();
     });
 
     test('should set placeholder to input', () => {
       const placeholder = 'placeholder';
-      render(() => <Datepicker placeholder={placeholder}/>);
-      expect(screen.getByTestId(INPUT)).toHaveAttribute('placeholder', placeholder);
+      render(() => <Datepicker placeholder={placeholder} />);
+      expect(screen.getByTestId(INPUT)).toHaveAttribute(
+        'placeholder',
+        placeholder
+      );
     });
 
     test('should emit onSelectDay', () => {
       const onSelectDay = jest.fn();
-      render(() => <Datepicker show onSelectDay={onSelectDay}/>);
+      render(() => <Datepicker show onSelectDay={onSelectDay} />);
       const days = screen.getAllByTestId(DAY);
-      const activeDay = [...days].find(btn => !(btn as HTMLButtonElement).disabled);
+      const activeDay = [...days].find(
+        btn => !(btn as HTMLButtonElement).disabled
+      );
       if (activeDay) {
         fireEvent.click(activeDay);
         expect(onSelectDay).toBeCalled();
@@ -95,7 +99,7 @@ describe('Datepicker', () => {
       const month = dayjs();
       render(() => (
         <Datepicker
-          onPrevMonth={date => onPrevValue = date}
+          onPrevMonth={date => (onPrevValue = date)}
           month={month}
           show
         />
@@ -115,7 +119,7 @@ describe('Datepicker', () => {
       const month = dayjs();
       render(() => (
         <Datepicker
-          onNextMonth={date => onNextValue = date}
+          onNextMonth={date => (onNextValue = date)}
           month={month}
           show
         />
@@ -131,28 +135,23 @@ describe('Datepicker', () => {
 
     test('should set value to input', () => {
       const month = dayjs();
-      render(() => (
-        <Datepicker
-          value={month}
-        />
-      ));
+      render(() => <Datepicker value={month} />);
 
-      expect(screen.getByTestId(INPUT)).toHaveValue(month.format(DEFAULT_FORMAT));
+      expect(screen.getByTestId(INPUT)).toHaveValue(
+        month.format(DEFAULT_FORMAT)
+      );
     });
 
     test('should render days', () => {
       const month = dayjs();
       for (let i = 1; i <= 12; i++) {
         const nextMonth = month.add(i, 'month');
-        render(() => (
-          <Datepicker
-            month={nextMonth}
-            show
-          />
-        ));
+        render(() => <Datepicker month={nextMonth} show />);
 
         const days = screen.getAllByTestId(DAY);
-        const daysFromMonth = [...days].filter(day => !(day as HTMLButtonElement).disabled);
+        const daysFromMonth = [...days].filter(
+          day => !(day as HTMLButtonElement).disabled
+        );
         expect(daysFromMonth).toHaveLength(nextMonth.daysInMonth());
         cleanup();
       }
@@ -162,11 +161,7 @@ describe('Datepicker', () => {
       let checkedDay: any;
       const month = dayjs().startOf('month');
       render(() => (
-        <Datepicker
-          onSelectDay={d => checkedDay = d}
-          month={month}
-          show
-        />
+        <Datepicker onSelectDay={d => (checkedDay = d)} month={month} show />
       ));
 
       const days = screen.getAllByTestId(DAY);
@@ -177,18 +172,16 @@ describe('Datepicker', () => {
           fireEvent.click(btn);
           const shouldBeDate = month.add(dayIndex - 1, 'day');
           expect(toISOString(checkedDay)).toBe(toISOString(shouldBeDate));
-          expect(screen.getByTestId(INPUT)).toHaveValue(shouldBeDate.format(DEFAULT_FORMAT));
+          expect(screen.getByTestId(INPUT)).toHaveValue(
+            shouldBeDate.format(DEFAULT_FORMAT)
+          );
         }
       });
     });
 
     test('should set date by Input', () => {
       const month = dayjs();
-      render(() => (
-        <Datepicker
-          show
-        />
-      ));
+      render(() => <Datepicker show />);
 
       const input = screen.getByTestId(INPUT) as HTMLInputElement;
 
@@ -196,7 +189,9 @@ describe('Datepicker', () => {
         const value = month.add(i, 'day');
         input.value = value.format(DEFAULT_FORMAT);
         fireEvent.change(input);
-        const button = screen.getByText(value.format('D'), {selector: 'button:not([disabled])'});
+        const button = screen.getByText(value.format('D'), {
+          selector: 'button:not([disabled])',
+        });
         expect(button).toHaveClass(DayBaseClasses.selected);
         expect(screen.getByText(value.year())).toBeInTheDocument();
         expect(screen.getByText(value.format('MMMM'))).toBeInTheDocument();
@@ -206,7 +201,7 @@ describe('Datepicker', () => {
 
   describe('Nav', () => {
     test('should be rendered', () => {
-      render(() => <DatepickerNav month={dayjs()}/>);
+      render(() => <DatepickerNav month={dayjs()} />);
       expect(screen.getByTestId(NAV)).toBeInTheDocument();
     });
 
@@ -214,8 +209,10 @@ describe('Datepicker', () => {
       const date = dayjs();
       for (let i = 0; i < 12; i++) {
         const month = date.add(i, 'month');
-        render(() => <DatepickerNav month={month}/>);
-        expect(screen.getByTestId(NAV_MONTH_LABEL)).toHaveTextContent(month.format('MMMM'));
+        render(() => <DatepickerNav month={month} />);
+        expect(screen.getByTestId(NAV_MONTH_LABEL)).toHaveTextContent(
+          month.format('MMMM')
+        );
         cleanup();
       }
     });
@@ -224,15 +221,17 @@ describe('Datepicker', () => {
       const date = dayjs();
       for (let i = 0; i < 12; i++) {
         const month = date.add(i, 'year');
-        render(() => <DatepickerNav month={month}/>);
-        expect(screen.getByTestId(NAV_YEAR_LABEL)).toHaveTextContent(month.format('YYYY'));
+        render(() => <DatepickerNav month={month} />);
+        expect(screen.getByTestId(NAV_YEAR_LABEL)).toHaveTextContent(
+          month.format('YYYY')
+        );
         cleanup();
       }
     });
 
     test('should emit onNextMonth', () => {
       const onNext = jest.fn();
-      render(() => <DatepickerNav month={dayjs()} onNext={onNext}/>);
+      render(() => <DatepickerNav month={dayjs()} onNext={onNext} />);
       const [, next] = screen.getAllByTestId('button');
       fireEvent.click(next);
       expect(onNext).toBeCalled();
@@ -240,7 +239,7 @@ describe('Datepicker', () => {
 
     test('should emit onPrevMonth', () => {
       const onPrev = jest.fn();
-      render(() => <DatepickerNav month={dayjs()} onPrev={onPrev}/>);
+      render(() => <DatepickerNav month={dayjs()} onPrev={onPrev} />);
       const [prev] = screen.getAllByTestId('button');
       fireEvent.click(prev);
       expect(onPrev).toBeCalled();

@@ -1,6 +1,6 @@
-import { createMemo, ParentProps } from 'solid-js';
-import { SelectSelectors, useSelect } from './Select';
-import { PropFocusEvent, PropMouseEvent } from '../../types';
+import {PropFocusEvent, PropMouseEvent} from '../../types';
+import {SelectSelectors, useSelect} from './Select';
+import {createMemo, ParentProps} from 'solid-js';
 
 type Props = {
   value: any;
@@ -8,10 +8,9 @@ type Props = {
   onClick?: (e: PropMouseEvent) => void;
   onFocus?: (e: PropFocusEvent) => void;
   onBlur?: (e: PropFocusEvent) => void;
-}
+};
 
 export const Option = (props: ParentProps<Props>) => {
-
   const select = useSelect();
 
   const onClick = (e: PropMouseEvent) => {
@@ -39,16 +38,13 @@ export const Option = (props: ParentProps<Props>) => {
     >
       <button
         data-testid={SelectSelectors.OPTION_BUTTON}
-
         onClick={onClick}
         onFocus={props.onFocus}
         onBlur={props.onBlur}
-
         class={SelectSelectors.OPTION_BUTTON}
         classList={{
           active: active(),
         }}
-
         disabled={props.disabled}
       >
         {props.children}

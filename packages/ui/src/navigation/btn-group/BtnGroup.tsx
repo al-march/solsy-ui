@@ -1,7 +1,7 @@
-import { createContext, ParentProps, useContext } from 'solid-js';
-import { createStore } from 'solid-js/store';
-import { DaisySize } from '../../types';
-import { BtnGroupItem } from './BtnGroupItem';
+import {DaisySize} from '../../types';
+import {BtnGroupItem} from './BtnGroupItem';
+import {createContext, ParentProps, useContext} from 'solid-js';
+import {createStore} from 'solid-js/store';
 
 export const BtnGroupSelectors = {
   GROUP: 'button-group',
@@ -14,13 +14,13 @@ type BtnGroupState = {
   activeButtons: Set<any>;
   buttons: HTMLElement[];
   size?: BtnGroupSize;
-}
+};
 
 type BtnGroupCtx = {
   state: BtnGroupState;
   initButton: (node: HTMLElement) => number;
   setActive: (v: any) => void;
-}
+};
 
 const BtnGroupCtx = createContext<BtnGroupCtx>();
 
@@ -39,7 +39,7 @@ export type BtnGroupProps<T extends any> = {
   size?: BtnGroupSize;
   orientation?: 'horizontal' | 'vertical';
   class?: string;
-}
+};
 
 /**
  * BtnGroup
@@ -56,13 +56,12 @@ export type BtnGroupProps<T extends any> = {
  * </BtnGroup>
  */
 const BtnGroupBase = <T extends any>(props: ParentProps<BtnGroupProps<T>>) => {
-
   const [state, setState] = createStore<BtnGroupState>({
     activeButtons: initActiveButtons(),
     buttons: [],
     get size() {
       return props.size;
-    }
+    },
   });
 
   function initActiveButtons() {
@@ -113,18 +112,18 @@ const BtnGroupBase = <T extends any>(props: ParentProps<BtnGroupProps<T>>) => {
 
   function updateValue(set: Set<any>) {
     setState('activeButtons', set);
-    const emitValue = props.multiple
-      ? Array.from(set)
-      : Array.from(set)[0];
+    const emitValue = props.multiple ? Array.from(set) : Array.from(set)[0];
     props.onInput?.(emitValue);
   }
 
   return (
-    <BtnGroupCtx.Provider value={{
-      state,
-      initButton,
-      setActive,
-    }}>
+    <BtnGroupCtx.Provider
+      value={{
+        state,
+        initButton,
+        setActive,
+      }}
+    >
       <div
         data-testid={BtnGroupSelectors.GROUP}
         class="btn-group"

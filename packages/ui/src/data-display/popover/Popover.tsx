@@ -1,3 +1,5 @@
+import {BackdropClick, SlideUpTransition, usePopper} from '../../utils';
+import {Placement} from '@popperjs/core';
 import {
   createContext,
   createEffect,
@@ -6,28 +8,26 @@ import {
   onCleanup,
   ParentProps,
   Show,
-  useContext
+  useContext,
 } from 'solid-js';
-import { BackdropClick, SlideUpTransition, usePopper } from '../../utils';
-import { Portal } from 'solid-js/web';
-import { createStore } from 'solid-js/store';
-import { Placement } from '@popperjs/core';
+import {createStore} from 'solid-js/store';
+import {Portal} from 'solid-js/web';
 
 export const PopoverSelectors = {
   TRIGGER: 'popover-trigger',
-  CONTENT: 'popover-content'
+  CONTENT: 'popover-content',
 };
 
 type PopoverState = {
   isOpen: boolean;
   isClose: boolean;
-}
+};
 
 type PopoverContextType = {
   state: PopoverState;
   open: () => void;
   close: () => void;
-}
+};
 
 export type PopoverProps = {
   trigger: JSXElement;
@@ -36,7 +36,7 @@ export type PopoverProps = {
   onOpen?: () => void;
   onClose?: () => void;
   openByTriggerClick?: boolean;
-}
+};
 
 export const Popover = (props: ParentProps<PopoverProps>) => {
   const [ref, setRef] = createSignal<HTMLElement>();
@@ -46,22 +46,24 @@ export const Popover = (props: ParentProps<PopoverProps>) => {
     isOpen: !!props.show,
     get isClose() {
       return !this._isOpen;
-    }
+    },
   });
 
   const instance = usePopper(ref, popper, {
     placement: props.placement || 'auto',
-    modifiers: [{
-      name: 'offset',
-      options: {
-        offset: [0, 8],
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8],
+        },
       },
-    }]
+    ],
   });
 
   /*
-  * Open/close Popover according props.show
-  */
+   * Open/close Popover according props.show
+   */
   createEffect(() => {
     const isOpen = props.show;
     if (typeof isOpen === 'boolean') {
@@ -96,11 +98,13 @@ export const Popover = (props: ParentProps<PopoverProps>) => {
   }
 
   return (
-    <PopoverCtx.Provider value={{
-      state,
-      open,
-      close,
-    }}>
+    <PopoverCtx.Provider
+      value={{
+        state,
+        open,
+        close,
+      }}
+    >
       <div
         data-testid={PopoverSelectors.TRIGGER}
         class="inline-block"
@@ -121,7 +125,7 @@ export const Popover = (props: ParentProps<PopoverProps>) => {
 
 type PopoverContentProps = {
   ref: (el: HTMLElement) => void;
-}
+};
 
 const PopoverContent = (props: ParentProps<PopoverContentProps>) => {
   const popover = usePopover();
@@ -142,13 +146,8 @@ const PopoverContent = (props: ParentProps<PopoverContentProps>) => {
           class="z-50"
           ref={props.ref}
         >
-          <SlideUpTransition
-            appear
-            onExitDone={() => setShow(false)}
-          >
-            {popover.state.isOpen && (
-              props.children
-            )}
+          <SlideUpTransition appear onExitDone={() => setShow(false)}>
+            {popover.state.isOpen && props.children}
           </SlideUpTransition>
         </div>
       </Portal>

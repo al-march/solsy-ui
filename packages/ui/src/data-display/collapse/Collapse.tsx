@@ -1,10 +1,10 @@
-import { JSXElement, ParentProps } from 'solid-js';
-import { PropClickEvent, PropFocusEvent } from '../../types';
+import {PropClickEvent, PropFocusEvent} from '../../types';
+import {JSXElement, ParentProps} from 'solid-js';
 
 export const CollapseSelectors = {
   COLLAPSE: 'collapse',
   LABEL: 'label',
-  CONTENT: 'content'
+  CONTENT: 'content',
 };
 
 export type CollapseIcon = 'plus' | 'arrow';
@@ -19,7 +19,7 @@ export type CollapseProps = {
   onClick?: (e: PropClickEvent<HTMLDivElement>) => void;
   onFocus?: (e: PropFocusEvent<HTMLDivElement>) => void;
   onBlur?: (e: PropFocusEvent<HTMLDivElement>) => void;
-}
+};
 
 export const Collapse = (props: ParentProps<CollapseProps>) => {
   return (
@@ -32,7 +32,6 @@ export const Collapse = (props: ParentProps<CollapseProps>) => {
         'collapse-arrow': props.icon === 'arrow',
         'collapse-plus': props.icon === 'plus',
       }}
-
       onClick={props.onClick}
       onFocus={props.onFocus}
       onBlur={props.onBlur}
@@ -46,4 +45,3 @@ export const Collapse = (props: ParentProps<CollapseProps>) => {
     </div>
   );
 };
-

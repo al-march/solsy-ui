@@ -1,20 +1,19 @@
-import { For } from 'solid-js';
-import { cleanup, fireEvent, render, screen } from 'solid-testing-library';
-import { BtnGroup, BtnGroupSelectors, BtnGroupSize } from '../BtnGroup';
-import { ObjectKeys } from '../../../utils/object';
+import {ObjectKeys} from '../../../utils/object';
+import {BtnGroup, BtnGroupSelectors, BtnGroupSize} from '../BtnGroup';
+import {For} from 'solid-js';
+import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
 
 const toggleButtons = ['first', 'second', 'third'];
 
-const isButtonActive = (button: HTMLElement) => (
-  button.classList.contains('btn-active')
-);
+const isButtonActive = (button: HTMLElement) =>
+  button.classList.contains('btn-active');
 
 describe('ToggleButtons', () => {
   test('should be rendered', async () => {
     render(() => (
       <BtnGroup>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -26,14 +25,14 @@ describe('ToggleButtons', () => {
       lg: 'btn-lg',
       md: 'btn-md',
       sm: 'btn-sm',
-      xs: 'btn-xs'
+      xs: 'btn-xs',
     };
 
     ObjectKeys(sizes).forEach(size => {
       render(() => (
         <BtnGroup size={size}>
           <For each={toggleButtons}>
-            {(btn) => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+            {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
           </For>
         </BtnGroup>
       ));
@@ -46,9 +45,9 @@ describe('ToggleButtons', () => {
   test('should be active by click', async () => {
     let value = '';
     render(() => (
-      <BtnGroup<string> onInput={e => value = e}>
+      <BtnGroup<string> onInput={e => (value = e)}>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -73,7 +72,7 @@ describe('ToggleButtons', () => {
     render(() => (
       <BtnGroup value={value}>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -88,7 +87,7 @@ describe('ToggleButtons', () => {
     render(() => (
       <BtnGroup value={value}>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -102,7 +101,7 @@ describe('ToggleButtons', () => {
     render(() => (
       <BtnGroup value={2}>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -115,7 +114,7 @@ describe('ToggleButtons', () => {
     render(() => (
       <BtnGroup multiple>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -130,12 +129,9 @@ describe('ToggleButtons', () => {
   test('should return a list', () => {
     let value: string[] = [];
     render(() => (
-      <BtnGroup<string[]>
-        multiple
-        onInput={e => value = e}
-      >
+      <BtnGroup<string[]> multiple onInput={e => (value = e)}>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -151,12 +147,9 @@ describe('ToggleButtons', () => {
   test('should checked buttons by default value', () => {
     const defaultValues = [...toggleButtons];
     render(() => (
-      <BtnGroup
-        multiple
-        value={defaultValues}
-      >
+      <BtnGroup multiple value={defaultValues}>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
         </For>
       </BtnGroup>
     ));
@@ -169,17 +162,20 @@ describe('ToggleButtons', () => {
     const customClass = 'custom-class';
 
     render(() => (
-      <BtnGroup
-        multiple
-        class={customClass}
-      >
+      <BtnGroup multiple class={customClass}>
         <For each={toggleButtons}>
-          {(btn) => <BtnGroup.Item value={btn} class={customClass}>{btn}</BtnGroup.Item>}
+          {btn => (
+            <BtnGroup.Item value={btn} class={customClass}>
+              {btn}
+            </BtnGroup.Item>
+          )}
         </For>
       </BtnGroup>
     ));
 
-    expect(screen.getByTestId(BtnGroupSelectors.GROUP)).toHaveClass(customClass);
+    expect(screen.getByTestId(BtnGroupSelectors.GROUP)).toHaveClass(
+      customClass
+    );
     screen.getAllByTestId(BtnGroupSelectors.BUTTON).forEach(btn => {
       expect(btn).toHaveClass(customClass);
     });
@@ -188,9 +184,13 @@ describe('ToggleButtons', () => {
   test('should be vertical', () => {
     render(() => (
       <BtnGroup orientation="vertical">
-        <For each={toggleButtons}>{(btn) => <BtnGroup.Item>{btn}</BtnGroup.Item>}</For>
+        <For each={toggleButtons}>
+          {btn => <BtnGroup.Item>{btn}</BtnGroup.Item>}
+        </For>
       </BtnGroup>
     ));
-    expect(screen.getByTestId(BtnGroupSelectors.GROUP)).toHaveClass('btn-group-vertical')
-  })
+    expect(screen.getByTestId(BtnGroupSelectors.GROUP)).toHaveClass(
+      'btn-group-vertical'
+    );
+  });
 });

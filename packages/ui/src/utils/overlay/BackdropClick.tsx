@@ -1,14 +1,14 @@
-import { createSignal, onCleanup, onMount, ParentProps } from 'solid-js';
+import {createSignal, onCleanup, onMount, ParentProps} from 'solid-js';
 
 export const BackdropClickSelectors = {
-  CLICKER: 'BackdropClick'
+  CLICKER: 'BackdropClick',
 };
 
 export type BackdropClickProps = {
   onContentClick?: (e: Event) => void;
   onBackdropClick?: (e: Event) => void;
   class?: string;
-}
+};
 
 export const BackdropClick = (props: ParentProps<BackdropClickProps>) => {
   const [ref, setRef] = createSignal<HTMLElement>();

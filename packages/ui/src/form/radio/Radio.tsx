@@ -1,7 +1,12 @@
-import { DaisySize, PropChangeEvent, PropFocusEvent, PropInputEvent } from '../../types';
+import {
+  DaisySize,
+  PropChangeEvent,
+  PropFocusEvent,
+  PropInputEvent,
+} from '../../types';
 
 export const RadioSelector = {
-  RADIO: 'radio'
+  RADIO: 'radio',
 };
 
 export type RadioColor = 'primary' | 'secondary' | 'accent';
@@ -19,7 +24,7 @@ export type RadioProps = {
   onChange?: (e: PropChangeEvent) => void;
   onFocus?: (e: PropFocusEvent) => void;
   onBlur?: (e: PropFocusEvent) => void;
-}
+};
 
 export const Radio = (props: RadioProps) => {
   return (
@@ -28,7 +33,6 @@ export const Radio = (props: RadioProps) => {
       type="radio"
       name={props.name}
       checked={props.value}
-
       class={`radio ${props.class || ''}`}
       classList={{
         'radio-accent': props.color === 'accent',
@@ -40,7 +44,6 @@ export const Radio = (props: RadioProps) => {
         'radio-sm': props.size === 'sm',
         'radio-xs': props.size === 'xs',
       }}
-
       onInput={props.onInput}
       onChange={props.onChange}
       onFocus={props.onFocus}

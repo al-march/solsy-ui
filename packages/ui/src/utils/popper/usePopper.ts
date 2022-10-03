@@ -1,5 +1,5 @@
-import { Accessor, createEffect, createSignal, onCleanup } from 'solid-js';
-import { createPopper, Instance, Options } from '@popperjs/core';
+import {createPopper, Instance, Options} from '@popperjs/core';
+import {Accessor, createEffect, createSignal, onCleanup} from 'solid-js';
 
 /**
  * Хук для работы с Popper для SolidJs
@@ -20,34 +20,34 @@ import { createPopper, Instance, Options } from '@popperjs/core';
  * @returns Popper.Instance | undefined
  */
 export function usePopper<T extends HTMLElement>(
-    referenceAccessor: Accessor<T | undefined | null>,
-    popperAccessor: Accessor<T | undefined | null>,
-    options: Partial<Options> = {},
+  referenceAccessor: Accessor<T | undefined | null>,
+  popperAccessor: Accessor<T | undefined | null>,
+  options: Partial<Options> = {}
 ): () => Instance | undefined {
-    const [instance, setInstance] = createSignal<Instance>();
+  const [instance, setInstance] = createSignal<Instance>();
 
-    /*
-    * Инициализируем Popper
-    */
-    createEffect(() => {
-        setInstance(undefined);
+  /*
+   * Инициализируем Popper
+   */
+  createEffect(() => {
+    setInstance(undefined);
 
-        const reference = referenceAccessor();
-        const popper = popperAccessor();
+    const reference = referenceAccessor();
+    const popper = popperAccessor();
 
-        if (reference && popper) {
-            const instance = createPopper(reference, popper, options);
+    if (reference && popper) {
+      const instance = createPopper(reference, popper, options);
 
-            setInstance(instance);
+      setInstance(instance);
 
-            /*
-            * Уничтожаем Popper, если он был создан
-            */
-            onCleanup(() => {
-                instance.destroy();
-            });
-        }
-    });
+      /*
+       * Уничтожаем Popper, если он был создан
+       */
+      onCleanup(() => {
+        instance.destroy();
+      });
+    }
+  });
 
-    return () => instance();
+  return () => instance();
 }

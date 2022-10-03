@@ -1,8 +1,13 @@
-import { ParentProps } from 'solid-js';
-import { DaisyColor, DaisySize, PropClickEvent, PropFocusEvent } from '../../types';
+import {
+  DaisyColor,
+  DaisySize,
+  PropClickEvent,
+  PropFocusEvent,
+} from '../../types';
+import {ParentProps} from 'solid-js';
 
 export const ButtonSelectors = {
-  BUTTON: 'button'
+  BUTTON: 'button',
 };
 
 export type ButtonColor = DaisyColor | 'ghost';
@@ -33,10 +38,9 @@ export type ButtonProps = {
   onFocus?: (e: PropFocusEvent<HTMLButtonElement>) => void;
   onBlur?: (e: PropFocusEvent<HTMLButtonElement>) => void;
   ref?: (button: HTMLButtonElement) => void;
-}
+};
 
 export const Button = (props: ParentProps<ButtonProps>) => {
-
   return (
     <button
       data-testid={ButtonSelectors.BUTTON}
@@ -45,7 +49,6 @@ export const Button = (props: ParentProps<ButtonProps>) => {
       onFocus={props.onFocus}
       onBlur={props.onBlur}
       type={props.type || 'button'}
-
       disabled={props.disabled}
       class={`btn ${props.class || ''}`}
       classList={{
@@ -72,7 +75,7 @@ export const Button = (props: ParentProps<ButtonProps>) => {
         'btn-block': props.block,
 
         'loading': props.loading,
-        'glass': props.glass
+        'glass': props.glass,
       }}
     >
       {props.children}

@@ -1,14 +1,14 @@
-import { fireEvent, render, screen } from 'solid-testing-library';
-import { Menu, MenuSelectors } from '../Menu';
+import {Menu, MenuSelectors} from '../Menu';
+import {fireEvent, render, screen} from 'solid-testing-library';
 
 describe('Menu', () => {
   test('should be rendered', () => {
-    render(() => <Menu isShow/>);
+    render(() => <Menu isShow />);
     expect(screen.getByTestId(MenuSelectors.MENU)).toBeInTheDocument();
   });
   test('should emit click backdrop', () => {
     const onBackdropClick = jest.fn();
-    render(() => <Menu isShow onBackdropClick={onBackdropClick}/>);
+    render(() => <Menu isShow onBackdropClick={onBackdropClick} />);
     fireEvent.click(document.body);
     expect(onBackdropClick).toBeCalled();
   });

@@ -1,8 +1,8 @@
-import { ParentProps } from 'solid-js';
+import {ParentProps} from 'solid-js';
 
 type Props = {
   onClick?: () => void;
-}
+};
 // Todo: delete (change to BackdropClick)
 export const Overlay = (props: ParentProps<Props>) => {
   return (

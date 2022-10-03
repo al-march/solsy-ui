@@ -1,13 +1,13 @@
-import { createEffect, createSignal, ParentProps, Show } from 'solid-js';
-import { Portal } from 'solid-js/web';
-import { Placement } from '@popperjs/core';
-import { ScaleTransition, usePopper } from '../../utils';
+import {ScaleTransition, usePopper} from '../../utils';
+import {Placement} from '@popperjs/core';
+import {createEffect, createSignal, ParentProps, Show} from 'solid-js';
+import {Portal} from 'solid-js/web';
 
 export type TooltipProps = {
   message: string;
   placement?: Placement;
   class?: string;
-}
+};
 
 /**
  * Tooltip
@@ -23,7 +23,6 @@ export type TooltipProps = {
  * </Tooltip>
  */
 export const Tooltip = (props: ParentProps<TooltipProps>) => {
-
   const [show, setShow] = createSignal(false);
   const [tooltip, setTooltip] = createSignal(false);
   const [triggerRef, setTriggerRef] = createSignal<HTMLElement>();
@@ -32,12 +31,14 @@ export const Tooltip = (props: ParentProps<TooltipProps>) => {
   createEffect(() => {
     usePopper(triggerRef, popperRef, {
       placement: props.placement || 'top',
-      modifiers: [{
-        name: 'offset',
-        options: {
-          offset: [0, 10],
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 10],
+          },
         },
-      }]
+      ],
     });
   });
 
@@ -60,7 +61,7 @@ export const Tooltip = (props: ParentProps<TooltipProps>) => {
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
       >
-          {props.children}
+        {props.children}
       </span>
 
       <Show when={show()}>

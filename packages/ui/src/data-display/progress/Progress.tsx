@@ -1,11 +1,11 @@
-import { ParentProps } from 'solid-js';
-import { DaisyColor } from '../../types';
+import {DaisyColor} from '../../types';
+import {ParentProps} from 'solid-js';
 
 export type ProgressProps = {
   value: number;
   max?: number;
   color?: DaisyColor;
-}
+};
 
 export const Progress = (props: ParentProps<ProgressProps>) => {
   return (

@@ -1,5 +1,1 @@
-export type DaisySize =
-    'lg'
-    | 'md'
-    | 'sm'
-    | 'xs';
+export type DaisySize = 'lg' | 'md' | 'sm' | 'xs';

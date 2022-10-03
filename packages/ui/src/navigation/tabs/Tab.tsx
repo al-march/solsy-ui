@@ -1,6 +1,6 @@
-import { createSignal, JSXElement, ParentProps } from 'solid-js';
-import { TabSelectors, useTabs } from './Tabs';
-import { PropFocusEvent } from '../../types';
+import {PropFocusEvent} from '../../types';
+import {TabSelectors, useTabs} from './Tabs';
+import {createSignal, JSXElement, ParentProps} from 'solid-js';
 
 export type TabProps = {
   label: JSXElement;
@@ -27,9 +27,11 @@ export const Tab = (props: ParentProps<TabProps>) => {
   }
 
   return (
-    <div classList={{
-      [props.class || '']: !!props.class,
-    }}>
+    <div
+      classList={{
+        [props.class || '']: !!props.class,
+      }}
+    >
       <button
         data-testid={TabSelectors.TAB}
         ref={initTab}

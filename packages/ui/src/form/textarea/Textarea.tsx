@@ -1,6 +1,10 @@
-import { DaisyColor, PropChangeEvent, PropFocusEvent, PropInputEvent } from '../../types';
-import { ParentProps } from 'solid-js';
-
+import {
+  DaisyColor,
+  PropChangeEvent,
+  PropFocusEvent,
+  PropInputEvent,
+} from '../../types';
+import {ParentProps} from 'solid-js';
 
 export const TextareaSelectors = {
   TEXTAREA: 'textarea',
@@ -31,7 +35,7 @@ export type TextareaProps = {
   onInput?: (e: PropInputEvent<HTMLTextAreaElement>) => void;
   onFocus?: (e: PropFocusEvent<HTMLTextAreaElement>) => void;
   onBlur?: (e: PropFocusEvent<HTMLTextAreaElement>) => void;
-}
+};
 
 export const Textarea = (props: ParentProps<TextareaProps>) => {
   const onInput = (e: PropInputEvent<HTMLTextAreaElement>) => {
@@ -53,11 +57,9 @@ export const Textarea = (props: ParentProps<TextareaProps>) => {
       name={props.name}
       autocomplete={props.autocomplete}
       disabled={props.disabled}
-
       id={props.id}
       cols={props.cols}
       rows={props.rows || 1}
-
       class={`textarea h-auto min-h-0 ${props.class || ''}`}
       classList={{
         'textarea-primary': props.color === 'primary',
@@ -74,7 +76,6 @@ export const Textarea = (props: ParentProps<TextareaProps>) => {
         'resize-none': !props.resize,
         'resize': !!props.resize,
       }}
-
       onChange={props.onChange}
       onInput={onInput}
       onBlur={props.onBlur}

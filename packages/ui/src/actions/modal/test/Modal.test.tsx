@@ -1,6 +1,6 @@
-import { Modal, ModalProps, ModalSelectors } from '../Modal';
-import { Component, createSignal } from 'solid-js';
-import { fireEvent, render, screen } from 'solid-testing-library';
+import {Modal, ModalProps, ModalSelectors} from '../Modal';
+import {Component, createSignal} from 'solid-js';
+import {fireEvent, render, screen} from 'solid-testing-library';
 
 const ModalTest: Component<ModalProps> = props => {
   const [show, setShow] = createSignal(props.isShow);
@@ -38,12 +38,12 @@ const content = () => screen.getByTestId('modal-content');
 
 describe('Modal', () => {
   test('should be rendered', async () => {
-    await render(() => <ModalTest isShow={true}/>);
+    await render(() => <ModalTest isShow={true} />);
     expect(await content()).toBeInTheDocument();
   });
 
   test('should be rendered by btn click', async () => {
-    await render(() => <ModalTest isShow={false}/>);
+    await render(() => <ModalTest isShow={false} />);
     await screen.findByTestId('modal-content').catch(err => {
       expect(err).toBeTruthy();
     });
@@ -53,9 +53,9 @@ describe('Modal', () => {
   });
 
   test('should be closed after backdrop clicked', async () => {
-    const content = () => screen.findByTestId('modal-content')
+    const content = () => screen.findByTestId('modal-content');
 
-    render(() => <ModalTest isShow={true}/>);
+    render(() => <ModalTest isShow={true} />);
     expect(await content()).toBeInTheDocument();
     fireEvent.click(document.body);
 
@@ -78,7 +78,7 @@ describe('Modal', () => {
 
   test('should emit onClose', async () => {
     const onClose = jest.fn();
-    render(() => <ModalTest isShow={true} onClose={onClose}/>);
+    render(() => <ModalTest isShow={true} onClose={onClose} />);
 
     fireEvent.click(screen.getByTestId('close-modal-btn'));
     await Promise.resolve();
@@ -98,27 +98,27 @@ describe('Modal', () => {
   });
 
   test('should focused on show', async () => {
-    await render(() => <ModalTest isShow={false}/>);
+    await render(() => <ModalTest isShow={false} />);
     fireEvent.click(await btn());
 
     setTimeout(() => {
       expect(content()).toHaveFocus();
-    })
+    });
   });
 
   test('should focused on trigger after closing', async () => {
-    await render(() => <ModalTest isShow={true}/>);
+    await render(() => <ModalTest isShow={true} />);
     fireEvent.click(screen.getByTestId('close-modal-btn'));
 
     setTimeout(() => {
       expect(btn()).toHaveFocus();
-    })
+    });
   });
 
   test('should closed by ESC', async () => {
-    const content = () => screen.findByTestId('modal-content')
+    const content = () => screen.findByTestId('modal-content');
 
-    await render(() => <ModalTest isShow={true}/>);
+    await render(() => <ModalTest isShow={true} />);
     fireEvent.keyDown(await content(), {key: 'Escape'});
 
     await content().catch(err => {

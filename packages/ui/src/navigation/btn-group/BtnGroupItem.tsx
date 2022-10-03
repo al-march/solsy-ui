@@ -1,6 +1,6 @@
-import { createSignal, onMount, ParentProps } from 'solid-js';
-import { useBtnGroup } from './BtnGroup';
-import { Button } from '../../actions';
+import {Button} from '../../actions';
+import {useBtnGroup} from './BtnGroup';
+import {createSignal, onMount, ParentProps} from 'solid-js';
 
 type Props<T = any> = {
   value?: T;
@@ -8,7 +8,7 @@ type Props<T = any> = {
   defaultChecked?: boolean;
   onClick?: (v: T | number) => void;
   class?: string;
-}
+};
 
 export const BtnGroupItem = <T extends any>(props: ParentProps<Props<T>>) => {
   const ctx = useBtnGroup();

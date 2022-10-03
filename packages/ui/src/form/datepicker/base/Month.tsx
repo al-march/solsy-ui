@@ -1,16 +1,15 @@
-import { createMemo, For } from 'solid-js';
-import dayjs, { Dayjs } from 'dayjs';
-import { Day } from './Day';
-import { DayModel } from '../models';
-import { DatepickerSelectors } from '../Datepicker';
+import {DatepickerSelectors} from '../Datepicker';
+import {DayModel} from '../models';
+import {Day} from './Day';
+import dayjs, {Dayjs} from 'dayjs';
+import {createMemo, For} from 'solid-js';
 
 export type MonthProps = {
   month: Dayjs;
   onSelectDay?: (day: Dayjs) => void;
-}
+};
 
 export const Month = (props: MonthProps) => {
-
   const month = createMemo(() => getMonthDays(props.month));
   const week = createMemo(() => getWeek());
 
@@ -29,15 +28,12 @@ export const Month = (props: MonthProps) => {
         </For>
       </header>
 
-      <div class="divider m-0 h-0"/>
+      <div class="divider m-0 h-0" />
 
       <section class="month-days flex-1 grid grid-cols-7">
         <For each={month()}>
           {day => (
-            <Day
-              day={day}
-              onSelect={() => props.onSelectDay?.(day.date)}
-            />
+            <Day day={day} onSelect={() => props.onSelectDay?.(day.date)} />
           )}
         </For>
       </section>
@@ -60,7 +56,9 @@ function getDaysOfMonth(currentMonth: Dayjs) {
 
   let count = 1;
   while (count <= allDays) {
-    const date = dayjs(new Date(currentMonth.year(), currentMonth.month(), count));
+    const date = dayjs(
+      new Date(currentMonth.year(), currentMonth.month(), count)
+    );
     const isToday = date.toISOString() === dayjs().startOf('day').toISOString();
     const day = new DayModel(date, true, isToday);
     output.push(day);
@@ -102,9 +100,9 @@ function getDaysAfter(lastDay: Dayjs) {
 }
 
 function getWeek() {
-  return new Array(7)
-    .fill(0)
-    .map((day, index) => (
-      dayjs().weekday(day + index).format('dd')
-    ));
+  return new Array(7).fill(0).map((day, index) =>
+    dayjs()
+      .weekday(day + index)
+      .format('dd')
+  );
 }

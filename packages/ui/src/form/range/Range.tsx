@@ -1,13 +1,13 @@
-import { createMemo, For, Show } from 'solid-js';
-import { DaisySize } from '../../types';
+import {DaisySize} from '../../types';
+import {createMemo, For, Show} from 'solid-js';
 
 export type RangeSize = DaisySize;
-export type RangeColor = 'primary' | 'secondary' | 'accent'
+export type RangeColor = 'primary' | 'secondary' | 'accent';
 
 export const RangeSelectors = {
   INPUT: 'range',
   STEPS: 'range-steps',
-  STEP: 'range-step'
+  STEP: 'range-step',
 };
 
 type Props = {
@@ -21,7 +21,7 @@ type Props = {
   size?: RangeSize;
   color?: RangeColor;
   class?: string;
-}
+};
 
 export const Range = (props: Props) => {
   function change(e: Event) {
@@ -30,8 +30,8 @@ export const Range = (props: Props) => {
     props.onInput?.(value);
   }
 
-  const setColor = (color?: RangeColor) => color ? `range-${color}` : '';
-  const setSize = (size?: RangeSize) => size ? `range-${size}` : '';
+  const setColor = (color?: RangeColor) => (color ? `range-${color}` : '');
+  const setSize = (size?: RangeSize) => (size ? `range-${size}` : '');
 
   return (
     <>
@@ -42,8 +42,9 @@ export const Range = (props: Props) => {
         max={props.max || 100}
         value={props.value}
         step={props.step}
-        class={`range ${setColor(props.color)} ${setSize(props.size)} ${props.class || ''}`}
-
+        class={`range ${setColor(props.color)} ${setSize(props.size)} ${
+          props.class || ''
+        }`}
         classList={{
           'range-lg': props.size === 'lg',
           'range-md': props.size === 'md',
@@ -54,12 +55,11 @@ export const Range = (props: Props) => {
           'range-secondary': props.color === 'secondary',
           'range-accent': props.color === 'accent',
         }}
-
         onInput={change}
       />
 
       <Show when={props.step}>
-        <Scale max={props.max || 100} step={props.step || 0}/>
+        <Scale max={props.max || 100} step={props.step || 0} />
       </Show>
     </>
   );
@@ -68,10 +68,12 @@ export const Range = (props: Props) => {
 type ScaleProps = {
   max: number;
   step: number;
-}
+};
 
 const Scale = (props: ScaleProps) => {
-  const steps = createMemo(() => new Array(Math.round(props.max / props.step) + 1).fill(0));
+  const steps = createMemo(() =>
+    new Array(Math.round(props.max / props.step) + 1).fill(0)
+  );
 
   return (
     <div

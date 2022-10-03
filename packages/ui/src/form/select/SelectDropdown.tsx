@@ -1,14 +1,21 @@
-import { Accessor, createEffect, createSignal, onCleanup, ParentProps, Show } from 'solid-js';
-import { Portal } from 'solid-js/web';
-import { BackdropClick, ScaleTransition, usePopper } from '../../utils';
-import { SelectSelectors } from './Select';
-import { createStore } from 'solid-js/store';
+import {BackdropClick, ScaleTransition, usePopper} from '../../utils';
+import {SelectSelectors} from './Select';
+import {
+  Accessor,
+  createEffect,
+  createSignal,
+  onCleanup,
+  ParentProps,
+  Show,
+} from 'solid-js';
+import {createStore} from 'solid-js/store';
+import {Portal} from 'solid-js/web';
 
 type Props = {
   show: boolean;
   reference: Accessor<HTMLElement | undefined>;
   onClose?: () => void;
-}
+};
 
 export const SelectDropdown = (props: ParentProps<Props>) => {
   const [dropdown, setDropdown] = createSignal<HTMLElement>();
@@ -32,17 +39,20 @@ export const SelectDropdown = (props: ParentProps<Props>) => {
   });
 
   const instance = usePopper(props.reference, dropdown, {
-    modifiers: [{
-      name: 'offset',
-      options: {
-        offset: [0, 8],
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8],
+        },
       },
-    }]
+    ],
   });
 
   function focusOption() {
-    const optionsRef = dropdown()
-      ?.querySelector(`.${SelectSelectors.OPTION_BUTTON}`) as HTMLButtonElement;
+    const optionsRef = dropdown()?.querySelector(
+      `.${SelectSelectors.OPTION_BUTTON}`
+    ) as HTMLButtonElement;
 
     if (optionsRef) {
       optionsRef.focus();
@@ -66,19 +76,14 @@ export const SelectDropdown = (props: ParentProps<Props>) => {
   return (
     <Show when={state.isRender}>
       <Portal>
-        <BackdropClick
-          onBackdropClick={onBackdropClick}
-        >
+        <BackdropClick onBackdropClick={onBackdropClick}>
           <div
             data-testid={SelectSelectors.DROPDOWN}
             ref={setDropdown}
             class="z-50"
             style={{'min-width': props.reference()?.offsetWidth + 'px'}}
           >
-            <ScaleTransition
-              appear={true}
-              onExit={destroy}
-            >
+            <ScaleTransition appear={true} onExit={destroy}>
               <Show when={state.isOpen}>
                 <ul class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-scroll">
                   {props.children}
