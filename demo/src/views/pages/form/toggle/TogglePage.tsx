@@ -1,55 +1,97 @@
 import {Page} from '@page/base';
-import {Toggle} from '@ui/form';
-import {Component} from 'solid-js';
+import {Toggle, ToggleColor, ToggleSize} from '@ui/form';
+import {Component, For} from 'solid-js';
 
 export const TogglePage: Component = () => {
+  const sizes: ToggleSize[] = ['lg', 'md', 'sm', 'xs'];
+  const colors: Array<ToggleColor | undefined> = [
+    undefined,
+    'accent',
+    'primary',
+    'secondary',
+  ];
+
   return (
     <Page full class="p-4">
       <h2 class="text-2xl mb-5">Toggle</h2>
 
-      <div class="w-96 grid gap-2 mb-5">
-        <h3 class="text-xl mb-2">Colors</h3>
-        <div class="flex items-center gap-3">
-          <label>Primary</label> <Toggle color="primary" />
-        </div>
-        <div class="flex items-center gap-3">
-          <label>Secondary</label> <Toggle color="secondary" />
-        </div>
-        <div class="flex items-center gap-3">
-          <label>Accent</label> <Toggle color="accent" />
-        </div>
+      <table class="table table-compact w-full max-w-2xl">
+        <thead>
+          <tr>
+            <th></th>
+            <For each={colors}>{color => <th>{color || 'default'}</th>}</For>
+          </tr>
+        </thead>
+
+        <tbody>
+          <For each={sizes}>
+            {size => (
+              <tr>
+                <th>{size}</th>
+                <For each={colors}>
+                  {color => (
+                    <th>
+                      <Toggle size={size} name={size} color={color} />
+                    </th>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
+        </tbody>
+      </table>
+
+      <br />
+      <h3 class="text-xl">Sizes</h3>
+      <br />
+      <div class="flex flex-col gap-2">
+        <For each={sizes}>
+          {size => (
+            <div class="flex items-center gap-2">
+              <label for={size} class="w-12 opacity-75 cursor-pointer">
+                {size}
+              </label>
+              <Toggle id={size} name="size" size={size} />
+            </div>
+          )}
+        </For>
       </div>
 
-      <div class="w-96 grid gap-2 mb-5">
-        <h3 class="text-xl mb-2">Sizes</h3>
-        <div class="flex items-center gap-3">
-          <label class="text-lg">Large</label> <Toggle size="lg" />
-        </div>
-        <div class="flex items-center gap-3">
-          <label class="text-md">Medium</label> <Toggle size="md" />
-        </div>
-        <div class="flex items-center gap-3">
-          <label class="text-sm">Small</label> <Toggle size="sm" />
-        </div>
-        <div class="flex items-center gap-3">
-          <label class="text-xs">Extra small</label> <Toggle size="xs" />
-        </div>
+      <br />
+      <h3 class="text-xl">Colors</h3>
+      <br />
+      <div class="flex flex-col gap-2">
+        <For each={colors}>
+          {color => (
+            <div class="flex items-center gap-2">
+              <label
+                for={color || 'default'}
+                class="w-24 opacity-75 cursor-pointer"
+              >
+                {color || 'default'}
+              </label>
+              <Toggle id={color || 'default'} name="color" color={color} />
+            </div>
+          )}
+        </For>
       </div>
 
-      <div class="w-96 grid gap-2 mb-5">
-        <h3 class="text-xl mb-2">Disabled</h3>
-        <div class="flex items-center gap-3">
-          <label>Disabled</label> <Toggle disabled />
-        </div>
-        <div class="flex items-center gap-3">
-          <label>Disabled checked</label> <Toggle disabled value={true} />
-        </div>
+      <br />
+      <h3 class="text-xl">Disabled</h3>
+      <br />
+      <div class="flex items-center gap-3">
+        <label>Disabled</label>
+        <Toggle disabled />
+      </div>
+      <div class="flex items-center gap-3">
+        <label>Disabled checked</label>
+        <Toggle disabled value />
       </div>
 
-      <div class="w-96 grid gap-2 mb-5">
-        <h3 class="text-xl mb-2">Indeterminate</h3>
-        <Toggle indeterminate />
-      </div>
+      <br />
+      <h3 class="text-xl">Indeterminate</h3>
+      <br />
+      <Toggle indeterminate />
     </Page>
   );
 };

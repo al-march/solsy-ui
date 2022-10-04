@@ -1,15 +1,5 @@
-import {DaisySize} from '../../types';
+import {DaisySize, PropChangeEvent, PropInputEvent} from '../../types';
 import {createEffect, createSignal} from 'solid-js';
-import {DOMElement} from 'solid-js/types/jsx';
-
-export type ToggleInputEvent = InputEvent & {
-  currentTarget: HTMLInputElement;
-  target: DOMElement;
-};
-export type ToggleChangeEvent = Event & {
-  currentTarget: HTMLInputElement;
-  target: DOMElement;
-};
 
 export const ToggleSelectors = {
   INPUT: 'toggle',
@@ -20,9 +10,11 @@ export type ToggleSize = DaisySize;
 
 export type ToggleProps = {
   value?: boolean;
+  name?: string;
+  id?: string;
 
-  onInput?: (v: ToggleInputEvent) => void;
-  onChange?: (v: ToggleChangeEvent) => void;
+  onInput?: (v: PropInputEvent<HTMLInputElement>) => void;
+  onChange?: (v: PropChangeEvent<HTMLInputElement>) => void;
   ref?: (el: HTMLInputElement) => void;
 
   color?: ToggleColor;
@@ -50,6 +42,8 @@ export const Toggle = (props: ToggleProps) => {
         setRef(el);
         props.ref?.(el);
       }}
+      name={props.name}
+      id={props.id}
       class="toggle"
       classList={{
         'toggle-accent': props.color === 'accent',
