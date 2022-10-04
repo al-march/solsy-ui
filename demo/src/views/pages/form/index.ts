@@ -1,4 +1,5 @@
 export * from './autocomplete/AutocompletePage';
+export * from './checkbox/CheckboxPage';
 export * from './datepicker/DatepickerPage';
 export * from './input/InputPage';
 export * from './range/RangePage';
