@@ -18,6 +18,7 @@ export enum Points {
   AVATAR = 'avatar',
   TOGGLE = 'toggle',
   ALERTS = 'alerts',
+  CHECKBOX = 'checkbox',
 }
 
 export enum RouterSDKEnum {

@@ -9,6 +9,7 @@ import {
 } from '@page/data';
 import {
   AutocompletePage,
+  CheckboxPage,
   DatepickerPage,
   InputPage,
   RangePage,
@@ -45,6 +46,7 @@ export const Routers: Component = () => {
       <Route path={`/${Points.DIVIDER}`} element={<DividerPage />} />
       <Route path={`/${Points.AVATAR}`} element={<AvatarPage />} />
       <Route path={`/${Points.ALERTS}`} element={<AlertsPage />} />
+      <Route path={`/${Points.CHECKBOX}`} element={<CheckboxPage />} />
 
       <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage />} />
 

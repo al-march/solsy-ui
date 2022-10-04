@@ -30,10 +30,11 @@ export const Drawer = (props: ParentProps) => {
 
           <Menu>
             <MenuTitle>Form</MenuTitle>
+            <MenuLink href={`/${Points.AUTOCOMPLETE}`}>Autocomplete</MenuLink>
+            <MenuLink href={`/${Points.CHECKBOX}`}>Checkbox</MenuLink>
             <MenuLink href={`/${Points.SELECT}`}>Select</MenuLink>
             <MenuLink href={`/${Points.INPUT}`}>Input</MenuLink>
             <MenuLink href={`/${Points.TEXTAREA}`}>Textarea</MenuLink>
-            <MenuLink href={`/${Points.AUTOCOMPLETE}`}>Autocomplete</MenuLink>
             <MenuLink href={`/${Points.DATEPICKER}`}>Datepicker</MenuLink>
             <MenuLink href={`/${Points.RANGE}`}>Range</MenuLink>
             <MenuLink href={`/${Points.TOGGLE}`}>Toggle</MenuLink>

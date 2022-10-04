@@ -25,6 +25,7 @@ export type CheckboxSize = DaisySize;
 export type CheckboxProps = {
   value?: boolean;
   ref?: (el: HTMLInputElement) => void;
+  id?: string;
 
   size?: CheckboxSize;
   color?: CheckboxColor;
@@ -52,6 +53,7 @@ export const Checkbox = (props: ParentProps<CheckboxProps>) => {
     <input
       data-testid={CheckboxSelectors.CHECKBOX}
       type="checkbox"
+      id={props.id || ''}
       class={`checkbox ${props.class || ''}`}
       checked={props.value}
       ref={el => {
