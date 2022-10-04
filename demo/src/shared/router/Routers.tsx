@@ -12,6 +12,7 @@ import {
   CheckboxPage,
   DatepickerPage,
   InputPage,
+  RadioPage,
   RangePage,
   SelectPage,
   TextareaPage,
@@ -47,6 +48,7 @@ export const Routers: Component = () => {
       <Route path={`/${Points.AVATAR}`} element={<AvatarPage />} />
       <Route path={`/${Points.ALERTS}`} element={<AlertsPage />} />
       <Route path={`/${Points.CHECKBOX}`} element={<CheckboxPage />} />
+      <Route path={`/${Points.RADIO}`} element={<RadioPage />} />
 
       <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage />} />
 

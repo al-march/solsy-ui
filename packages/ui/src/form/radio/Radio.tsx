@@ -15,6 +15,7 @@ export type RadioSize = DaisySize;
 export type RadioProps = {
   value?: boolean;
   name?: string;
+  id?: string;
 
   size?: RadioSize;
   color?: RadioColor;
@@ -31,6 +32,7 @@ export const Radio = (props: RadioProps) => {
     <input
       data-testid={RadioSelector.RADIO}
       type="radio"
+      id={props.id || ''}
       name={props.name}
       checked={props.value}
       class={`radio ${props.class || ''}`}

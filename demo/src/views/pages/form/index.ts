@@ -2,6 +2,7 @@ export * from './autocomplete/AutocompletePage';
 export * from './checkbox/CheckboxPage';
 export * from './datepicker/DatepickerPage';
 export * from './input/InputPage';
+export * from './radio/RadioPage';
 export * from './range/RangePage';
 export * from './select/SelectPage';
 export * from './textarea/TextareaPage';

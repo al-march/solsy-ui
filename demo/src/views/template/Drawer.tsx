@@ -34,6 +34,7 @@ export const Drawer = (props: ParentProps) => {
             <MenuLink href={`/${Points.CHECKBOX}`}>Checkbox</MenuLink>
             <MenuLink href={`/${Points.SELECT}`}>Select</MenuLink>
             <MenuLink href={`/${Points.INPUT}`}>Input</MenuLink>
+            <MenuLink href={`/${Points.RADIO}`}>Radio</MenuLink>
             <MenuLink href={`/${Points.TEXTAREA}`}>Textarea</MenuLink>
             <MenuLink href={`/${Points.DATEPICKER}`}>Datepicker</MenuLink>
             <MenuLink href={`/${Points.RANGE}`}>Range</MenuLink>
