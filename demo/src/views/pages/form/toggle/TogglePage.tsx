@@ -1,16 +1,13 @@
 import {Page} from '@page/base';
 import {ExampleTable} from '@shared/components';
-import {Toggle, ToggleColor, ToggleSize} from '@ui/form';
+import {ArrMerge} from '@shared/utils/ArrMerge';
+import {Toggle} from '@ui/form';
+import {DaisyColorsSmall, DaisySizes} from '@ui/types';
 import {Component, For} from 'solid-js';
 
 export const TogglePage: Component = () => {
-  const sizes: ToggleSize[] = ['lg', 'md', 'sm', 'xs'];
-  const colors: Array<ToggleColor | undefined> = [
-    undefined,
-    'accent',
-    'primary',
-    'secondary',
-  ];
+  const sizes = [...DaisySizes];
+  const colors = ArrMerge([...DaisyColorsSmall], [undefined]);
 
   return (
     <Page full class="p-4">

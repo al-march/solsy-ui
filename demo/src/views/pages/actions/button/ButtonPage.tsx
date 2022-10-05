@@ -1,14 +1,33 @@
 import {Page} from '@page/base';
+import {ExampleTable} from '@shared/components';
+import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Button} from '@ui/actions';
+import {DaisyColor, DaisyColors, DaisySizes} from '@ui/types';
 import {Component} from 'solid-js';
 
 export const ButtonPage: Component = () => {
+  const colors = ArrMerge<DaisyColor, 'ghost'>([...DaisyColors], ['ghost']);
+  const sizes = [...DaisySizes];
+
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Buttons</h2>
       <br />
 
-      <h2 class="text-xl">Colors</h2>
+      <ExampleTable
+        class="table-compact w-full"
+        colors={colors}
+        sizes={sizes}
+        component={(color, size) => (
+          <Button color={color} size={size}>
+            Button
+          </Button>
+        )}
+      />
+
+      <br />
+      <h2 class="text-xl"> Colors</h2>
+
       <div class="flex gap-1 p-2">
         <Button>Button</Button>
         <Button color="primary">Button</Button>
@@ -21,6 +40,7 @@ export const ButtonPage: Component = () => {
       <div class="divider"></div>
 
       <h2 class="text-xl">Sizes</h2>
+
       <div class="flex items-center gap-1 p-2">
         <Button size="lg">Button</Button>
         <Button size="md">Button</Button>

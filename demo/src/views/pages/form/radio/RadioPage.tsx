@@ -1,16 +1,13 @@
 import {Page} from '@page/base';
 import {ExampleTable} from '@shared/components';
-import {Radio, RadioColor, RadioSize} from '@ui/form';
+import {ArrMerge} from '@shared/utils/ArrMerge';
+import {Radio} from '@ui/form';
+import {DaisyColorsSmall, DaisySizes} from '@ui/types';
 import {For} from 'solid-js';
 
 export const RadioPage = () => {
-  const sizes: RadioSize[] = ['lg', 'md', 'sm', 'xs'];
-  const colors: Array<RadioColor | undefined> = [
-    undefined,
-    'accent',
-    'primary',
-    'secondary',
-  ];
+  const sizes = [...DaisySizes];
+  const colors = ArrMerge([...DaisyColorsSmall], [undefined]);
 
   return (
     <Page full class="p-4">

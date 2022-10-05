@@ -1,16 +1,13 @@
 import {Page} from '@page/base';
 import {ExampleTable} from '@shared/components';
-import {Checkbox, CheckboxColor, CheckboxSize} from '@ui/form';
+import {ArrMerge} from '@shared/utils/ArrMerge';
+import {Checkbox} from '@ui/form';
+import {DaisyColorsSmall, DaisySizes} from '@ui/types';
 import {For} from 'solid-js';
 
 export const CheckboxPage = () => {
-  const sizes: CheckboxSize[] = ['lg', 'md', 'sm', 'xs'];
-  const colors: Array<CheckboxColor | undefined> = [
-    undefined,
-    'accent',
-    'primary',
-    'secondary',
-  ];
+  const sizes = [...DaisySizes];
+  const colors = ArrMerge([...DaisyColorsSmall], [undefined]);
 
   return (
     <Page class="p-4">
@@ -25,6 +22,7 @@ export const CheckboxPage = () => {
       />
 
       <br />
+
       <h3 class="text-xl">Sizes</h3>
       <br />
       <div class="flex flex-col gap-2">
