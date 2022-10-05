@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ExampleTable} from '@shared/components';
 import {Radio, RadioColor, RadioSize} from '@ui/form';
 import {For} from 'solid-js';
 
@@ -16,31 +17,14 @@ export const RadioPage = () => {
       <h2 class="text-2xl">Radio</h2>
       <br />
 
-      <table class="table table-compact w-full max-w-2xl">
-        <thead>
-          <tr>
-            <th></th>
-            <For each={colors}>{color => <th>{color || 'default'}</th>}</For>
-          </tr>
-        </thead>
-
-        <tbody>
-          <For each={sizes}>
-            {size => (
-              <tr>
-                <th>{size}</th>
-                <For each={colors}>
-                  {color => (
-                    <th>
-                      <Radio size={size} name={size} color={color} />
-                    </th>
-                  )}
-                </For>
-              </tr>
-            )}
-          </For>
-        </tbody>
-      </table>
+      <ExampleTable
+        class="table-compact w-full max-w-2xl"
+        colors={colors}
+        sizes={sizes}
+        component={(color, size) => (
+          <Radio size={size} name={size} color={color} />
+        )}
+      />
 
       <br />
       <h3 class="text-xl">Sizes</h3>

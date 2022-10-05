@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ExampleTable} from '@shared/components';
 import {Toggle, ToggleColor, ToggleSize} from '@ui/form';
 import {Component, For} from 'solid-js';
 
@@ -15,31 +16,14 @@ export const TogglePage: Component = () => {
     <Page full class="p-4">
       <h2 class="text-2xl mb-5">Toggle</h2>
 
-      <table class="table table-compact w-full max-w-2xl">
-        <thead>
-          <tr>
-            <th></th>
-            <For each={colors}>{color => <th>{color || 'default'}</th>}</For>
-          </tr>
-        </thead>
-
-        <tbody>
-          <For each={sizes}>
-            {size => (
-              <tr>
-                <th>{size}</th>
-                <For each={colors}>
-                  {color => (
-                    <th>
-                      <Toggle size={size} name={size} color={color} />
-                    </th>
-                  )}
-                </For>
-              </tr>
-            )}
-          </For>
-        </tbody>
-      </table>
+      <ExampleTable
+        class="table-compact w-full max-w-2xl"
+        colors={colors}
+        sizes={sizes}
+        component={(color, size) => (
+          <Toggle size={size} name={size} color={color} />
+        )}
+      />
 
       <br />
       <h3 class="text-xl">Sizes</h3>
