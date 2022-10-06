@@ -22,7 +22,7 @@ export const CodePreview = (props: ParentProps<Props>) => {
   );
 
   return (
-    <div class="-my-4 py-8">
+    <div class="-my-4 py-4 relative">
       <pre class="line-numbers">
         <code class={`language-${pr.lang}`} ref={setRef}>
           {props.children}
