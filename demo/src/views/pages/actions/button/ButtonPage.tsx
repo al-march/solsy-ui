@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {ExampleTable} from '@shared/components';
+import {ExampleTable, ImportPreview} from '@shared/components';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Button} from '@ui/actions';
 import {DaisyColor, DaisyColors, DaisySizes} from '@ui/types';
@@ -12,6 +12,10 @@ export const ButtonPage: Component = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Buttons</h2>
+      <br />
+
+      <ImportPreview component="Button" />
+
       <br />
 
       <ExampleTable

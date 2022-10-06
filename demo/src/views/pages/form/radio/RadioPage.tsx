@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {ExampleTable} from '@shared/components';
+import {ExampleTable, ImportPreview} from '@shared/components';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Radio} from '@ui/form';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
@@ -12,6 +12,9 @@ export const RadioPage = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Radio</h2>
+
+      <br />
+      <ImportPreview component="Radio" />
       <br />
 
       <ExampleTable

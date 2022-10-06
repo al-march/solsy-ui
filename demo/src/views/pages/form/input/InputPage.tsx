@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Input} from '@ui/form';
 import {Component} from 'solid-js';
 
@@ -6,6 +7,9 @@ export const InputPage: Component = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Input</h2>
+
+      <br />
+      <ImportPreview component="Input" />
       <br />
 
       <div class="w-96 grid gap-2">

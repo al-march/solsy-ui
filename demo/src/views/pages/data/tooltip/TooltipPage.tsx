@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Tooltip} from '@ui/data-display';
 import {BtnGroup} from '@ui/navigation';
 import {Component, createSignal} from 'solid-js';
@@ -15,6 +16,10 @@ export const TooltipPage: Component = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Tooltip</h2>
+
+      <br />
+      <ImportPreview component="Tooltip" />
+      <br />
 
       <Tooltip message="Tooltip example" placement={position()}>
         <p class="p-2">Hover to text</p>

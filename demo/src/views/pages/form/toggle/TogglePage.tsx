@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {ExampleTable} from '@shared/components';
+import {ExampleTable, ImportPreview} from '@shared/components';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Toggle} from '@ui/form';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
@@ -11,7 +11,11 @@ export const TogglePage: Component = () => {
 
   return (
     <Page full class="p-4">
-      <h2 class="text-2xl mb-5">Toggle</h2>
+      <h2 class="text-2xl">Toggle</h2>
+
+      <br />
+      <ImportPreview component="Toggle" />
+      <br />
 
       <ExampleTable
         class="table-compact w-full max-w-2xl"

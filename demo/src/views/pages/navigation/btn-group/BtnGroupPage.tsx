@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {BtnGroup} from '@ui/navigation';
 import {Component, createSignal} from 'solid-js';
 
@@ -12,6 +13,10 @@ export const BtnGroupPage: Component = () => {
 
   return (
     <Page full class="p-4">
+      <br />
+      <ImportPreview component="BtnGroup" />
+      <br />
+
       <BtnGroup value={btn()} onInput={onButtonsChange} size="sm">
         <BtnGroup.Item>1</BtnGroup.Item>
         <BtnGroup.Item>2</BtnGroup.Item>

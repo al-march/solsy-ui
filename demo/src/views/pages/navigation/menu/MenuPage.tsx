@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Menu} from '@ui/navigation';
 import {Component} from 'solid-js';
 import {createStore} from 'solid-js/store';
@@ -23,6 +24,10 @@ export const MenuPage: Component = () => {
 
   return (
     <Page full class="p-4">
+      <br />
+      <ImportPreview component="Menu" />
+      <br />
+
       <button class="btn btn-primary" ref={setReference} onClick={toggle}>
         Menu
       </button>
