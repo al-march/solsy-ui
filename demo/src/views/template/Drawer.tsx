@@ -1,5 +1,5 @@
 import {Points, RouterSDKEnum} from '@shared/router/Points';
-import {Link} from 'solid-app-router';
+import {NavLink} from 'solid-app-router';
 import {ParentProps} from 'solid-js';
 
 export const Drawer = (props: ParentProps) => {
@@ -82,10 +82,14 @@ const MenuTitle = (props: ParentProps) => (
   </li>
 );
 
-const MenuLink = (props: ParentProps<{href: string}>) => (
-  <li>
-    <Link href={props.href}>{props.children}</Link>
-  </li>
-);
+const MenuLink = (props: ParentProps<{href: string}>) => {
+  return (
+    <li>
+      <NavLink href={props.href} activeClass="active">
+        {props.children}
+      </NavLink>
+    </li>
+  );
+};
 
 const MenuDivider = () => <li />;
