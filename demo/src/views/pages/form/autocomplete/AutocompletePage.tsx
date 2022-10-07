@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Autocomplete, AutocompleteOption} from '@ui/form';
 import {Component, For} from 'solid-js';
 
@@ -6,6 +7,9 @@ export const AutocompletePage: Component = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Autocomplete</h2>
+
+      <br />
+      <ImportPreview component="Autocomplete" />
       <br />
 
       <div class="w-96 grid gap-2">

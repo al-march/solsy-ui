@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {ExampleTable} from '@shared/components';
+import {ExampleTable, ImportPreview} from '@shared/components';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Checkbox} from '@ui/form';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
@@ -10,8 +10,11 @@ export const CheckboxPage = () => {
   const colors = ArrMerge([...DaisyColorsSmall], [undefined]);
 
   return (
-    <Page class="p-4">
+    <Page full class="p-4">
       <h2 class="text-2xl">Checkbox</h2>
+
+      <br />
+      <ImportPreview component="Checkbox" />
       <br />
 
       <ExampleTable

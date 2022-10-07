@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Option, Select, SelectColor, SelectSize} from '@ui/form';
 import {Component, For} from 'solid-js';
 
@@ -41,6 +42,10 @@ export const SelectPage: Component = () => {
   return (
     <Page full class="p-4">
       <h3 class="text-xl">Select Page</h3>
+
+      <br />
+      <ImportPreview component="Select" />
+      <br />
 
       <span class="divider" />
       <h3 class="text-xl">Custom view</h3>

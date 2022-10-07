@@ -11,14 +11,18 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^17.0.45",
+    "@types/prismjs": "^1.26.0",
     "autoprefixer": "^10.4.7",
     "daisyui": "^2.31.0",
     "postcss": "^8.4.14",
+    "prism-themes": "^1.9.0",
+    "prismjs": "^1.29.0",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.7.4",
     "vite": "^3.1.4",
+    "vite-plugin-prismjs": "^0.0.8",
     "vite-plugin-solid": "^2.2.6",
-    "vite-tsconfig-paths": "^3.5.1"
+    "vite-tsconfig-paths": "3.5.0"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",

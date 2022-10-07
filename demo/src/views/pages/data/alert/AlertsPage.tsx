@@ -1,3 +1,4 @@
+import {ImportPreview} from '@shared/components';
 import {Page} from '@src/views/pages/base/Page';
 import {Button} from '@ui/actions';
 import {
@@ -47,8 +48,12 @@ const AlertsPageContent = () => {
   };
 
   return (
-    <Page full class="p-2">
+    <Page full class="p-4">
       <h2 class="text-2xl">Avatar</h2>
+
+      <br />
+      <ImportPreview component="Alert" />
+      <br />
 
       <div class="flex flex-col gap-3 py-6">
         <For each={[undefined, ...AlertTypes]}>

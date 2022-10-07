@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Input, Range} from '@ui/form';
 import {Component, createSignal} from 'solid-js';
 
@@ -9,6 +10,9 @@ export const RangePage: Component = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Range</h2>
+
+      <br />
+      <ImportPreview component="Range" />
       <br />
 
       <div class="w-96">

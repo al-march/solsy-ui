@@ -1,10 +1,15 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Divider} from '@ui/layout';
 
 export const DividerPage = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Divider</h2>
+
+      <br />
+      <ImportPreview component="Divider" />
+      <br />
 
       <p class="py-4">Vertical</p>
 

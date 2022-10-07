@@ -1,4 +1,5 @@
 import {Page} from '@page/base';
+import {ImportPreview} from '@shared/components';
 import {Modal, ModalAction} from '@ui/actions';
 import {Component, createSignal} from 'solid-js';
 
@@ -13,6 +14,9 @@ export const ModalPage: Component = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Modals</h2>
+
+      <br />
+      <ImportPreview component="Modal" />
       <br />
 
       <button

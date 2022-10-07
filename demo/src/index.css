@@ -13,3 +13,9 @@
 .input-error {
     @apply border-error
 }
+
+/* Prism.js styles */
+
+.copy-to-clipboard-button {
+    @apply absolute right-2 top-3.5 btn btn-primary btn-xs
+}
