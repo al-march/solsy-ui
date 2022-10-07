@@ -1,9 +1,34 @@
 import {Page} from '@page/base';
-import {ExampleTable, ImportPreview} from '@shared/components';
+import {
+  CodePreview,
+  ExampleTable,
+  ImportPreview,
+  TypeLine,
+} from '@shared/components';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Button} from '@ui/actions';
+import {Divider, Row} from '@ui/layout';
 import {DaisyColor, DaisyColors, DaisySizes} from '@ui/types';
 import {Component} from 'solid-js';
+
+const colorsSnippet = `<Row class="gap-1 py-4">
+  <Button>Button</Button>
+  <Button color="primary">Button</Button>
+  <Button color="secondary">Button</Button>
+  <Button color="accent">Button</Button>
+  <Button color="info">Button</Button>
+  <Button color="success">Button</Button>
+  <Button color="warning">Button</Button>
+  <Button color="error">Button</Button>
+  <Button color="ghost">Button</Button>
+</Row>`;
+
+const sizesSnippet = `<Row items="center" class="gap-1 py-4">
+  <Button size="lg">Button</Button>
+  <Button size="md">Button</Button>
+  <Button size="sm">Button</Button>
+  <Button size="xs">Button</Button>
+</Row>`;
 
 export const ButtonPage: Component = () => {
   const colors = ArrMerge<DaisyColor, 'ghost'>([...DaisyColors], ['ghost']);
@@ -12,11 +37,11 @@ export const ButtonPage: Component = () => {
   return (
     <Page full class="p-4">
       <h2 class="text-2xl">Buttons</h2>
-      <br />
 
+      <br />
       <ImportPreview component="Button" />
 
-      <br />
+      <Divider />
 
       <ExampleTable
         class="table-compact w-full"
@@ -29,28 +54,48 @@ export const ButtonPage: Component = () => {
         )}
       />
 
-      <br />
-      <h2 class="text-xl"> Colors</h2>
+      <Divider />
 
-      <div class="flex gap-1 p-2">
+      <h2 class="text-2xl">Colors</h2>
+
+      <p>
+        Use <strong class="text-info">color</strong> prop to change color of the
+        Button. You can set the value to: <br />
+        <TypeLine types={colors} />
+      </p>
+
+      <Row class="gap-1 py-4">
         <Button>Button</Button>
         <Button color="primary">Button</Button>
         <Button color="secondary">Button</Button>
         <Button color="accent">Button</Button>
+        <Button color="info">Button</Button>
+        <Button color="success">Button</Button>
+        <Button color="warning">Button</Button>
+        <Button color="error">Button</Button>
         <Button color="ghost">Button</Button>
-        <Button link>Button</Button>
-      </div>
+      </Row>
 
-      <div class="divider"></div>
+      <CodePreview>{colorsSnippet}</CodePreview>
 
-      <h2 class="text-xl">Sizes</h2>
+      <Divider />
 
-      <div class="flex items-center gap-1 p-2">
+      <h2 class="text-2xl">Sizes</h2>
+
+      <p>
+        Use the <strong class="text-info">size</strong> prop to change the size
+        of the Button. You can set the value to: <br />
+        <TypeLine types={sizes} />
+      </p>
+
+      <Row items="center" class="gap-1 py-4">
         <Button size="lg">Button</Button>
         <Button size="md">Button</Button>
         <Button size="sm">Button</Button>
         <Button size="xs">Button</Button>
-      </div>
+      </Row>
+
+      <CodePreview>{sizesSnippet}</CodePreview>
     </Page>
   );
 };
