@@ -3,6 +3,7 @@ import {ButtonPage, ModalPage} from '@page/actions';
 import {
   AlertsPage,
   AvatarPage,
+  BadgePage,
   CollapsePage,
   PopoverPage,
   TooltipPage,
@@ -49,6 +50,7 @@ export const Routers: Component = () => {
       <Route path={`/${Points.ALERTS}`} element={<AlertsPage />} />
       <Route path={`/${Points.CHECKBOX}`} element={<CheckboxPage />} />
       <Route path={`/${Points.RADIO}`} element={<RadioPage />} />
+      <Route path={`/${Points.BADGE}`} element={<BadgePage />} />
 
       <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage />} />
 

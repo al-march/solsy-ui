@@ -20,6 +20,7 @@ export enum Points {
   ALERTS = 'alerts',
   CHECKBOX = 'checkbox',
   RADIO = 'radio',
+  BADGE = 'badge',
 }
 
 export enum RouterSDKEnum {
