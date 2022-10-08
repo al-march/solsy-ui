@@ -1,8 +1,12 @@
 import {Page} from '@page/base';
-import {ImportPreview} from '@shared/components';
+import {CodePreview, ImportPreview} from '@shared/components';
 import {Tooltip} from '@ui/data-display';
 import {BtnGroup} from '@ui/navigation';
 import {Component, createSignal} from 'solid-js';
+
+const tooltipSnippet = `<Tooltip message="Tooltip example">
+  <p class="p-2">Hover to text</p>
+</Tooltip>`;
 
 type Position = 'left' | 'top' | 'right' | 'bottom';
 
@@ -39,6 +43,8 @@ export const TooltipPage: Component = () => {
           <Icon type="down" />
         </BtnGroup.Item>
       </BtnGroup>
+
+      <CodePreview>{tooltipSnippet}</CodePreview>
     </Page>
   );
 };
