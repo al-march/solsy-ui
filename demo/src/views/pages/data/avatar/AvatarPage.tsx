@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {CodePreview, ImportPreview} from '@shared/components';
+import {Code, ImportPreview} from '@shared/components';
 import {Avatar} from '@ui/data-display';
 
 const avatarPreview = `<Avatar class="m-4">
@@ -23,7 +23,7 @@ export const AvatarPage = () => {
         </Avatar.Item>
       </Avatar>
 
-      <CodePreview>{avatarPreview}</CodePreview>
+      <Code>{avatarPreview}</Code>
     </Page>
   );
 };

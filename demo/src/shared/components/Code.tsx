@@ -11,7 +11,7 @@ type Props = {
   lang?: string;
 };
 
-export const CodePreview = (props: ParentProps<Props>) => {
+export const Code = (props: ParentProps<Props>) => {
   const pr = mergeProps({lang: 'tsx'}, props);
   const [ref, setRef] = createSignal<HTMLDivElement>();
 

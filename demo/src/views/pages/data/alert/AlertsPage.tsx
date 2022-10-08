@@ -1,4 +1,4 @@
-import {CodePreview, ImportPreview} from '@shared/components';
+import {Code, ImportPreview} from '@shared/components';
 import {Page} from '@src/views/pages/base/Page';
 import {Button} from '@ui/actions';
 import {
@@ -70,7 +70,7 @@ const AlertsPageContent = () => {
         </For>
       </div>
 
-      <CodePreview>{alertsSnippet}</CodePreview>
+      <Code>{alertsSnippet}</Code>
 
       <div class="flex flex-row gap-3 py-6">
         <For each={[undefined, ...AlertTypes]}>

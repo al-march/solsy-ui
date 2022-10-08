@@ -1,4 +1,4 @@
 export * from './ExampleTable';
-export * from './CodePreview';
+export * from './Code';
 export * from './ImportPreview';
 export * from './TypeLine';

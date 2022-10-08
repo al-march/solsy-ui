@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {CodePreview, ImportPreview} from '@shared/components';
+import {Code, ImportPreview} from '@shared/components';
 import {Button, Modal, ModalAction} from '@ui/actions';
 import {Divider} from '@ui/layout';
 import {Component, createSignal} from 'solid-js';
@@ -50,7 +50,7 @@ export const ModalPage: Component = () => {
         Open
       </Button>
 
-      <CodePreview>{modalSnippet}</CodePreview>
+      <Code>{modalSnippet}</Code>
 
       <Modal
         isShow={show()}

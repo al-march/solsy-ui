@@ -1,10 +1,5 @@
 import {Page} from '@page/base';
-import {
-  CodePreview,
-  ExampleTable,
-  ImportPreview,
-  TypeLine,
-} from '@shared/components';
+import {Code, ExampleTable, ImportPreview, TypeLine} from '@shared/components';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Button} from '@ui/actions';
 import {Divider, Row} from '@ui/layout';
@@ -76,7 +71,7 @@ export const ButtonPage: Component = () => {
         <Button color="ghost">Button</Button>
       </Row>
 
-      <CodePreview>{colorsSnippet}</CodePreview>
+      <Code>{colorsSnippet}</Code>
 
       <Divider />
 
@@ -95,7 +90,7 @@ export const ButtonPage: Component = () => {
         <Button size="xs">Button</Button>
       </Row>
 
-      <CodePreview>{sizesSnippet}</CodePreview>
+      <Code>{sizesSnippet}</Code>
     </Page>
   );
 };

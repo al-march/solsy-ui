@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {CodePreview, ImportPreview} from '@shared/components';
+import {Code, ImportPreview} from '@shared/components';
 import {Divider} from '@ui/layout';
 import {Tabs} from '@ui/navigation';
 import {Component} from 'solid-js';
@@ -40,7 +40,7 @@ export const TabsPage: Component = () => {
         <Tabs.Item label="label 3">Tab 3</Tabs.Item>
       </Tabs>
 
-      <CodePreview>{tabsSnippet}</CodePreview>
+      <Code>{tabsSnippet}</Code>
 
       <Divider />
 
@@ -60,7 +60,7 @@ export const TabsPage: Component = () => {
         <Tabs.Item label="label 3">Tab 3</Tabs.Item>
       </Tabs>
 
-      <CodePreview>{tabsOrientationSnippet}</CodePreview>
+      <Code>{tabsOrientationSnippet}</Code>
     </Page>
   );
 };

@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {CodePreview, ImportPreview, TypeLine} from '@shared/components';
+import {Code, ImportPreview, TypeLine} from '@shared/components';
 import {Divider, Row} from '@ui/layout';
 import {BtnGroup} from '@ui/navigation';
 import {DaisySizes} from '@ui/types';
@@ -60,7 +60,7 @@ export const BtnGroupPage: Component = () => {
         <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
       </BtnGroup>
 
-      <CodePreview>{btnGroupSnippet}</CodePreview>
+      <Code>{btnGroupSnippet}</Code>
 
       <Divider />
 
@@ -80,7 +80,7 @@ export const BtnGroupPage: Component = () => {
         <BtnGroup.Item>3</BtnGroup.Item>
       </BtnGroup>
 
-      <CodePreview>{btnGroupVerticalSnippet}</CodePreview>
+      <Code>{btnGroupVerticalSnippet}</Code>
 
       <Divider />
 
@@ -108,7 +108,7 @@ export const BtnGroupPage: Component = () => {
         </BtnGroup>
       </Row>
 
-      <CodePreview>{btnGroupSizeSnippet}</CodePreview>
+      <Code>{btnGroupSizeSnippet}</Code>
     </Page>
   );
 };

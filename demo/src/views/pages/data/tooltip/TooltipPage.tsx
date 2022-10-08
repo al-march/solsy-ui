@@ -1,5 +1,5 @@
 import {Page} from '@page/base';
-import {CodePreview, ImportPreview} from '@shared/components';
+import {Code, ImportPreview} from '@shared/components';
 import {Tooltip} from '@ui/data-display';
 import {BtnGroup} from '@ui/navigation';
 import {Component, createSignal} from 'solid-js';
@@ -44,7 +44,7 @@ export const TooltipPage: Component = () => {
         </BtnGroup.Item>
       </BtnGroup>
 
-      <CodePreview>{tooltipSnippet}</CodePreview>
+      <Code>{tooltipSnippet}</Code>
     </Page>
   );
 };

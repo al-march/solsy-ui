@@ -1,4 +1,4 @@
-import {CodePreview} from '@shared/components/CodePreview';
+import {Code} from '@shared/components/Code';
 import {Config} from '@shared/config';
 import {createMemo, ParentProps} from 'solid-js';
 
@@ -15,7 +15,7 @@ export const ImportPreview = (props: ParentProps<Props>) => {
   return (
     <div classList={{[props.class || '']: !!props.class}}>
       <h3 class="text-xl">Import</h3>
-      <CodePreview>{code()}</CodePreview>
+      <Code>{code()}</Code>
     </div>
   );
 };
