@@ -1,4 +1,4 @@
-import {ImportPreview} from '@shared/components';
+import {CodePreview, ImportPreview} from '@shared/components';
 import {Page} from '@src/views/pages/base/Page';
 import {Button} from '@ui/actions';
 import {
@@ -10,6 +10,11 @@ import {
   useAlerts,
 } from '@ui/data-display';
 import {For} from 'solid-js';
+
+const alertsSnippet = `<Alert type="info" action>Info message!</Alert>
+<Alert type="success" action>Success message!</Alert>
+<Alert type="warning" action>Warning message!</Alert>
+<Alert type="error" action>Error message!</Alert>`;
 
 const capitalize = (word: string) => {
   const [first] = word;
@@ -64,6 +69,8 @@ const AlertsPageContent = () => {
           )}
         </For>
       </div>
+
+      <CodePreview>{alertsSnippet}</CodePreview>
 
       <div class="flex flex-row gap-3 py-6">
         <For each={[undefined, ...AlertTypes]}>
