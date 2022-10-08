@@ -34,38 +34,46 @@ export const classes: Classes = {
 
 const {BADGE} = BadgeSelectors;
 
+const getBadge = () => screen.getByTestId(BADGE);
+
 describe('Badge', () => {
   test('should be rendered', () => {
     render(() => <Badge />);
-    expect(screen.getByTestId(BADGE)).toBeInTheDocument();
+    expect(getBadge()).toBeInTheDocument();
   });
-
   test('should be show test', () => {
     const text = 'text';
     render(() => <Badge>{text}</Badge>);
-    expect(screen.getByTestId(BADGE)).toHaveTextContent(text);
+    expect(getBadge()).toHaveTextContent(text);
   });
-
   test('should set color classes', () => {
     const {colors} = classes;
     ObjectKeys(colors).forEach(color => {
       render(() => <Badge color={color} />);
-      expect(screen.getByTestId(BADGE)).toHaveClass(colors[color]);
+      expect(getBadge()).toHaveClass(colors[color]);
       cleanup();
     });
   });
-
   test('should set size classes', () => {
     const {sizes} = classes;
     ObjectKeys(sizes).forEach(size => {
       render(() => <Badge size={size} />);
-      expect(screen.getByTestId(BADGE)).toHaveClass(sizes[size]);
+      expect(getBadge()).toHaveClass(sizes[size]);
       cleanup();
     });
   });
-
+  test('should set custom class', () => {
+    const className = 'badge-custom-class';
+    render(() => <Badge class={className} />);
+    expect(getBadge()).toHaveClass(className);
+  });
+  test('should set id', () => {
+    const id = 'badge-id';
+    render(() => <Badge id={id} />);
+    expect(getBadge()).toHaveAttribute('id', id);
+  });
   test('should be outlined', () => {
     render(() => <Badge outline />);
-    expect(screen.getByTestId(BADGE)).toHaveClass(classes.outline);
+    expect(getBadge()).toHaveClass(classes.outline);
   });
 });
