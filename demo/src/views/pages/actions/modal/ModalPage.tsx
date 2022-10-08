@@ -1,7 +1,30 @@
 import {Page} from '@page/base';
-import {ImportPreview} from '@shared/components';
-import {Modal, ModalAction} from '@ui/actions';
+import {CodePreview, ImportPreview} from '@shared/components';
+import {Button, Modal, ModalAction} from '@ui/actions';
+import {Divider} from '@ui/layout';
 import {Component, createSignal} from 'solid-js';
+
+const modalSnippet = `export const ModalExample = () => {
+  const [show, setShow] = createSignal(false);
+  const toggleModal = () => setShow(!show());
+
+  return (
+    <>
+      <Button color="primary" onClick={toggleModal}>
+        Open
+      </Button>
+
+      <Modal isShow={show()} onBackdropClick={toggleModal}>
+        <h3 class="font-bold text-2xl">Modal title</h3>
+        <Divider />
+        <p>Modal description</p>
+        <ModalAction>
+          <Button onClick={toggleModal}>Yay!</Button>
+        </ModalAction>
+      </Modal>
+    </>
+  );
+};`;
 
 export const ModalPage: Component = () => {
   const [show, setShow] = createSignal(false);
@@ -19,13 +42,15 @@ export const ModalPage: Component = () => {
       <ImportPreview component="Modal" />
       <br />
 
-      <button
+      <Button
         ref={ref => (closeButton = ref)}
-        class="btn btn-primary"
+        color="primary"
         onClick={toggleModal}
       >
         Open
-      </button>
+      </Button>
+
+      <CodePreview>{modalSnippet}</CodePreview>
 
       <Modal
         isShow={show()}
@@ -33,12 +58,10 @@ export const ModalPage: Component = () => {
         trigger={closeButton}
       >
         <h3 class="font-bold text-2xl">Modal title</h3>
-        <div class="divider" />
+        <Divider />
         <p>Modal description</p>
         <ModalAction>
-          <button class="btn" onClick={toggleModal}>
-            Yay!
-          </button>
+          <Button onClick={toggleModal}>Yay!</Button>
         </ModalAction>
       </Modal>
     </Page>
