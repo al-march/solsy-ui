@@ -6,6 +6,7 @@ import {
   BadgePage,
   CollapsePage,
   PopoverPage,
+  ProgressPage,
   TooltipPage,
 } from '@page/data';
 import {
@@ -51,6 +52,7 @@ export const Routers: Component = () => {
       <Route path={`/${Points.CHECKBOX}`} element={<CheckboxPage />} />
       <Route path={`/${Points.RADIO}`} element={<RadioPage />} />
       <Route path={`/${Points.BADGE}`} element={<BadgePage />} />
+      <Route path={`/${Points.PROGRESS}`} element={<ProgressPage />} />
 
       <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage />} />
 

@@ -63,6 +63,7 @@ export const Drawer = (props: ParentProps) => {
             <MenuLink href={`/${Points.BADGE}`}>Badge</MenuLink>
             <MenuLink href={`/${Points.COLLAPSE}`}>Collapse</MenuLink>
             <MenuLink href={`/${Points.POPOVER}`}>Popover</MenuLink>
+            <MenuLink href={`/${Points.PROGRESS}`}>Progress</MenuLink>
             <MenuLink href={`/${Points.TOOLTIP}`}>Tooltip</MenuLink>
           </Menu>
         </div>
