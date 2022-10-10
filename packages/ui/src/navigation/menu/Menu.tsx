@@ -1,138 +1,144 @@
-import {PropClickEvent} from '../../types';
-import {BackdropClick, ScaleTransition, usePopper} from '../../utils';
+import {DropdownSelectors} from '../../actions';
+import {MenuDropdown} from './MenuDropdown';
+import {MenuOption} from './MenuItem';
+import {MenuTrigger} from './MenuTrigger';
 import {
+  createContext,
   createEffect,
-  createSignal,
-  onCleanup,
+  mergeProps,
   ParentProps,
-  Show,
+  useContext,
 } from 'solid-js';
 import {createStore} from 'solid-js/store';
-import {Portal} from 'solid-js/web';
 
 export const MenuSelectors = {
   MENU: 'menu',
+  TRIGGER: 'trigger',
+  DROPDOWN: DropdownSelectors.DROPDOWN,
   OPTION: 'option',
 };
 
 type MenuState = {
   show: boolean;
+  trigger?: HTMLElement;
+  dropdown?: HTMLElement;
 };
+
+type BtnGroupCtx = {
+  state: MenuState;
+  show: () => void;
+  hide: () => void;
+  toggle: () => void;
+
+  initTrigger: (el: HTMLElement) => void;
+  initDropdown: (el: HTMLElement) => void;
+  onBackdropClick: (e: Event) => void;
+};
+
+const MenuCtx = createContext<BtnGroupCtx>();
 
 export type MenuProps = {
-  isShow: boolean;
-  reference?: HTMLElement;
-  onBackdropClick?: () => void;
-  minWidth?: number;
+  show?: boolean;
+  class?: string;
+
+  onInput?: (state: boolean) => void;
+  onShow?: () => void;
+  onHide?: () => void;
+  onBackdropClick?: (e: Event) => void;
 };
 
-/**
- * Создает меню с оверлеем.
- * Внедряется в элемент, к которому примонтировано приложение;
- * Не управляет самостоятельно своим состоянием отображения.
- * Переключается с помощью props.show
- *
- * @example
- *
- * <Menu
- *    isShow={isShow}
- *    reference={ref}
- *    onBackdropClick={toggle}
- *    minWidth={ref?.scrollWidth}
- *  >
- *    <Menu.Item>Car</Menu.Item>
- *    <Menu.Item>Plane</Menu.Item>
- *    <Menu.Item>Bike</Menu.Item>
- *  </Menu>
- */
+type MenuDefaultProps = Required<Pick<MenuProps, 'show' | 'class'>>;
+
+const defaultProps: MenuDefaultProps = {
+  show: false,
+  class: '',
+};
+
 const MenuBase = (props: ParentProps<MenuProps>) => {
+  const pr = mergeProps({...defaultProps}, props);
+
   const [state, setState] = createStore<MenuState>({
-    show: props.isShow,
+    show: pr.show,
   });
 
-  const [ref] = createSignal(props.reference);
-  const [popper, setPopper] = createSignal<HTMLElement>();
-
   createEffect(() => {
-    if (props.isShow) {
-      setShow(true);
+    if (props.show) {
+      show(false);
     }
   });
 
-  onCleanup(() => {
-    instance()?.destroy();
-  });
-
-  function setShow(state: boolean) {
-    setState('show', state);
+  function show(emit = true) {
+    setState('show', true);
+    if (emit) {
+      props.onShow?.();
+      props.onInput?.(true);
+    }
   }
 
-  function destroy() {
-    setShow(false);
+  function hide() {
+    setState('show', false);
+    props.onHide?.();
+    props.onInput?.(false);
   }
 
-  const instance = usePopper(ref, popper, {
-    modifiers: [
-      {
-        name: 'offset',
-        options: {
-          offset: [0, 8],
-        },
-      },
-    ],
-  });
+  function toggle() {
+    if (state.show) {
+      hide();
+    } else {
+      show();
+    }
+  }
+
+  function initTrigger(el: HTMLElement) {
+    setState('trigger', el);
+  }
+
+  function initDropdown(el: HTMLElement) {
+    setState('dropdown', el);
+  }
 
   function onBackdropClick(e: Event) {
     const target = e.target as HTMLElement;
-    if (ref()?.contains(target)) {
+    if (state.dropdown?.contains(target)) {
       return;
     }
-    props.onBackdropClick?.();
+    hide();
+    pr.onBackdropClick?.(e);
   }
 
   return (
-    <Show when={state.show} keyed>
-      <Portal>
-        <BackdropClick onBackdropClick={onBackdropClick}>
-          <div
-            data-testid={MenuSelectors.MENU}
-            ref={setPopper}
-            class="z-50"
-            style={{'min-width': props.minWidth + 'px'}}
-            onClick={e => e.stopPropagation()}
-          >
-            <ScaleTransition appear onExit={destroy}>
-              {props.isShow && (
-                <ul class="menu bg-base-200 z-10 shadow-xl">
-                  {props.children}
-                </ul>
-              )}
-            </ScaleTransition>
-          </div>
-        </BackdropClick>
-      </Portal>
-    </Show>
-  );
-};
-
-type MenuOptionProps = {
-  active?: boolean;
-  disabled?: boolean;
-  onClick?: (e: PropClickEvent<HTMLLIElement>) => void;
-};
-
-export const MenuOption = (props: ParentProps<MenuOptionProps>) => {
-  return (
-    <li
-      data-testid={MenuSelectors.OPTION}
-      onClick={props.onClick}
-      classList={{
-        disabled: !!props.disabled,
+    <MenuCtx.Provider
+      value={{
+        state,
+        show,
+        hide,
+        toggle,
+        initTrigger,
+        initDropdown,
+        onBackdropClick,
       }}
     >
-      <a classList={{active: !!props.active}}>{props.children}</a>
-    </li>
+      <div
+        data-testid={MenuSelectors.MENU}
+        class="inline-flex"
+        classList={{[pr.class]: !!pr.class}}
+      >
+        {props.children}
+      </div>
+    </MenuCtx.Provider>
   );
 };
 
-export const Menu = Object.assign(MenuBase, {Item: MenuOption});
+export const Menu = Object.assign(MenuBase, {
+  Item: MenuOption,
+  Dropdown: MenuDropdown,
+  Trigger: MenuTrigger,
+});
+
+export const useMenu = () => {
+  const ctx = useContext(MenuCtx);
+  if (ctx) {
+    return ctx;
+  }
+  throw new Error('No context for Menu');
+};

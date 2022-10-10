@@ -1,6 +1,6 @@
 import {Button} from '@ui/actions';
 import {Row} from '@ui/layout';
-import {Menu, MenuOption} from '@ui/navigation';
+import {Menu} from '@ui/navigation';
 import {Component, For, onMount} from 'solid-js';
 import {createStore} from 'solid-js/store';
 
@@ -48,28 +48,30 @@ const themes = [
 
 type HeaderState = {
   theme: string;
-  themeMenu: boolean;
-  themeBtn?: HTMLElement;
 };
 
 export const Header: Component = () => {
+  return (
+    <header>
+      <nav class="navbar bg-base-200 opacity-80">
+        <Row class="gap-2 w-full">
+          <div class="flex-1"></div>
+          <ThemeMenu />
+        </Row>
+      </nav>
+    </header>
+  );
+};
+
+function ThemeMenu() {
   const [state, setState] = createStore<HeaderState>({
     theme: '',
-    themeMenu: false,
   });
 
   onMount(() => {
     const theme = getCheckedTheme();
     setTheme(theme);
   });
-
-  function setThemeBtn(ref: HTMLElement) {
-    setState('themeBtn', ref);
-  }
-
-  function toggleMenu() {
-    setState('themeMenu', !state.themeMenu);
-  }
 
   function setTheme(theme: string) {
     setState('theme', theme);
@@ -81,42 +83,35 @@ export const Header: Component = () => {
     return state.theme === theme;
   };
 
-  return (
-    <header>
-      <nav class="navbar bg-base-200 opacity-80">
-        <Row class="gap-2 w-full">
-          <div class="flex-1"></div>
-          <Button
-            color="ghost"
-            size="sm"
-            class="gap-2"
-            ref={setThemeBtn}
-            onClick={toggleMenu}
-          >
-            <i class="fa-solid fa-palette" />
-            <span class="capitalize">Theme</span>
-          </Button>
-
-          <Menu
-            reference={state.themeBtn}
-            isShow={state.themeMenu}
-            onBackdropClick={toggleMenu}
-          >
-            <div class="h-64 overflow-hidden overflow-y-scroll">
-              <For each={themes}>
-                {theme => (
-                  <MenuOption
-                    onClick={() => setTheme(theme)}
-                    active={isOptionChecked(theme)}
-                  >
-                    <span class="capitalize">{theme}</span>
-                  </MenuOption>
-                )}
-              </For>
-            </div>
-          </Menu>
-        </Row>
-      </nav>
-    </header>
+  const MenuItems = () => (
+    <For each={themes}>
+      {theme => (
+        <Menu.Item
+          onClick={() => setTheme(theme)}
+          active={isOptionChecked(theme)}
+        >
+          <span class="capitalize">{theme}</span>
+        </Menu.Item>
+      )}
+    </For>
   );
-};
+
+  const MenuTrigger = () => (
+    <Button color="ghost" size="sm" class="gap-2">
+      <i class="fa-solid fa-palette" />
+      <span class="capitalize">Theme</span>
+    </Button>
+  );
+
+  return (
+    <Menu>
+      <Menu.Trigger>
+        <MenuTrigger />
+      </Menu.Trigger>
+
+      <Menu.Dropdown class="h-64">
+        <MenuItems />
+      </Menu.Dropdown>
+    </Menu>
+  );
+}
