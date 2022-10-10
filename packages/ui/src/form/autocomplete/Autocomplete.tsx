@@ -1,6 +1,5 @@
-import {Menu} from '../../navigation';
+import {Dropdown} from '../../actions';
 import {PropChangeEvent, PropFocusEvent, PropInputEvent} from '../../types';
-import {BackdropClick} from '../../utils';
 import {Input, InputColor, InputSize} from '../input';
 import {
   createContext,
@@ -14,7 +13,7 @@ import {createStore} from 'solid-js/store';
 
 export const AutocompleteSelectors = {
   AUTOCOMPLETE: 'input',
-  DROPDOWN: 'dropdown',
+  DROPDOWN: 'autocomplete-dropdown',
   OPTION: 'option',
 };
 
@@ -120,17 +119,19 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
         onChange={props.onChange}
       />
 
-      <Menu reference={ref()} isShow={state.isOpen && !!ref()}>
-        <BackdropClick onBackdropClick={onBackdropClick}>
-          <div
-            data-testid={AutocompleteSelectors.DROPDOWN}
-            class="max-h-60 w-32 overflow-y-scroll"
-            style={{width: width() + 'px'}}
-          >
-            {props.children}
-          </div>
-        </BackdropClick>
-      </Menu>
+      <Dropdown
+        trigger={ref()}
+        show={state.isOpen && !!ref()}
+        onBackdropClick={onBackdropClick}
+      >
+        <div
+          data-testid={AutocompleteSelectors.DROPDOWN}
+          class="max-h-60 w-32 overflow-y-scroll"
+          style={{width: width() + 'px'}}
+        >
+          <ul class="menu bg-base-200 z-10 shadow-xl">{props.children}</ul>
+        </div>
+      </Dropdown>
     </AutocompleteCtx.Provider>
   );
 };
