@@ -1,10 +1,26 @@
-import {ExampleTable, ImportPreview} from '@shared/components';
+import {Code, ExampleTable, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Toggle} from '@ui/form';
 import {Row} from '@ui/layout';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
 import {Component, For} from 'solid-js';
+
+const sizesSnippet = `<Row orientation="col">
+  <Toggle size="lg" />
+  <Toggle size="md" />
+  <Toggle size="sm" />
+  <Toggle size="xs" />
+</Row>`;
+
+const colorsSnippet = `<Row orientation="col">
+  <Toggle color="primary" />
+  <Toggle color="secondary" />
+  <Toggle color="accent" />
+</Row>`;
+
+const disabledSnippet = `<Toggle disabled />`;
+const indeterminateSnippet = `<Toggle indeterminate />`;
 
 export const TogglePage: Component = () => {
   const sizes = [...DaisySizes];
@@ -46,6 +62,8 @@ export const TogglePage: Component = () => {
             )}
           </For>
         </Row>
+
+        <Code>{sizesSnippet}</Code>
       </Page.Section>
 
       <Page.Section name="colors">
@@ -66,6 +84,8 @@ export const TogglePage: Component = () => {
             )}
           </For>
         </Row>
+
+        <Code>{colorsSnippet}</Code>
       </Page.Section>
 
       <Page.Section name="disabled">
@@ -79,12 +99,16 @@ export const TogglePage: Component = () => {
           <label>Disabled checked</label>
           <Toggle disabled value />
         </div>
+
+        <Code>{disabledSnippet}</Code>
       </Page.Section>
 
       <Page.Section name="Indeterminate">
         <h3 class="text-xl">Indeterminate</h3>
         <br />
         <Toggle indeterminate />
+
+        <Code>{indeterminateSnippet}</Code>
       </Page.Section>
     </Page>
   );
