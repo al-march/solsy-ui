@@ -29,38 +29,37 @@ const defaultSnippet = `<Menu>
 export const MenuPage: Component = () => {
   return (
     <Page full class="p-4">
-      <br />
-      <ImportPreview component="Menu" />
-      <br />
+      <Page.Section name="import">
+        <ImportPreview component="Menu" />
+      </Page.Section>
 
-      <Divider />
+      <Page.Section name="usage">
+        <h2 class="text-2xl">Default use</h2>
+        <br />
 
-      <h2 class="text-2xl">Default use</h2>
+        <Menu>
+          <Menu.Trigger>
+            <Button color="primary">Menu</Button>
+          </Menu.Trigger>
 
-      <br />
+          <Menu.Dropdown>
+            <Menu.Item>
+              <i class="fa-solid fa-car pr-2" />
+              <span>Cars</span>
+            </Menu.Item>
+            <Menu.Item disabled>
+              <i class="fa-solid fa-plane-departure pr-2" />
+              <span>Plane</span>
+            </Menu.Item>
+            <Menu.Item>
+              <i class="fa-solid fa-building pr-2" />
+              <span>Buildings</span>
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
 
-      <Menu>
-        <Menu.Trigger>
-          <Button color="primary">Menu</Button>
-        </Menu.Trigger>
-
-        <Menu.Dropdown>
-          <Menu.Item>
-            <i class="fa-solid fa-car pr-2" />
-            <span>Cars</span>
-          </Menu.Item>
-          <Menu.Item disabled>
-            <i class="fa-solid fa-plane-departure pr-2" />
-            <span>Plane</span>
-          </Menu.Item>
-          <Menu.Item>
-            <i class="fa-solid fa-building pr-2" />
-            <span>Buildings</span>
-          </Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
-
-      <Code>{defaultSnippet}</Code>
+        <Code>{defaultSnippet}</Code>
+      </Page.Section>
     </Page>
   );
 };

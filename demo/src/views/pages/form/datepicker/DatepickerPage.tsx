@@ -5,11 +5,9 @@ import {Datepicker} from '@ui/form';
 export const DatepickerPage = () => {
   return (
     <Page full class="p-4">
-      <h2 class="text-2xl">Datepicker</h2>
-
-      <br />
-      <ImportPreview component="Datepicker" />
-      <br />
+      <Page.Section name="import">
+        <ImportPreview component="Datepicker" />
+      </Page.Section>
 
       <Datepicker
         placeholder="Select date"

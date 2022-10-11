@@ -6,11 +6,9 @@ import {Popover} from '@ui/data-display';
 export const PopoverPage = () => {
   return (
     <Page full class="p-4">
-      <h2 class="text-2xl">Popover</h2>
-
-      <br />
-      <ImportPreview component="Popover" />
-      <br />
+      <Page.Section name="import">
+        <ImportPreview component="Popover" />
+      </Page.Section>
 
       <Popover trigger={<Button>Trigger</Button>}>
         <div class="card w-96 bg-base-300 shadow-xl">

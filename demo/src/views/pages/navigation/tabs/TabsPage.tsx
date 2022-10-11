@@ -23,44 +23,45 @@ export const TabsPage: Component = () => {
 
   return (
     <Page full class="p-4">
-      <br />
-      <ImportPreview component="Tabs" />
+      <Page.Section name="import">
+        <ImportPreview component="Tabs" />
+      </Page.Section>
 
-      <Divider />
+      <Page.Section name="usage">
+        <h2 class="text-2xl">Default use</h2>
+        <p>
+          <span class="text-info">Tabs</span> component...
+        </p>
+        <br />
 
-      <h2 class="text-2xl">Default use</h2>
-      <p>
-        <span class="text-info">Tabs</span> component...
-      </p>
-      <br />
+        <Tabs view="boxed" size="sm" onInput={onInput}>
+          <Tabs.Item label="label 1">Tab 1</Tabs.Item>
+          <Tabs.Item label="label 2">Tab 2</Tabs.Item>
+          <Tabs.Item label="label 3">Tab 3</Tabs.Item>
+        </Tabs>
 
-      <Tabs view="boxed" size="sm" onInput={onInput}>
-        <Tabs.Item label="label 1">Tab 1</Tabs.Item>
-        <Tabs.Item label="label 2">Tab 2</Tabs.Item>
-        <Tabs.Item label="label 3">Tab 3</Tabs.Item>
-      </Tabs>
+        <Code>{tabsSnippet}</Code>
+      </Page.Section>
 
-      <Code>{tabsSnippet}</Code>
+      <Page.Section name="Orientation">
+        <h2 class="text-2xl">Orientation</h2>
+        <p>
+          By <span class="text-info">orientation</span>, the support changes
+          position to position to <br />
+          <span class="text-info">vertical</span> or{' '}
+          <span class="text-info">horizontal</span>
+        </p>
 
-      <Divider />
+        <br />
 
-      <h2 class="text-2xl">Orientation</h2>
-      <p>
-        By <span class="text-info">orientation</span>, the support changes
-        position to position to <br />
-        <span class="text-info">vertical</span> or{' '}
-        <span class="text-info">horizontal</span>
-      </p>
+        <Tabs view="boxed" orientation="vertical" onInput={onInput}>
+          <Tabs.Item label="label 1">Tab 1</Tabs.Item>
+          <Tabs.Item label="label 2">Tab 2</Tabs.Item>
+          <Tabs.Item label="label 3">Tab 3</Tabs.Item>
+        </Tabs>
 
-      <br />
-
-      <Tabs view="boxed" orientation="vertical" onInput={onInput}>
-        <Tabs.Item label="label 1">Tab 1</Tabs.Item>
-        <Tabs.Item label="label 2">Tab 2</Tabs.Item>
-        <Tabs.Item label="label 3">Tab 3</Tabs.Item>
-      </Tabs>
-
-      <Code>{tabsOrientationSnippet}</Code>
+        <Code>{tabsOrientationSnippet}</Code>
+      </Page.Section>
     </Page>
   );
 };

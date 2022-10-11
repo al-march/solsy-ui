@@ -38,32 +38,38 @@ export const ModalPage: Component = () => {
     <Page full class="p-4">
       <h2 class="text-2xl">Modals</h2>
 
-      <br />
-      <ImportPreview component="Modal" />
-      <br />
+      <Page.Section name="import">
+        <br />
+        <ImportPreview component="Modal" />
+        <br />
+      </Page.Section>
 
-      <Button
-        ref={ref => (closeButton = ref)}
-        color="primary"
-        onClick={toggleModal}
-      >
-        Open
-      </Button>
+      <Page.Section name={'default usage'}>
+        <h2 class="text-2xl">Default usage</h2>
+        <br />
+        <Button
+          ref={ref => (closeButton = ref)}
+          color="primary"
+          onClick={toggleModal}
+        >
+          Open
+        </Button>
 
-      <Code>{modalSnippet}</Code>
+        <Code>{modalSnippet}</Code>
 
-      <Modal
-        isShow={show()}
-        onBackdropClick={toggleModal}
-        trigger={closeButton}
-      >
-        <h3 class="font-bold text-2xl">Modal title</h3>
-        <Divider />
-        <p>Modal description</p>
-        <ModalAction>
-          <Button onClick={toggleModal}>Yay!</Button>
-        </ModalAction>
-      </Modal>
+        <Modal
+          isShow={show()}
+          onBackdropClick={toggleModal}
+          trigger={closeButton}
+        >
+          <h3 class="font-bold text-2xl">Modal title</h3>
+          <Divider />
+          <p>Modal description</p>
+          <ModalAction>
+            <Button onClick={toggleModal}>Yay!</Button>
+          </ModalAction>
+        </Modal>
+      </Page.Section>
     </Page>
   );
 };

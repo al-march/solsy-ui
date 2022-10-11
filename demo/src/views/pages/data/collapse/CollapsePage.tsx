@@ -5,11 +5,9 @@ import {Collapse} from '@ui/data-display';
 export const CollapsePage = () => {
   return (
     <Page full class="p-4">
-      <h2 class="text-2xl">Popover</h2>
-
-      <br />
-      <ImportPreview component="Collapse" />
-      <br />
+      <Page.Section name="import">
+        <ImportPreview component="Collapse" />
+      </Page.Section>
 
       <Collapse class="bg-base-300" icon="plus" label="Collapse item 2">
         Collapse content 2

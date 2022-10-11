@@ -6,11 +6,9 @@ import {Component, For} from 'solid-js';
 export const AutocompletePage: Component = () => {
   return (
     <Page full class="p-4">
-      <h2 class="text-2xl">Autocomplete</h2>
-
-      <br />
-      <ImportPreview component="Autocomplete" />
-      <br />
+      <Page.Section name="import">
+        <ImportPreview component="Autocomplete" />
+      </Page.Section>
 
       <div class="w-96 grid gap-2">
         <Autocomplete show placeholder="Выберете город" bordered>

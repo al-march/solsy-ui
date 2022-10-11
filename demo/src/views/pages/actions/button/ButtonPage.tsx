@@ -38,7 +38,7 @@ export const ButtonPage: Component = () => {
         <ImportPreview component="Button" />
       </Page.Section>
 
-      <Page.Section name={'View Examples'}>
+      <Page.Section name="View Examples">
         <h2 class="text-2xl">View Examples</h2>
         <br />
         <ExampleTable
