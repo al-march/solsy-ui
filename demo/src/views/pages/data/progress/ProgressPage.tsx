@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {Code, ImportPreview, TypeLine} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {Progress} from '@ui/data-display';
 import {Divider, Row} from '@ui/layout';
 import {DaisyColors} from '@ui/types';

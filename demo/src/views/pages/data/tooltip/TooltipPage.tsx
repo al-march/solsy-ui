@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {Code, ImportPreview} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {Tooltip} from '@ui/data-display';
 import {BtnGroup} from '@ui/navigation';
 import {Component, createSignal} from 'solid-js';

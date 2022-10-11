@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {ImportPreview} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {Input} from '@ui/form';
 import {Component} from 'solid-js';
 

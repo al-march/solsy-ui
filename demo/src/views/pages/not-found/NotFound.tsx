@@ -1,4 +1,4 @@
-import {Page} from '@page/base';
+import {Page} from '@shared/components/page';
 import {Points} from '@shared/router/Points';
 import {Link} from 'solid-app-router';
 import {Component} from 'solid-js';

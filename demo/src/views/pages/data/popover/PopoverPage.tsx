@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {ImportPreview} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {Button} from '@ui/actions';
 import {Popover} from '@ui/data-display';
 

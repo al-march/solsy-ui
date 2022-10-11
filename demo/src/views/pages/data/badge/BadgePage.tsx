@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {Code, ExampleTable, ImportPreview, TypeLine} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Badge} from '@ui/data-display';
 import {Divider, Row} from '@ui/layout';

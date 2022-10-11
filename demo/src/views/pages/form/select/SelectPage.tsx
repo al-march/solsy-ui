@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {ImportPreview} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {Option, Select, SelectColor, SelectSize} from '@ui/form';
 import {Component, For} from 'solid-js';
 

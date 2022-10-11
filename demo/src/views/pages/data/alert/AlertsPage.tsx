@@ -1,5 +1,5 @@
 import {Code, ImportPreview} from '@shared/components';
-import {Page} from '@src/views/pages/base/Page';
+import {Page} from '@shared/components/page';
 import {Button} from '@ui/actions';
 import {
   Alert,

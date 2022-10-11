@@ -1,4 +1,4 @@
-import {Page} from '@page/base';
+import {Page} from '@shared/components/page';
 import {Component} from 'solid-js';
 
 type Controls = {

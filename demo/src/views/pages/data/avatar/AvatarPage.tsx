@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {Code, ImportPreview} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {Avatar} from '@ui/data-display';
 
 const avatarPreview = `<Avatar class="m-4">

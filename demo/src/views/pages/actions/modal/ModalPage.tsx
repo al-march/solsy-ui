@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {Code, ImportPreview} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {Button, Modal, ModalAction} from '@ui/actions';
 import {Divider} from '@ui/layout';
 import {Component, createSignal} from 'solid-js';

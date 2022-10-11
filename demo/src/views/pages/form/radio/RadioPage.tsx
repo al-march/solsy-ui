@@ -1,5 +1,5 @@
-import {Page} from '@page/base';
 import {ExampleTable, ImportPreview} from '@shared/components';
+import {Page} from '@shared/components/page';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Radio} from '@ui/form';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
