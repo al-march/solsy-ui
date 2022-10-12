@@ -6,25 +6,6 @@ import {Divider, Row} from '@ui/layout';
 import {DaisyColor, DaisyColors, DaisySizes} from '@ui/types';
 import {Component} from 'solid-js';
 
-const colorsSnippet = `<Row class="gap-1 py-4">
-  <Button>Button</Button>
-  <Button color="primary">Button</Button>
-  <Button color="secondary">Button</Button>
-  <Button color="accent">Button</Button>
-  <Button color="info">Button</Button>
-  <Button color="success">Button</Button>
-  <Button color="warning">Button</Button>
-  <Button color="error">Button</Button>
-  <Button color="ghost">Button</Button>
-</Row>`;
-
-const sizesSnippet = `<Row items="center" class="gap-1 py-4">
-  <Button size="lg">Button</Button>
-  <Button size="md">Button</Button>
-  <Button size="sm">Button</Button>
-  <Button size="xs">Button</Button>
-</Row>`;
-
 export const ButtonPage: Component = () => {
   const colors = ArrMerge<DaisyColor, 'ghost'>([...DaisyColors], ['ghost']);
   const sizes = [...DaisySizes];
@@ -74,7 +55,19 @@ export const ButtonPage: Component = () => {
           <Button color="ghost">Button</Button>
         </Row>
 
-        <Code>{colorsSnippet}</Code>
+        <Code>{`
+          <Row class="gap-1 py-4">
+            <Button>Button</Button>
+            <Button color="primary">Button</Button>
+            <Button color="secondary">Button</Button>
+            <Button color="accent">Button</Button>
+            <Button color="info">Button</Button>
+            <Button color="success">Button</Button>
+            <Button color="warning">Button</Button>
+            <Button color="error">Button</Button>
+            <Button color="ghost">Button</Button>
+          </Row>
+        `}</Code>
       </Page.Section>
 
       <Page.Section name={'Sizes'}>
@@ -93,7 +86,14 @@ export const ButtonPage: Component = () => {
           <Button size="xs">Button</Button>
         </Row>
 
-        <Code>{sizesSnippet}</Code>
+        <Code>{`
+          <Row items="center" class="gap-1 py-4">
+            <Button size="lg">Button</Button>
+            <Button size="md">Button</Button>
+            <Button size="sm">Button</Button>
+            <Button size="xs">Button</Button>
+          </Row>
+        `}</Code>
       </Page.Section>
     </Page>
   );

@@ -1,20 +1,7 @@
 import {Code, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
-import {Divider} from '@ui/layout';
 import {Tabs} from '@ui/navigation';
 import {Component} from 'solid-js';
-
-const tabsSnippet = `<Tabs view="boxed" size="sm">
-  <Tabs.Item label="label 1">Tab 1</Tabs.Item>
-  <Tabs.Item label="label 2">Tab 2</Tabs.Item>
-  <Tabs.Item label="label 3">Tab 3</Tabs.Item>
-</Tabs>`;
-
-const tabsOrientationSnippet = `<Tabs view="boxed" orientation="vertical">
-  <Tabs.Item label="label 1">Tab 1</Tabs.Item>
-  <Tabs.Item label="label 2">Tab 2</Tabs.Item>
-  <Tabs.Item label="label 3">Tab 3</Tabs.Item>
-</Tabs>`;
 
 export const TabsPage: Component = () => {
   function onInput(index: number) {
@@ -40,7 +27,13 @@ export const TabsPage: Component = () => {
           <Tabs.Item label="label 3">Tab 3</Tabs.Item>
         </Tabs>
 
-        <Code>{tabsSnippet}</Code>
+        <Code>{`
+          <Tabs view="boxed" size="sm">
+            <Tabs.Item label="label 1">Tab 1</Tabs.Item>
+            <Tabs.Item label="label 2">Tab 2</Tabs.Item>
+            <Tabs.Item label="label 3">Tab 3</Tabs.Item>
+          </Tabs>
+        `}</Code>
       </Page.Section>
 
       <Page.Section name="Orientation">
@@ -60,7 +53,13 @@ export const TabsPage: Component = () => {
           <Tabs.Item label="label 3">Tab 3</Tabs.Item>
         </Tabs>
 
-        <Code>{tabsOrientationSnippet}</Code>
+        <Code>{`
+          <Tabs view="boxed" orientation="vertical">
+            <Tabs.Item label="label 1">Tab 1</Tabs.Item>
+            <Tabs.Item label="label 2">Tab 2</Tabs.Item>
+            <Tabs.Item label="label 3">Tab 3</Tabs.Item>
+          </Tabs>
+        `}</Code>
       </Page.Section>
     </Page>
   );

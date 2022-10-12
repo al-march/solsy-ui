@@ -5,37 +5,6 @@ import {BtnGroup} from '@ui/navigation';
 import {DaisySizes} from '@ui/types';
 import {Component} from 'solid-js';
 
-const btnGroupSnippet = `function onButtonsChange(v: number) {
-  console.log(v);
-}
-
-<BtnGroup onInput={onButtonsChange}>
-  <BtnGroup.Item>1</BtnGroup.Item>
-  <BtnGroup.Item>2</BtnGroup.Item>
-  <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
-</BtnGroup>`;
-
-const btnGroupVerticalSnippet = `<BtnGroup orientation="vertical">
-  <BtnGroup.Item>1</BtnGroup.Item>
-  <BtnGroup.Item>2</BtnGroup.Item>
-  <BtnGroup.Item>3</BtnGroup.Item>
-</BtnGroup>`;
-
-const btnGroupSizeSnippet = `<Row class="gap-2 py-2" orientation="col">
-  <BtnGroup size="lg">
-    <BtnGroup.Item>lg</BtnGroup.Item>
-  </BtnGroup>
-  <BtnGroup size="md">
-    <BtnGroup.Item>md</BtnGroup.Item>
-  </BtnGroup>
-  <BtnGroup size="sm">
-    <BtnGroup.Item>sm</BtnGroup.Item>
-  </BtnGroup>
-  <BtnGroup size="xs">
-    <BtnGroup.Item>xs</BtnGroup.Item>
-  </BtnGroup>
-</Row>`;
-
 export const BtnGroupPage: Component = () => {
   function onButtonsChange(v: number) {
     console.log(v);
@@ -60,7 +29,17 @@ export const BtnGroupPage: Component = () => {
           <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
         </BtnGroup>
 
-        <Code>{btnGroupSnippet}</Code>
+        <Code>{`
+          function onButtonsChange(v: number) {
+            console.log(v);
+          }
+          
+          <BtnGroup onInput={onButtonsChange}>
+            <BtnGroup.Item>1</BtnGroup.Item>
+            <BtnGroup.Item>2</BtnGroup.Item>
+            <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
+          </BtnGroup>
+        `}</Code>
       </Page.Section>
 
       <Page.Section name="Orientation">
@@ -80,7 +59,13 @@ export const BtnGroupPage: Component = () => {
           <BtnGroup.Item>3</BtnGroup.Item>
         </BtnGroup>
 
-        <Code>{btnGroupVerticalSnippet}</Code>
+        <Code>{`
+          <BtnGroup orientation="vertical">
+            <BtnGroup.Item>1</BtnGroup.Item>
+            <BtnGroup.Item>2</BtnGroup.Item>
+            <BtnGroup.Item>3</BtnGroup.Item>
+          </BtnGroup>
+        `}</Code>
       </Page.Section>
 
       <Page.Section name="sizes">
@@ -108,7 +93,22 @@ export const BtnGroupPage: Component = () => {
           </BtnGroup>
         </Row>
 
-        <Code>{btnGroupSizeSnippet}</Code>
+        <Code>{`
+          <Row class="gap-2 py-2" orientation="col">
+            <BtnGroup size="lg">
+              <BtnGroup.Item>lg</BtnGroup.Item>
+            </BtnGroup>
+            <BtnGroup size="md">
+              <BtnGroup.Item>md</BtnGroup.Item>
+            </BtnGroup>
+            <BtnGroup size="sm">
+              <BtnGroup.Item>sm</BtnGroup.Item>
+            </BtnGroup>
+            <BtnGroup size="xs">
+              <BtnGroup.Item>xs</BtnGroup.Item>
+            </BtnGroup>
+          </Row>
+        `}</Code>
       </Page.Section>
     </Page>
   );

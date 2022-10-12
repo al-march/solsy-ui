@@ -4,28 +4,6 @@ import {Button, Modal, ModalAction} from '@ui/actions';
 import {Divider} from '@ui/layout';
 import {Component, createSignal} from 'solid-js';
 
-const modalSnippet = `export const ModalExample = () => {
-  const [show, setShow] = createSignal(false);
-  const toggleModal = () => setShow(!show());
-
-  return (
-    <>
-      <Button color="primary" onClick={toggleModal}>
-        Open
-      </Button>
-
-      <Modal isShow={show()} onBackdropClick={toggleModal}>
-        <h3 class="font-bold text-2xl">Modal title</h3>
-        <Divider />
-        <p>Modal description</p>
-        <ModalAction>
-          <Button onClick={toggleModal}>Yay!</Button>
-        </ModalAction>
-      </Modal>
-    </>
-  );
-};`;
-
 export const ModalPage: Component = () => {
   const [show, setShow] = createSignal(false);
   let closeButton;
@@ -55,7 +33,29 @@ export const ModalPage: Component = () => {
           Open
         </Button>
 
-        <Code>{modalSnippet}</Code>
+        <Code>{`
+          export const ModalExample = () => {
+            const [show, setShow] = createSignal(false);
+            const toggleModal = () => setShow(!show());
+          
+            return (
+              <>
+                <Button color="primary" onClick={toggleModal}>
+                  Open
+                </Button>
+          
+                <Modal isShow={show()} onBackdropClick={toggleModal}>
+                  <h3 class="font-bold text-2xl">Modal title</h3>
+                  <Divider />
+                  <p>Modal description</p>
+                  <ModalAction>
+                    <Button onClick={toggleModal}>Yay!</Button>
+                  </ModalAction>
+                </Modal>
+              </>
+            );
+          };
+        `}</Code>
 
         <Modal
           isShow={show()}

@@ -9,7 +9,7 @@ export default defineConfig({
     tsconfigPaths(),
     prismjs({
       languages: ['bash', 'js', 'tsx', 'html', 'css'],
-      plugins: ['copy-to-clipboard', 'line-highlight'],
+      plugins: ['copy-to-clipboard', 'line-highlight', 'normalize-whitespace'],
       css: false,
     }),
   ],

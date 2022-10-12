@@ -4,10 +4,6 @@ import {Tooltip} from '@ui/data-display';
 import {BtnGroup} from '@ui/navigation';
 import {Component, createSignal} from 'solid-js';
 
-const tooltipSnippet = `<Tooltip message="Tooltip example">
-  <p class="p-2">Hover to text</p>
-</Tooltip>`;
-
 type Position = 'left' | 'top' | 'right' | 'bottom';
 
 export const TooltipPage: Component = () => {
@@ -45,7 +41,11 @@ export const TooltipPage: Component = () => {
           </BtnGroup.Item>
         </BtnGroup>
 
-        <Code>{tooltipSnippet}</Code>
+        <Code>{`
+          <Tooltip message="Tooltip example">
+            <p class="p-2">Hover to text</p>
+          </Tooltip>
+        `}</Code>
       </Page.Section>
     </Page>
   );

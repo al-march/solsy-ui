@@ -2,12 +2,6 @@ import {Code, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {Avatar} from '@ui/data-display';
 
-const avatarPreview = `<Avatar class="m-4">
-  <Avatar.Item class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-    <img src="https://placeimg.com/192/192/people" alt="" />
-  </Avatar.Item>
-</Avatar>`;
-
 export const AvatarPage = () => {
   return (
     <Page full class="p-4">
@@ -30,7 +24,13 @@ export const AvatarPage = () => {
         </Avatar>
       </Page.Section>
 
-      <Code>{avatarPreview}</Code>
+      <Code>{`
+        <Avatar class="m-4">
+          <Avatar.Item class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <img src="https://placeimg.com/192/192/people" alt="" />
+          </Avatar.Item>
+        </Avatar>
+      `}</Code>
     </Page>
   );
 };

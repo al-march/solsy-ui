@@ -4,18 +4,6 @@ import {Input} from '@ui/form';
 import {Row} from '@ui/layout';
 import {Component} from 'solid-js';
 
-const usageSnippet = `<Input type="text" placeholder="primary" bordered />`;
-
-const colorsSnippet = `<Row orientation="col" class="w-96 gap-2">
-  <Input placeholder="primary" color="primary" bordered />
-  <Input placeholder="secondary" color="secondary" bordered />
-  <Input placeholder="accent" color="accent" bordered />
-  <Input placeholder="info" color="info" bordered />
-  <Input placeholder="success" color="success" bordered />
-  <Input placeholder="warning" color="warning" bordered />
-  <Input placeholder="error" color="error" bordered />
-</Row>`;
-
 export const InputPage: Component = () => {
   return (
     <Page full class="p-4">
@@ -27,7 +15,7 @@ export const InputPage: Component = () => {
         <h2 class="text-2xl">Default usage</h2>
         <br />
         <Input type="text" placeholder="input" bordered />
-        <Code>{usageSnippet}</Code>
+        <Code>{`<Input type="text" placeholder="primary" bordered />`}</Code>
       </Page.Section>
 
       <Page.Section name="colors">
@@ -43,7 +31,17 @@ export const InputPage: Component = () => {
           <Input placeholder="error" color="error" bordered />
         </Row>
         <br />
-        <Code>{colorsSnippet}</Code>
+        <Code>{`
+          <Row orientation="col" class="w-96 gap-2">
+            <Input placeholder="primary" color="primary" bordered />
+            <Input placeholder="secondary" color="secondary" bordered />
+            <Input placeholder="accent" color="accent" bordered />
+            <Input placeholder="info" color="info" bordered />
+            <Input placeholder="success" color="success" bordered />
+            <Input placeholder="warning" color="warning" bordered />
+            <Input placeholder="error" color="error" bordered />
+          </Row>
+        `}</Code>
       </Page.Section>
     </Page>
   );

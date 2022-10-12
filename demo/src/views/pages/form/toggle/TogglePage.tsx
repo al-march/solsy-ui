@@ -6,22 +6,6 @@ import {Row} from '@ui/layout';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
 import {Component, For} from 'solid-js';
 
-const sizesSnippet = `<Row orientation="col">
-  <Toggle size="lg" />
-  <Toggle size="md" />
-  <Toggle size="sm" />
-  <Toggle size="xs" />
-</Row>`;
-
-const colorsSnippet = `<Row orientation="col">
-  <Toggle color="primary" />
-  <Toggle color="secondary" />
-  <Toggle color="accent" />
-</Row>`;
-
-const disabledSnippet = `<Toggle disabled />`;
-const indeterminateSnippet = `<Toggle indeterminate />`;
-
 export const TogglePage: Component = () => {
   const sizes = [...DaisySizes];
   const colors = ArrMerge([...DaisyColorsSmall], [undefined]);
@@ -63,7 +47,14 @@ export const TogglePage: Component = () => {
           </For>
         </Row>
 
-        <Code>{sizesSnippet}</Code>
+        <Code>{`
+          <Row orientation="col">
+            <Toggle size="lg" />
+            <Toggle size="md" />
+            <Toggle size="sm" />
+            <Toggle size="xs" />
+          </Row>
+        `}</Code>
       </Page.Section>
 
       <Page.Section name="colors">
@@ -85,7 +76,13 @@ export const TogglePage: Component = () => {
           </For>
         </Row>
 
-        <Code>{colorsSnippet}</Code>
+        <Code>{`
+          <Row orientation="col">
+            <Toggle color="primary" />
+            <Toggle color="secondary" />
+            <Toggle color="accent" />
+          </Row>
+        `}</Code>
       </Page.Section>
 
       <Page.Section name="disabled">
@@ -100,7 +97,7 @@ export const TogglePage: Component = () => {
           <Toggle disabled value />
         </div>
 
-        <Code>{disabledSnippet}</Code>
+        <Code>{`<Toggle disabled />`}</Code>
       </Page.Section>
 
       <Page.Section name="Indeterminate">
@@ -108,7 +105,7 @@ export const TogglePage: Component = () => {
         <br />
         <Toggle indeterminate />
 
-        <Code>{indeterminateSnippet}</Code>
+        <Code>{`<Toggle indeterminate />`}</Code>
       </Page.Section>
     </Page>
   );
