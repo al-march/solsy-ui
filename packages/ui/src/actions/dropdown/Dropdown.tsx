@@ -25,6 +25,7 @@ export type DropdownProps = {
   onHideEnd?: () => void;
   onShowEnd?: () => void;
   onBackdropClick?: (e: Event) => void;
+  onKeyDown?: (e: KeyboardEvent) => void;
 
   placement?: Placement;
   offset?: [number, number];
@@ -101,6 +102,7 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
           class="z-50 overflow-hidden overflow-y-scroll outline-none"
           classList={{[pr.class]: !!props.class}}
           style={{'min-width': pr.minWidth ? pr.minWidth + 'px' : undefined}}
+          onKeyDown={props.onKeyDown}
         >
           <DropdownAnimation onEnter={open} onExit={close}>
             {pr.show && (

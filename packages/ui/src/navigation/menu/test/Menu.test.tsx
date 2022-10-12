@@ -135,7 +135,7 @@ describe('Menu', () => {
           <Menu.Item active>Item</Menu.Item>
         </Menu>
       ));
-      expect(document.querySelector('a.active')).toBeInTheDocument();
+      expect(document.querySelector('button.active')).toBeInTheDocument();
     });
     test('should be disabled', () => {
       render(() => (

@@ -18,14 +18,15 @@ export const MenuOption = (props: ParentProps<MenuOptionProps>) => {
   return (
     <li
       data-testid={MenuSelectors.OPTION}
-      tabIndex={0}
       onKeyDown={onKeyDown}
       onClick={props.onClick}
       classList={{
         disabled: !!props.disabled,
       }}
     >
-      <a classList={{active: !!props.active}}>{props.children}</a>
+      <button classList={{active: !!props.active}} disabled={!!props.disabled}>
+        {props.children}
+      </button>
     </li>
   );
 };

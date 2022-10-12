@@ -44,29 +44,44 @@ export const MenuDropdown = (props: ParentProps<MenuDropdownProps>) => {
         e.preventDefault();
 
         const isDown = e.code === 'ArrowDown';
-        const focusEl = document.activeElement;
-
-        if (focusEl instanceof HTMLLIElement) {
-          const next = isDown
-            ? focusEl.nextElementSibling
-            : focusEl.previousElementSibling;
-          if (next instanceof HTMLLIElement) {
-            next.focus();
-            return;
-          }
-        }
 
         if (isDown) {
           const target = e.target;
           if (target instanceof HTMLElement) {
-            const li = target.querySelector('li');
-            if (li instanceof HTMLLIElement) {
-              li.focus();
+            const button = target.querySelector('button');
+            if (button instanceof HTMLButtonElement) {
+              button.focus();
               return;
             }
           }
         }
-        return;
+
+        const focusEl = document.activeElement;
+        if (focusEl instanceof HTMLButtonElement) {
+          focusNextButton(focusEl, isDown ? 'next' : 'prev');
+        }
+    }
+  }
+
+  function focusNextButton(
+    button: HTMLButtonElement,
+    direction: 'next' | 'prev' = 'next'
+  ) {
+    const li = button.parentNode;
+    if (li instanceof HTMLElement) {
+      const next =
+        direction === 'next'
+          ? li.nextElementSibling
+          : li.previousElementSibling;
+
+      const button = next?.querySelector('button');
+      if (button instanceof HTMLButtonElement) {
+        if (button.disabled) {
+          focusNextButton(button, direction);
+          return;
+        }
+        button.focus();
+      }
     }
   }
 
@@ -83,8 +98,9 @@ export const MenuDropdown = (props: ParentProps<MenuDropdownProps>) => {
         props.ref?.(el);
         ctx.initDropdown(el);
       }}
+      onKeyDown={onKeyDown}
     >
-      <div class="overflow-hidden" onKeyDown={onKeyDown}>
+      <div class="overflow-hidden">
         <ul class="menu bg-base-200 z-10 shadow-xl">{props.children}</ul>
       </div>
     </Dropdown>
