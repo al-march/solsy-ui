@@ -11,7 +11,7 @@ export const Drawer = (props: ParentProps) => {
         <label for="my-drawer-2" class="drawer-overlay" />
         <div class="w-60">
           <div class="font-title p-4 text-primary inline-flex text-lg transition-all duration-200 md:text-3xl font-bold">
-            <span class="lowercase">daisy</span>
+            <span class="lowercase">solsy</span>
             <span class="text-base-content uppercase">UI</span>
           </div>
 
