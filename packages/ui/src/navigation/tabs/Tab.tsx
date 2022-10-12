@@ -27,31 +27,26 @@ export const Tab = (props: ParentProps<TabProps>) => {
   }
 
   return (
-    <div
+    <button
+      data-testid={TabSelectors.TAB}
+      ref={initTab}
+      class="tab"
       classList={{
         [props.class || '']: !!props.class,
-      }}
-    >
-      <button
-        data-testid={TabSelectors.TAB}
-        ref={initTab}
-        class="tab"
-        classList={{
-          'tab-active': isActive(),
-          'tab-bordered': ctx.state.view === 'bordered',
-          'tab-lifted': ctx.state.view === 'lifted',
+        'tab-active': isActive(),
+        'tab-bordered': ctx.state.view === 'bordered',
+        'tab-lifted': ctx.state.view === 'lifted',
 
-          'tab-xs': ctx.state.size === 'xs',
-          'tab-sm': ctx.state.size === 'sm',
-          'tab-md': ctx.state.size === 'md',
-          'tab-lg': ctx.state.size === 'lg',
-        }}
-        onClick={setTab}
-        onFocus={props.onFocus}
-        onBlur={props.onBlur}
-      >
-        {props.label}
-      </button>
-    </div>
+        'tab-xs': ctx.state.size === 'xs',
+        'tab-sm': ctx.state.size === 'sm',
+        'tab-md': ctx.state.size === 'md',
+        'tab-lg': ctx.state.size === 'lg',
+      }}
+      onClick={setTab}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+    >
+      {props.label}
+    </button>
   );
 };

@@ -126,19 +126,17 @@ export const TabsBase = (props: ParentProps<TabsProps>) => {
           {props.children}
         </div>
 
-        <div class="p-4">
-          <Switch>
-            <For each={state.tabs}>
-              {(tab, i) => (
-                <Match when={state.active === i()}>
-                  <Fade appear>
-                    <div>{tab}</div>
-                  </Fade>
-                </Match>
-              )}
-            </For>
-          </Switch>
-        </div>
+        <Switch>
+          <For each={state.tabs}>
+            {(tab, i) => (
+              <Match when={state.active === i()} keyed>
+                <Fade appear>
+                  <div>{tab}</div>
+                </Fade>
+              </Match>
+            )}
+          </For>
+        </Switch>
       </div>
     </TabsCtx.Provider>
   );
