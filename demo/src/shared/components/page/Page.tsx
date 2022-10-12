@@ -1,4 +1,6 @@
+import {Component} from './Component';
 import {Section} from './Section';
+import {Title} from './Title';
 import {generateAnchor} from '@shared/components/page/utils';
 import {Row} from '@ui/layout';
 import {debounce} from 'lodash';
@@ -134,7 +136,7 @@ const PageBase = (props: ParentProps<Props>) => {
             {props.children}
           </div>
 
-          <div class="px-4 w-1/6">
+          <div class="px-4 w-1/6 overflow-hidden overflow-y-scroll h-full">
             <Row orientation="col" class="gap-1">
               <For each={state.sections}>
                 {section => <AnchorLink section={section} />}
@@ -149,4 +151,6 @@ const PageBase = (props: ParentProps<Props>) => {
 
 export const Page = Object.assign(PageBase, {
   Section,
+  Title,
+  Component,
 });

@@ -19,3 +19,15 @@
 .copy-to-clipboard-button {
     @apply absolute right-2 top-3.5 btn btn-primary btn-xs
 }
+
+body .code-snippet pre {
+    @apply bg-zinc-900 m-0;
+}
+
+.page-component .tab-lifted.tab-active.preview-tab {
+    @apply bg-base-200
+}
+
+.page-component .tab-lifted.tab-active.code-tab {
+    @apply bg-zinc-900 text-white
+}

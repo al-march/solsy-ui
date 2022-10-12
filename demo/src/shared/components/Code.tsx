@@ -22,7 +22,7 @@ export const Code = (props: ParentProps<Props>) => {
   );
 
   return (
-    <div class="relative">
+    <div class="relative code-snippet">
       <pre class="line-numbers">
         <code class={`language-${pr.lang}`} ref={setRef}>
           {props.children}
