@@ -50,12 +50,21 @@ export const Button = (props: ParentProps<ButtonProps>) => {
       onBlur={props.onBlur}
       type={props.type || 'button'}
       disabled={props.disabled}
-      class={`btn ${props.class || ''}`}
+      class="btn"
       classList={{
+        [props.class || '']: !!props.class,
         'btn-lg': props.size === 'lg',
         'btn-md': props.size === 'md',
         'btn-sm': props.size === 'sm',
         'btn-xs': props.size === 'xs',
+
+        'btn-outline': props.outline,
+        'btn-active': props.active,
+        'btn-disabled': props.disabled,
+        'btn-circle': props.circle,
+        'btn-square': props.square,
+        'btn-block': props.block,
+        'btn-wide': props.wide,
 
         'btn-primary': props.color === 'primary',
         'btn-secondary': props.color === 'secondary',
@@ -67,15 +76,9 @@ export const Button = (props: ParentProps<ButtonProps>) => {
         'btn-ghost': props.color === 'ghost',
         'btn-link': props.link,
 
-        'btn-outline': props.outline,
-        'btn-active': props.active,
-        'btn-disabled': props.disabled,
-        'btn-circle': props.circle,
-        'btn-square': props.square,
-        'btn-block': props.block,
-
         'loading': props.loading,
         'glass': props.glass,
+        'no-animation': props.noAnimation,
       }}
     >
       {props.children}
