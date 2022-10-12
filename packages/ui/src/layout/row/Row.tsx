@@ -40,10 +40,10 @@ export const Row = (props: ParentProps<RowProps>) => {
         'items-baseline': pr.items === 'baseline',
         'items-stretch': pr.items === 'stretch',
 
-        'justify-items-start': pr.justify === 'start',
-        'justify-items-end': pr.justify === 'end',
-        'justify-items-center': pr.justify === 'center',
-        'justify-items-stretch': pr.justify === 'stretch',
+        'justify-start': pr.justify === 'start',
+        'justify-end': pr.justify === 'end',
+        'justify-center': pr.justify === 'center',
+        'justify-stretch': pr.justify === 'stretch',
       }}
     >
       {props.children}

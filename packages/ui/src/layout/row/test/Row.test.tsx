@@ -27,7 +27,7 @@ describe('Row', () => {
   test('should set justify-items', () => {
     justifyItems.forEach(justify => {
       render(() => <Row justify={justify} />);
-      expect(getRow()).toHaveClass(`justify-items-${justify}`);
+      expect(getRow()).toHaveClass(`justify-${justify}`);
       cleanup();
     });
   });
