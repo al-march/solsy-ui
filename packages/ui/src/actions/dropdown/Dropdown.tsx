@@ -49,7 +49,6 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
   const [show, setShow] = createSignal(pr.show);
   const [trigger, setTrigger] = createSignal(pr.trigger);
   const [dropdown, setDropdown] = createSignal<HTMLElement>();
-  let instance: () => Instance | undefined = () => undefined;
 
   createEffect(() => {
     if (pr.show) {
@@ -65,21 +64,12 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
   /* Listen changes of placement */
   createEffect(prev => {
     if (pr.placement !== prev) {
-      destroyPopper();
       createPopper();
     }
   }, pr.placement);
 
-  onMount(() => {
-    createPopper();
-  });
-
-  onCleanup(() => {
-    destroyPopper();
-  });
-
   function createPopper() {
-    instance = usePopper(trigger, dropdown, {
+    usePopper(trigger, dropdown, {
       placement: pr.placement,
       modifiers: [
         {
@@ -90,10 +80,6 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
         },
       ],
     });
-  }
-
-  function destroyPopper() {
-    instance()?.destroy();
   }
 
   function open() {
@@ -117,6 +103,7 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
           ref={el => {
             pr.ref?.(el);
             setDropdown(el);
+            createPopper();
           }}
           tabIndex={0}
           class="z-50 overflow-hidden overflow-y-scroll outline-none"

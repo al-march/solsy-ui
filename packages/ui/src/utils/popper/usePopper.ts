@@ -26,27 +26,22 @@ export function usePopper<T extends HTMLElement>(
 ): () => Instance | undefined {
   const [instance, setInstance] = createSignal<Instance>();
 
-  /*
-   * Инициализируем Popper
-   */
   createEffect(() => {
-    setInstance(undefined);
-
     const reference = referenceAccessor();
     const popper = popperAccessor();
 
     if (reference && popper) {
       const instance = createPopper(reference, popper, options);
-
       setInstance(instance);
 
-      /*
-       * Уничтожаем Popper, если он был создан
-       */
       onCleanup(() => {
         instance.destroy();
       });
     }
+  });
+
+  onCleanup(() => {
+    instance()?.destroy();
   });
 
   return () => instance();

@@ -1,3 +1,4 @@
+import {PlacementExample} from './examples/Placement';
 import {ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {Button} from '@ui/actions';
@@ -166,6 +167,11 @@ export const MenuPage: Component = () => {
             </Menu>
           `}
         />
+      </Page.Section>
+
+      <Page.Section name="Menu placement">
+        <Page.Title>Menu Placement</Page.Title>
+        <PlacementExample />
       </Page.Section>
     </Page>
   );
