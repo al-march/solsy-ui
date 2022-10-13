@@ -45,6 +45,8 @@ export type MenuProps = {
   show?: boolean;
   class?: string;
 
+  closeOnBackdrop?: boolean;
+
   onInput?: (state: boolean) => void;
   onShow?: () => void;
   onHide?: () => void;
@@ -53,10 +55,13 @@ export type MenuProps = {
   children?: JSXElement | MenuChildrenWithState;
 };
 
-type MenuDefaultProps = Required<Pick<MenuProps, 'show' | 'class'>>;
+type MenuDefaultProps = Required<
+  Pick<MenuProps, 'show' | 'class' | 'closeOnBackdrop'>
+>;
 
 const defaultProps: MenuDefaultProps = {
   show: false,
+  closeOnBackdrop: true,
   class: '',
 };
 
@@ -108,8 +113,11 @@ const MenuBase = (props: MenuProps) => {
     if (state.dropdown?.contains(target)) {
       return;
     }
-    hide();
     pr.onBackdropClick?.(e);
+
+    if (pr.closeOnBackdrop) {
+      hide();
+    }
   }
 
   return (
