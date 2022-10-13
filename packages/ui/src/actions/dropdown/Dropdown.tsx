@@ -1,11 +1,12 @@
 import {BackdropClick, usePopper} from '../../utils';
 import {DropdownAnimation} from './animation/DropdownAnimation';
-import {Placement} from '@popperjs/core';
+import {Instance, Placement} from '@popperjs/core';
 import {
   createEffect,
   createSignal,
   mergeProps,
   onCleanup,
+  onMount,
   ParentProps,
   Show,
 } from 'solid-js';
@@ -48,6 +49,7 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
   const [show, setShow] = createSignal(pr.show);
   const [trigger, setTrigger] = createSignal(pr.trigger);
   const [dropdown, setDropdown] = createSignal<HTMLElement>();
+  let instance: () => Instance | undefined = () => undefined;
 
   createEffect(() => {
     if (pr.show) {
@@ -60,21 +62,39 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
     }
   });
 
-  onCleanup(() => {
-    instance()?.destroy();
+  /* Listen changes of placement */
+  createEffect(prev => {
+    if (pr.placement !== prev) {
+      destroyPopper();
+      createPopper();
+    }
+  }, pr.placement);
+
+  onMount(() => {
+    createPopper();
   });
 
-  const instance = usePopper(trigger, dropdown, {
-    placement: pr.placement,
-    modifiers: [
-      {
-        name: 'offset',
-        options: {
-          offset: pr.offset,
-        },
-      },
-    ],
+  onCleanup(() => {
+    destroyPopper();
   });
+
+  function createPopper() {
+    instance = usePopper(trigger, dropdown, {
+      placement: pr.placement,
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: pr.offset,
+          },
+        },
+      ],
+    });
+  }
+
+  function destroyPopper() {
+    instance()?.destroy();
+  }
 
   function open() {
     pr.onShowEnd?.();
