@@ -23,15 +23,15 @@ export const MenuPage: Component = () => {
 
               <Menu.Dropdown>
                 <Menu.Item>
-                  <i class="fa-solid fa-car pr-2" />
+                  <i class="fa-solid fa-car" />
                   <span>Cars</span>
                 </Menu.Item>
                 <Menu.Item disabled>
-                  <i class="fa-solid fa-plane-departure pr-2" />
+                  <i class="fa-solid fa-plane-departure" />
                   <span>Plane</span>
                 </Menu.Item>
                 <Menu.Item>
-                  <i class="fa-solid fa-building pr-2" />
+                  <i class="fa-solid fa-building" />
                   <span>Buildings</span>
                 </Menu.Item>
               </Menu.Dropdown>
@@ -45,15 +45,15 @@ export const MenuPage: Component = () => {
             
               <Menu.Dropdown>
                 <Menu.Item>
-                  <i class="fa-solid fa-car pr-2" />
+                  <i class="fa-solid fa-car" />
                   <span>Cars</span>
                 </Menu.Item>
                 <Menu.Item disabled>
-                  <i class="fa-solid fa-plane-departure pr-2" />
+                  <i class="fa-solid fa-plane-departure" />
                   <span>Plane</span>
                 </Menu.Item>
                 <Menu.Item>
-                  <i class="fa-solid fa-building pr-2" />
+                  <i class="fa-solid fa-building" />
                   <span>Buildings</span>
                 </Menu.Item>
               </Menu.Dropdown>
@@ -82,11 +82,11 @@ export const MenuPage: Component = () => {
 
                   <Menu.Dropdown>
                     <Menu.Item>
-                      <i class="fa-solid fa-car pr-2" />
+                      <i class="fa-solid fa-car" />
                       <span>Cars</span>
                     </Menu.Item>
                     <Menu.Item>
-                      <i class="fa-solid fa-building pr-2" />
+                      <i class="fa-solid fa-building" />
                       <span>Buildings</span>
                     </Menu.Item>
                   </Menu.Dropdown>
@@ -110,16 +110,59 @@ export const MenuPage: Component = () => {
     
                   <Menu.Dropdown>
                     <Menu.Item>
-                      <i class="fa-solid fa-car pr-2" />
+                      <i class="fa-solid fa-car" />
                       <span>Cars</span>
                     </Menu.Item>
                     <Menu.Item>
-                      <i class="fa-solid fa-building pr-2" />
+                      <i class="fa-solid fa-building" />
                       <span>Buildings</span>
                     </Menu.Item>
                   </Menu.Dropdown>
                 </>
               )}
+            </Menu>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="Compact menu">
+        <Page.Title>Compact menu</Page.Title>
+
+        <Page.Component
+          preview={
+            <Menu>
+              <Menu.Trigger>
+                <Button color="primary">Menu</Button>
+              </Menu.Trigger>
+
+              <Menu.Dropdown compact>
+                <Menu.Item>
+                  <i class="fa-solid fa-car" />
+                  <span>Cars</span>
+                </Menu.Item>
+                <Menu.Item>
+                  <i class="fa-solid fa-building" />
+                  <span>Buildings</span>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          }
+          snippet={`
+            <Menu>
+              <Menu.Trigger>
+                <Button color="primary">Menu</Button>
+              </Menu.Trigger>
+
+              <Menu.Dropdown compact>
+                <Menu.Item>
+                  <i class="fa-solid fa-car" />
+                  <span>Cars</span>
+                </Menu.Item>
+                <Menu.Item>
+                  <i class="fa-solid fa-building" />
+                  <span>Buildings</span>
+                </Menu.Item>
+              </Menu.Dropdown>
             </Menu>
           `}
         />

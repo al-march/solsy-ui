@@ -4,6 +4,7 @@ import {Placement} from '@popperjs/core';
 import {createEffect, mergeProps, ParentProps} from 'solid-js';
 
 export type MenuDropdownProps = {
+  compact?: boolean;
   show?: boolean;
   minWidth?: number;
   class?: string;
@@ -14,7 +15,10 @@ export type MenuDropdownProps = {
 };
 
 type DefaultProps = Required<
-  Pick<MenuDropdownProps, 'minWidth' | 'class' | 'placement' | 'offset'>
+  Pick<
+    MenuDropdownProps,
+    'minWidth' | 'class' | 'placement' | 'offset' | 'compact'
+  >
 >;
 
 const defaultProps: DefaultProps = {
@@ -22,6 +26,7 @@ const defaultProps: DefaultProps = {
   class: '',
   placement: 'bottom',
   offset: [0, 8],
+  compact: false,
 };
 
 export const MenuDropdown = (props: ParentProps<MenuDropdownProps>) => {
@@ -101,7 +106,12 @@ export const MenuDropdown = (props: ParentProps<MenuDropdownProps>) => {
       onKeyDown={onKeyDown}
     >
       <div class="overflow-hidden">
-        <ul class="menu bg-base-200 z-10 shadow-xl">{props.children}</ul>
+        <ul
+          class="menu bg-base-200 z-10 shadow-xl"
+          classList={{'menu-compact': pr.compact}}
+        >
+          {props.children}
+        </ul>
       </div>
     </Dropdown>
   );
