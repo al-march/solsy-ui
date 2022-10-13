@@ -88,7 +88,7 @@ export const MenuDropdown = (props: ParentProps<MenuDropdownProps>) => {
   return (
     <Dropdown
       trigger={ctx.state.trigger}
-      show={ctx.state.show}
+      show={ctx.state.show && !!ctx.state.trigger}
       onBackdropClick={ctx.onBackdropClick}
       placement={pr.placement}
       offset={pr.offset}

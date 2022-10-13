@@ -1,5 +1,6 @@
-import {Menu, MenuSelectors} from '../Menu';
+import {Menu, MenuSelectors, MenuState} from '../Menu';
 import {Placement} from '@popperjs/core';
+import {createSignal} from 'solid-js';
 import {fireEvent, render, screen} from 'solid-testing-library';
 
 const getMenu = () => screen.getByTestId(MenuSelectors.MENU);
@@ -15,6 +16,7 @@ describe('Menu', () => {
     const onBackdropClick = jest.fn();
     render(() => (
       <Menu show onBackdropClick={onBackdropClick}>
+        <Menu.Trigger />
         <Menu.Dropdown />
       </Menu>
     ));
@@ -25,6 +27,7 @@ describe('Menu', () => {
     const onInput = jest.fn();
     render(() => (
       <Menu show onInput={onInput}>
+        <Menu.Trigger />
         <Menu.Dropdown />
       </Menu>
     ));
@@ -36,6 +39,7 @@ describe('Menu', () => {
     const onHide = jest.fn();
     render(() => (
       <Menu show onHide={onHide}>
+        <Menu.Trigger />
         <Menu.Dropdown />
       </Menu>
     ));
@@ -70,6 +74,38 @@ describe('Menu', () => {
     const className = 'custom-class';
     render(() => <Menu class={className} />);
     expect(getMenu()).toHaveClass(className);
+  });
+  test('should render menu with state func', () => {
+    render(() => (
+      <Menu show>
+        {() => (
+          <>
+            <Menu.Trigger />
+            <Menu.Dropdown />
+          </>
+        )}
+      </Menu>
+    ));
+
+    expect(getTrigger()).toBeInTheDocument();
+    expect(getDropdown()).toBeInTheDocument();
+  });
+  test('should update state', () => {
+    const [show, setShow] = createSignal(false);
+    let state: MenuState | undefined;
+
+    render(() => (
+      <Menu show={show()}>
+        {s => {
+          state = s;
+          return '';
+        }}
+      </Menu>
+    ));
+
+    expect(state?.show).toBe(false);
+    setShow(true);
+    expect(state?.show).toBe(true);
   });
 
   describe('Menu.Dropdown', () => {

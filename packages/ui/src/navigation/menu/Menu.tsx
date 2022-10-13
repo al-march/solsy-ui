@@ -1,12 +1,14 @@
 import {DropdownSelectors} from '../../actions';
+import {isChildrenFunction} from '../../utils/solid';
 import {MenuDropdown} from './MenuDropdown';
 import {MenuOption} from './MenuItem';
 import {MenuTrigger} from './MenuTrigger';
 import {
   createContext,
   createEffect,
+  JSXElement,
   mergeProps,
-  ParentProps,
+  Show,
   useContext,
 } from 'solid-js';
 import {createStore} from 'solid-js/store';
@@ -18,7 +20,7 @@ export const MenuSelectors = {
   OPTION: 'option',
 };
 
-type MenuState = {
+export type MenuState = {
   show: boolean;
   trigger?: HTMLElement;
   dropdown?: HTMLElement;
@@ -37,6 +39,8 @@ type BtnGroupCtx = {
 
 const MenuCtx = createContext<BtnGroupCtx>();
 
+type MenuChildrenWithState = (state: MenuState) => JSXElement;
+
 export type MenuProps = {
   show?: boolean;
   class?: string;
@@ -45,6 +49,8 @@ export type MenuProps = {
   onShow?: () => void;
   onHide?: () => void;
   onBackdropClick?: (e: Event) => void;
+
+  children?: JSXElement | MenuChildrenWithState;
 };
 
 type MenuDefaultProps = Required<Pick<MenuProps, 'show' | 'class'>>;
@@ -54,7 +60,7 @@ const defaultProps: MenuDefaultProps = {
   class: '',
 };
 
-const MenuBase = (props: ParentProps<MenuProps>) => {
+const MenuBase = (props: MenuProps) => {
   const pr = mergeProps({...defaultProps}, props);
 
   const [state, setState] = createStore<MenuState>({
@@ -123,7 +129,13 @@ const MenuBase = (props: ParentProps<MenuProps>) => {
         class="inline-flex"
         classList={{[pr.class]: !!pr.class}}
       >
-        {props.children}
+        <Show
+          when={isChildrenFunction(props)}
+          fallback={props.children as JSXElement}
+          keyed
+        >
+          {(props.children as MenuChildrenWithState)?.(state)}
+        </Show>
       </div>
     </MenuCtx.Provider>
   );
