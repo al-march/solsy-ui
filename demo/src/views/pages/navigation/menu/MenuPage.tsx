@@ -173,6 +173,49 @@ export const MenuPage: Component = () => {
         <Page.Title>Menu Placement</Page.Title>
         <PlacementExample />
       </Page.Section>
+
+      <Page.Section name="Disabled items">
+        <Page.Title>Disabled items</Page.Title>
+
+        <Page.Component
+          preview={
+            <Menu>
+              <Menu.Trigger>
+                <Button color="primary">Disabled options</Button>
+              </Menu.Trigger>
+
+              <Menu.Dropdown>
+                <Menu.Item disabled>
+                  <i class="fa-solid fa-car" />
+                  <span>Cars</span>
+                </Menu.Item>
+                <Menu.Item disabled>
+                  <i class="fa-solid fa-building" />
+                  <span>Buildings</span>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          }
+          snippet={`
+            <Menu>
+              <Menu.Trigger>
+                <Button color="primary">Disabled options</Button>
+              </Menu.Trigger>
+
+              <Menu.Dropdown>
+                <Menu.Item disabled>
+                  <i class="fa-solid fa-car" />
+                  <span>Cars</span>
+                </Menu.Item>
+                <Menu.Item disabled>
+                  <i class="fa-solid fa-building" />
+                  <span>Buildings</span>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          `}
+        />
+      </Page.Section>
     </Page>
   );
 };
