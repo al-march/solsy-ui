@@ -23,8 +23,8 @@ import {
 import {HomePage} from '@page/home';
 import {DividerPage} from '@page/layout';
 import {FormPage} from '@page/sdk';
+import {Route, Routes} from '@solidjs/router';
 import {BtnGroupPage, MenuPage, NotFound, TabsPage} from '@src/views/pages';
-import {Route, Routes} from 'solid-app-router';
 import {Component} from 'solid-js';
 
 export const Routers: Component = () => {

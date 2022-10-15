@@ -1,6 +1,6 @@
 import {Page} from '@shared/components/page';
 import {Points} from '@shared/router/Points';
-import {Link} from 'solid-app-router';
+import {Link} from '@solidjs/router';
 import {Component} from 'solid-js';
 
 export const NotFound: Component = () => {

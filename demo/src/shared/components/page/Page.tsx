@@ -2,10 +2,13 @@ import {Component} from './Component';
 import {Section} from './Section';
 import {Title} from './Title';
 import {generateAnchor} from '@shared/components/page/utils';
+import {useSearchParams} from '@solidjs/router';
+import {Button} from '@ui/actions';
 import {Row} from '@ui/layout';
 import {debounce} from 'lodash';
 import {
   createContext,
+  createMemo,
   createSignal,
   For,
   mergeProps,
@@ -48,25 +51,14 @@ type Props = {
 
 const PageBase = (props: ParentProps<Props>) => {
   const pr = mergeProps({class: ''}, props);
+  const [searchParams, setSearchParams] = useSearchParams<{anchor: string}>();
   const [contentRef, setContentRef] = createSignal<HTMLElement>();
   const [state, setState] = createStore<PageState>({
     sections: [],
   });
 
   onMount(() => {
-    setTimeout(() => {
-      const anchor = window.location.hash;
-      const section = state.sections.find(
-        sect => `#${generateAnchor(sect.name)}` === anchor
-      );
-      if (section) {
-        section.el.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest',
-        });
-      }
-    });
+    setTimeout(scrollToSection);
     checkScroll();
   });
 
@@ -86,12 +78,31 @@ const PageBase = (props: ParentProps<Props>) => {
     for (const section of state.sections) {
       const sectionArea = section.el.offsetTop + section.el.scrollHeight - 30;
       if (sectionArea >= content.scrollTop) {
-        const anchor = generateAnchor(section.name);
-        history.replaceState(undefined, '', `#${anchor}`);
-        initAnchor(anchor);
+        setAnchor(section.name);
         return;
       }
     }
+  }
+
+  function setAnchor(name: string) {
+    const anchor = generateAnchor(name);
+    setSearchParams({anchor}, {resolve: true});
+  }
+
+  function scrollToSection() {
+    setTimeout(() => {
+      const anchor = searchParams.anchor;
+      const section = state.sections.find(
+        sect => generateAnchor(sect.name) === anchor
+      );
+      if (section) {
+        section.el.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      }
+    });
   }
 
   function initSection(section: PageSection) {
@@ -99,21 +110,36 @@ const PageBase = (props: ParentProps<Props>) => {
     setState('sections', [...sections, section]);
   }
 
-  function initAnchor(anchor: string) {
-    setState('activeAnchor', anchor);
-  }
+  const AnchorLink = (props: {section: PageSection}) => {
+    const [ref, setRef] = createSignal<HTMLElement>();
 
-  const AnchorLink = (props: {section: PageSection}) => (
-    <a
-      class="capitalize hover:underline"
-      classList={{
-        'text-info': state.activeAnchor === generateAnchor(props.section.name),
-      }}
-      href={`#${generateAnchor(props.section.name)}`}
-    >
-      {props.section.name}
-    </a>
-  );
+    const isActive = createMemo(() => {
+      return searchParams.anchor === generateAnchor(props.section.name);
+    });
+
+    onMount(() => {
+      if (isActive()) {
+        ref()?.focus();
+      }
+    });
+
+    function checkSection() {
+      setAnchor(props.section.name);
+      scrollToSection();
+    }
+
+    return (
+      <Button
+        ref={setRef}
+        class="capitalize justify-start"
+        color={isActive() ? 'primary' : 'ghost'}
+        size="sm"
+        onClick={checkSection}
+      >
+        {props.section.name}
+      </Button>
+    );
+  };
 
   return (
     <PageCtx.Provider
@@ -137,7 +163,7 @@ const PageBase = (props: ParentProps<Props>) => {
           </div>
 
           <div class="px-4 w-1/6 overflow-hidden overflow-y-scroll h-full">
-            <Row orientation="col" class="gap-1">
+            <Row orientation="col">
               <For each={state.sections}>
                 {section => <AnchorLink section={section} />}
               </For>

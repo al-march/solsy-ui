@@ -1,13 +1,13 @@
 /* @refresh reload */
 import App from './App';
 import './index.css';
+import {Router, hashIntegration} from '@solidjs/router';
 import 'prism-themes/themes/prism-night-owl.min.css';
-import {Router} from 'solid-app-router';
 import {render} from 'solid-js/web';
 
 render(
   () => (
-    <Router>
+    <Router source={hashIntegration()}>
       <App />
     </Router>
   ),

@@ -1,5 +1,5 @@
 import {Points, RouterSDKEnum} from '@shared/router/Points';
-import {NavLink} from 'solid-app-router';
+import {NavLink} from '@solidjs/router';
 import {onMount, ParentProps} from 'solid-js';
 
 export const Drawer = (props: ParentProps) => {
