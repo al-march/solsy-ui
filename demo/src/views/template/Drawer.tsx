@@ -1,8 +1,15 @@
 import {Points, RouterSDKEnum} from '@shared/router/Points';
 import {NavLink} from 'solid-app-router';
-import {ParentProps} from 'solid-js';
+import {onMount, ParentProps} from 'solid-js';
 
 export const Drawer = (props: ParentProps) => {
+  onMount(() => {
+    const activeLink = document.querySelector('li .active');
+    if (activeLink instanceof HTMLElement) {
+      activeLink.scrollIntoView();
+    }
+  });
+
   return (
     <div class="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
