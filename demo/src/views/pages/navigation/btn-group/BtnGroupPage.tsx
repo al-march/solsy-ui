@@ -1,6 +1,6 @@
-import {Code, ImportPreview, TypeLine} from '@shared/components';
+import {ImportPreview, TypeLine} from '@shared/components';
 import {Page} from '@shared/components/page';
-import {Divider, Row} from '@ui/layout';
+import {Row} from '@ui/layout';
 import {BtnGroup} from '@ui/navigation';
 import {DaisySizes} from '@ui/types';
 import {Component} from 'solid-js';
@@ -23,23 +23,26 @@ export const BtnGroupPage: Component = () => {
         </p>
         <br />
 
-        <BtnGroup onInput={onButtonsChange}>
-          <BtnGroup.Item>1</BtnGroup.Item>
-          <BtnGroup.Item>2</BtnGroup.Item>
-          <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
-        </BtnGroup>
-
-        <Code>{`
-          function onButtonsChange(v: number) {
-            console.log(v);
+        <Page.Component
+          preview={
+            <BtnGroup onInput={onButtonsChange}>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+            </BtnGroup>
           }
-          
-          <BtnGroup onInput={onButtonsChange}>
-            <BtnGroup.Item>1</BtnGroup.Item>
-            <BtnGroup.Item>2</BtnGroup.Item>
-            <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
-          </BtnGroup>
-        `}</Code>
+          snippet={`
+            function onButtonsChange(v: number) {
+              console.log(v);
+            }
+            
+            <BtnGroup onInput={onButtonsChange}>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+            </BtnGroup>
+          `}
+        />
       </Page.Section>
 
       <Page.Section name="Orientation">
@@ -47,25 +50,28 @@ export const BtnGroupPage: Component = () => {
         <p>
           By <span class="text-info">orientation</span>, the support changes
           position to position to <br />
-          <span class="text-info">vertical</span> or{' '}
-          <span class="text-info">horizontal</span>
+          <span class="text-info">vertical</span>
+          or <span class="text-info">horizontal</span>
         </p>
 
         <br />
 
-        <BtnGroup orientation="vertical">
-          <BtnGroup.Item>1</BtnGroup.Item>
-          <BtnGroup.Item>2</BtnGroup.Item>
-          <BtnGroup.Item>3</BtnGroup.Item>
-        </BtnGroup>
-
-        <Code>{`
-          <BtnGroup orientation="vertical">
-            <BtnGroup.Item>1</BtnGroup.Item>
-            <BtnGroup.Item>2</BtnGroup.Item>
-            <BtnGroup.Item>3</BtnGroup.Item>
-          </BtnGroup>
-        `}</Code>
+        <Page.Component
+          preview={
+            <BtnGroup orientation="vertical">
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+            </BtnGroup>
+          }
+          snippet={`
+            <BtnGroup orientation="vertical">
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+              <BtnGroup.Item>Button</BtnGroup.Item>
+            </BtnGroup>
+          `}
+        />
       </Page.Section>
 
       <Page.Section name="sizes">
@@ -78,37 +84,98 @@ export const BtnGroupPage: Component = () => {
           There are size props: <br /> <TypeLine types={[...DaisySizes]} />
         </p>
 
-        <Row class="gap-2 py-2" orientation="col">
-          <BtnGroup size="lg">
-            <BtnGroup.Item>lg</BtnGroup.Item>
-          </BtnGroup>
-          <BtnGroup size="md">
-            <BtnGroup.Item>md</BtnGroup.Item>
-          </BtnGroup>
-          <BtnGroup size="sm">
-            <BtnGroup.Item>sm</BtnGroup.Item>
-          </BtnGroup>
-          <BtnGroup size="xs">
-            <BtnGroup.Item>xs</BtnGroup.Item>
-          </BtnGroup>
-        </Row>
+        <Page.Component
+          preview={
+            <Row class="gap-2 py-2" orientation="col">
+              <BtnGroup size="lg">
+                <BtnGroup.Item>lg</BtnGroup.Item>
+                <BtnGroup.Item>lg</BtnGroup.Item>
+                <BtnGroup.Item>lg</BtnGroup.Item>
+              </BtnGroup>
+              <BtnGroup size="md">
+                <BtnGroup.Item>md</BtnGroup.Item>
+                <BtnGroup.Item>md</BtnGroup.Item>
+                <BtnGroup.Item>md</BtnGroup.Item>
+              </BtnGroup>
+              <BtnGroup size="sm">
+                <BtnGroup.Item>sm</BtnGroup.Item>
+                <BtnGroup.Item>sm</BtnGroup.Item>
+                <BtnGroup.Item>sm</BtnGroup.Item>
+              </BtnGroup>
+              <BtnGroup size="xs">
+                <BtnGroup.Item>xs</BtnGroup.Item>
+                <BtnGroup.Item>xs</BtnGroup.Item>
+                <BtnGroup.Item>xs</BtnGroup.Item>
+              </BtnGroup>
+            </Row>
+          }
+          snippet={`
+            <Row class="gap-2 py-2" orientation="col">
+              <BtnGroup size="lg">
+                <BtnGroup.Item>lg</BtnGroup.Item>
+                <BtnGroup.Item>lg</BtnGroup.Item>
+                <BtnGroup.Item>lg</BtnGroup.Item>
+              </BtnGroup>
+              <BtnGroup size="md">
+                <BtnGroup.Item>md</BtnGroup.Item>
+                <BtnGroup.Item>md</BtnGroup.Item>
+                <BtnGroup.Item>md</BtnGroup.Item>
+              </BtnGroup>
+              <BtnGroup size="sm">
+                <BtnGroup.Item>sm</BtnGroup.Item>
+                <BtnGroup.Item>sm</BtnGroup.Item>
+                <BtnGroup.Item>sm</BtnGroup.Item>
+              </BtnGroup>
+              <BtnGroup size="xs">
+                <BtnGroup.Item>xs</BtnGroup.Item>
+                <BtnGroup.Item>xs</BtnGroup.Item>
+                <BtnGroup.Item>xs</BtnGroup.Item>
+              </BtnGroup>
+            </Row>
+          `}
+        />
+      </Page.Section>
 
-        <Code>{`
-          <Row class="gap-2 py-2" orientation="col">
-            <BtnGroup size="lg">
-              <BtnGroup.Item>lg</BtnGroup.Item>
+      <Page.Section name="Default button">
+        <Page.Title>Default button</Page.Title>
+
+        <Page.Component
+          preview={
+            <BtnGroup>
+              <BtnGroup.Item>1</BtnGroup.Item>
+              <BtnGroup.Item>2</BtnGroup.Item>
+              <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
             </BtnGroup>
-            <BtnGroup size="md">
-              <BtnGroup.Item>md</BtnGroup.Item>
+          }
+          snippet={`           
+            <BtnGroup>
+              <BtnGroup.Item>1</BtnGroup.Item>
+              <BtnGroup.Item>2</BtnGroup.Item>
+              <BtnGroup.Item defaultChecked>3</BtnGroup.Item>
             </BtnGroup>
-            <BtnGroup size="sm">
-              <BtnGroup.Item>sm</BtnGroup.Item>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="multiple">
+        <Page.Title>Multiple buttons</Page.Title>
+
+        <Page.Component
+          preview={
+            <BtnGroup multiple>
+              <BtnGroup.Item>One</BtnGroup.Item>
+              <BtnGroup.Item>Two</BtnGroup.Item>
+              <BtnGroup.Item defaultChecked>Three</BtnGroup.Item>
             </BtnGroup>
-            <BtnGroup size="xs">
-              <BtnGroup.Item>xs</BtnGroup.Item>
+          }
+          snippet={`
+            <BtnGroup multiple>
+              <BtnGroup.Item>One</BtnGroup.Item>
+              <BtnGroup.Item>Two</BtnGroup.Item>
+              <BtnGroup.Item defaultChecked>Three</BtnGroup.Item>
             </BtnGroup>
-          </Row>
-        `}</Code>
+          `}
+        />
       </Page.Section>
     </Page>
   );
