@@ -2,11 +2,14 @@ import {ScaleTransition} from '../../utils';
 import {
   createEffect,
   createSignal,
+  mergeProps,
+  on,
   onCleanup,
   onMount,
   ParentProps,
   Show,
 } from 'solid-js';
+import {createStore} from 'solid-js/store';
 import {Portal} from 'solid-js/web';
 
 export const ModalSelectors = {
@@ -15,12 +18,26 @@ export const ModalSelectors = {
 };
 
 export type ModalProps = {
-  isShow?: boolean;
+  show?: boolean;
   class?: string;
   trigger?: HTMLButtonElement;
 
   onBackdropClick?: () => void;
+
+  onOpen?: () => void;
   onClose?: () => void;
+};
+
+export type ModalState = {
+  show: boolean;
+  trigger?: HTMLElement;
+};
+
+type ModalDefaultProps = Required<Pick<ModalProps, 'show' | 'class'>>;
+
+const modalDefaultProps: ModalDefaultProps = {
+  show: false,
+  class: '',
 };
 
 /**
@@ -36,45 +53,75 @@ export type ModalProps = {
  * </Modal>
  */
 export const Modal = (props: ParentProps<ModalProps>) => {
-  const [show, setShow] = createSignal(false);
-  let modalRef: HTMLDivElement | undefined;
+  const pr = mergeProps({...modalDefaultProps}, props);
+
+  const [state, setState] = createStore<ModalState>({
+    show: pr.show,
+  });
+
+  const [modalRef, setModalRef] = createSignal<HTMLElement>();
 
   createEffect(() => {
-    if (props.isShow) {
-      setShow(true);
-    }
-    if (modalRef) {
-      focusOn(modalRef);
+    if (props.show) {
+      open();
     }
   });
 
-  const close = () => {
-    setShow(false);
-    props.onClose?.();
-    props.trigger && focusOn(props.trigger);
-  };
+  createEffect(
+    on(modalRef, ref => {
+      if (ref) {
+        focusOn(ref);
+      }
+    })
+  );
 
-  const keyboardPressHandler = (evt: KeyboardEvent) => {
-    if (show() && evt.key === 'Escape') {
+  function open() {
+    updateTrigger();
+    setState('show', true);
+    props.onOpen?.();
+  }
+
+  function close() {
+    focusTrigger();
+    setState('show', false);
+    props.onClose?.();
+  }
+
+  function updateTrigger() {
+    const trigger = document.activeElement;
+    if (trigger instanceof HTMLElement) {
+      setState('trigger', trigger);
+    } else {
+      setState('trigger', undefined);
+    }
+  }
+
+  function focusTrigger() {
+    focusOn(state.trigger);
+  }
+
+  function keyboardPressHandler(evt: KeyboardEvent) {
+    if (state.show && evt.key === 'Escape') {
       backdropClickHandler();
     }
-  };
+  }
 
-  const backdropClickHandler = () => {
+  function backdropClickHandler() {
     props.onBackdropClick?.();
-  };
+  }
 
-  const focusOn = (el: HTMLElement) => {
+  function focusOn(el?: HTMLElement) {
     setTimeout(() => {
       el?.focus();
     });
-  };
+  }
 
   onMount(() => {
     document.addEventListener('keydown', keyboardPressHandler);
 
-    if (show()) {
-      modalRef && focusOn(modalRef);
+    if (state.show) {
+      const ref = modalRef();
+      ref && focusOn(ref);
     }
   });
 
@@ -83,7 +130,7 @@ export const Modal = (props: ParentProps<ModalProps>) => {
   });
 
   return (
-    <Show when={show()} keyed>
+    <Show when={state.show} keyed>
       <Portal>
         <div
           data-testid={ModalSelectors.BACKDROP}
@@ -91,17 +138,16 @@ export const Modal = (props: ParentProps<ModalProps>) => {
           onClick={backdropClickHandler}
         >
           <ScaleTransition appear onExit={close}>
-            <Show when={props.isShow} keyed>
+            <Show when={pr.show} keyed>
               <div
                 data-testid={ModalSelectors.MODAL}
                 tabIndex="0"
                 ref={ref => {
-                  modalRef = ref;
+                  setModalRef(ref);
                   focusOn(ref);
                 }}
-                class={`modal-box transition-none transform-none opacity-100 ${
-                  props.class || ''
-                }`}
+                class="modal-box transition-none transform-none opacity-100 outline-none"
+                classList={{[pr.class]: !!pr.class}}
                 onClick={e => e.stopPropagation()}
               >
                 {props.children}
