@@ -17,7 +17,7 @@ export const BtnGroupPage: Component = () => {
       </Page.Section>
 
       <Page.Section name="default usage">
-        <h2 class="text-2xl">Default usage</h2>
+        <Page.Title>Default usage</Page.Title>
         <p>
           <span class="text-info">BtnGroup</span> component...
         </p>
@@ -46,14 +46,13 @@ export const BtnGroupPage: Component = () => {
       </Page.Section>
 
       <Page.Section name="Orientation">
-        <h2 class="text-2xl">Orientation</h2>
+        <Page.Title>Orientation</Page.Title>
         <p>
           By <span class="text-info">orientation</span>, the support changes
           position to position to <br />
-          <span class="text-info">vertical</span>
-          or <span class="text-info">horizontal</span>
+          <span class="text-info">vertical</span> or{' '}
+          <span class="text-info">horizontal</span>
         </p>
-
         <br />
 
         <Page.Component
@@ -83,6 +82,7 @@ export const BtnGroupPage: Component = () => {
         <p>
           There are size props: <br /> <TypeLine types={[...DaisySizes]} />
         </p>
+        <br />
 
         <Page.Component
           preview={
@@ -173,6 +173,48 @@ export const BtnGroupPage: Component = () => {
               <BtnGroup.Item>One</BtnGroup.Item>
               <BtnGroup.Item>Two</BtnGroup.Item>
               <BtnGroup.Item defaultChecked>Three</BtnGroup.Item>
+            </BtnGroup>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="BtnGroup colors">
+        <Page.Title>BtnGroup colors</Page.Title>
+
+        <Page.Component
+          preview={
+            <BtnGroup color="warning">
+              <BtnGroup.Item>Warning</BtnGroup.Item>
+              <BtnGroup.Item>Warning</BtnGroup.Item>
+              <BtnGroup.Item>Warning</BtnGroup.Item>
+            </BtnGroup>
+          }
+          snippet={`
+            <BtnGroup color="warning">
+              <BtnGroup.Item>Warning</BtnGroup.Item>
+              <BtnGroup.Item>Warning</BtnGroup.Item>
+              <BtnGroup.Item>Warning</BtnGroup.Item>
+            </BtnGroup>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="UnSelectable">
+        <Page.Title>BtnGroup unSelectable</Page.Title>
+
+        <Page.Component
+          preview={
+            <BtnGroup unSelectable>
+              <BtnGroup.Item>Primary</BtnGroup.Item>
+              <BtnGroup.Item>Primary</BtnGroup.Item>
+              <BtnGroup.Item>Primary</BtnGroup.Item>
+            </BtnGroup>
+          }
+          snippet={`
+            <BtnGroup unSelectable>
+              <BtnGroup.Item>no-select</BtnGroup.Item>
+              <BtnGroup.Item>no-select</BtnGroup.Item>
+              <BtnGroup.Item>no-select</BtnGroup.Item>
             </BtnGroup>
           `}
         />

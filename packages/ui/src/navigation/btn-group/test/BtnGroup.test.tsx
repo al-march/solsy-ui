@@ -67,6 +67,45 @@ describe('ToggleButtons', () => {
     expect(isButtonActive(first)).toBeFalsy();
     expect(value).toStrictEqual(secondValue);
   });
+  test('should set specific active class', () => {
+    render(() => (
+      <BtnGroup color="primary" value={toggleButtons[0]}>
+        <For each={toggleButtons}>
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+        </For>
+      </BtnGroup>
+    ));
+
+    const [activeBtn] = screen.getAllByTestId(BtnGroupSelectors.BUTTON);
+    expect(activeBtn).toHaveClass('btn-accent');
+  });
+  test('should set color to buttons', () => {
+    render(() => (
+      <BtnGroup color="primary" value={toggleButtons[0]}>
+        <For each={toggleButtons}>
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+        </For>
+      </BtnGroup>
+    ));
+
+    const buttons = screen.getAllByTestId(BtnGroupSelectors.BUTTON);
+    buttons.forEach(btn => {
+      expect(btn).toHaveClass('btn-primary');
+    });
+  });
+  test('should be unselectable', () => {
+    render(() => (
+      <BtnGroup unSelectable>
+        <For each={toggleButtons}>
+          {btn => <BtnGroup.Item value={btn}>{btn}</BtnGroup.Item>}
+        </For>
+      </BtnGroup>
+    ));
+
+    const [button] = screen.getAllByTestId(BtnGroupSelectors.BUTTON);
+    fireEvent.click(button);
+    expect(button).not.toHaveClass('btn-active');
+  });
   test('should set default value', () => {
     let [value] = toggleButtons;
     render(() => (

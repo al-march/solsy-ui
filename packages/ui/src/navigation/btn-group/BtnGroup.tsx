@@ -1,4 +1,4 @@
-import {DaisySize} from '../../types';
+import {DaisyColor, DaisySize} from '../../types';
 import {BtnGroupItem} from './BtnGroupItem';
 import {createContext, ParentProps, useContext} from 'solid-js';
 import {createStore} from 'solid-js/store';
@@ -9,11 +9,14 @@ export const BtnGroupSelectors = {
 };
 
 export type BtnGroupSize = DaisySize;
+export type BtnGroupColor = DaisyColor;
 
 type BtnGroupState = {
   activeButtons: Set<any>;
   buttons: HTMLElement[];
   size?: BtnGroupSize;
+  color?: BtnGroupColor;
+  unSelectable?: boolean;
 };
 
 type BtnGroupCtx = {
@@ -37,6 +40,8 @@ export type BtnGroupProps<T extends any> = {
   multiple?: boolean;
   onInput?: (v: T) => void;
   size?: BtnGroupSize;
+  color?: BtnGroupColor;
+  unSelectable?: boolean;
   orientation?: 'horizontal' | 'vertical';
   class?: string;
 };
@@ -61,6 +66,12 @@ const BtnGroupBase = <T extends any>(props: ParentProps<BtnGroupProps<T>>) => {
     buttons: [],
     get size() {
       return props.size;
+    },
+    get color() {
+      return props.color;
+    },
+    get unSelectable() {
+      return props.unSelectable;
     },
   });
 
@@ -90,6 +101,10 @@ const BtnGroupBase = <T extends any>(props: ParentProps<BtnGroupProps<T>>) => {
   }
 
   function setActive(value: any) {
+    if (state.unSelectable) {
+      return;
+    }
+
     const set = new Set(state.activeButtons);
 
     if (set.has(value)) {

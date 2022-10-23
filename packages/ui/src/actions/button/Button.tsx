@@ -4,7 +4,7 @@ import {
   PropClickEvent,
   PropFocusEvent,
 } from '../../types';
-import {ParentProps} from 'solid-js';
+import {createMemo, ParentProps} from 'solid-js';
 
 export const ButtonSelectors = {
   BUTTON: 'button',
@@ -41,6 +41,10 @@ export type ButtonProps = {
 };
 
 export const Button = (props: ParentProps<ButtonProps>) => {
+  const activeClass = createMemo(() =>
+    props.color === 'primary' ? 'btn-accent' : 'btn-active'
+  );
+
   return (
     <button
       data-testid={ButtonSelectors.BUTTON}
@@ -59,7 +63,6 @@ export const Button = (props: ParentProps<ButtonProps>) => {
         'btn-xs': props.size === 'xs',
 
         'btn-outline': props.outline,
-        'btn-active': props.active,
         'btn-disabled': props.disabled,
         'btn-circle': props.circle,
         'btn-square': props.square,
@@ -79,6 +82,8 @@ export const Button = (props: ParentProps<ButtonProps>) => {
         'loading': props.loading,
         'glass': props.glass,
         'no-animation': props.noAnimation,
+
+        [activeClass()]: props.active,
       }}
     >
       {props.children}

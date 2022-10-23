@@ -1,9 +1,10 @@
 import {Button} from '../../actions';
-import {useBtnGroup} from './BtnGroup';
+import {BtnGroupColor, useBtnGroup} from './BtnGroup';
 import {createSignal, onMount, ParentProps} from 'solid-js';
 
 type Props<T = any> = {
   value?: T;
+  color?: BtnGroupColor;
   disabled?: boolean;
   defaultChecked?: boolean;
   onClick?: (v: T | number) => void;
@@ -44,6 +45,7 @@ export const BtnGroupItem = <T extends any>(props: ParentProps<Props<T>>) => {
       active={isActive()}
       onClick={onClick}
       size={ctx.state.size}
+      color={props.color || ctx.state.color}
       class={props.class}
     >
       {props.children}
