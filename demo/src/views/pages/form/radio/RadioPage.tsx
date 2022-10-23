@@ -4,7 +4,6 @@ import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Radio} from '@ui/form';
 import {Row} from '@ui/layout';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
-import {For} from 'solid-js';
 
 export const RadioPage = () => {
   const sizes = [...DaisySizes];
@@ -30,40 +29,138 @@ export const RadioPage = () => {
       </Page.Section>
 
       <Page.Section name="sizes">
-        <h3 class="text-xl">Sizes</h3>
-        <br />
-        <Row orientation="col" class="gap-2">
-          <For each={sizes}>
-            {size => (
-              <div class="flex items-center gap-2">
-                <label for={size} class="w-12 opacity-75 cursor-pointer">
-                  {size}
+        <Page.Title>Sizes</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Row items="center">
+                <label for="size-lg" class="w-12 opacity-75 cursor-pointer">
+                  lg
                 </label>
-                <Radio id={size} name="size" size={size} />
-              </div>
-            )}
-          </For>
-        </Row>
+                <Radio id="size-lg" name="size" size="lg" />
+              </Row>
+              <Row items="center">
+                <label for="size-md" class="w-12 opacity-75 cursor-pointer">
+                  md
+                </label>
+                <Radio id="size-md" name="size" size="md" />
+              </Row>
+              <Row items="center">
+                <label for="size-sm" class="w-12 opacity-75 cursor-pointer">
+                  sm
+                </label>
+                <Radio id="size-sm" name="size" size="sm" />
+              </Row>
+              <Row items="center">
+                <label for="size-xs" class="w-12 opacity-75 cursor-pointer">
+                  xs
+                </label>
+                <Radio id="size-xs" name="size" size="xs" />
+              </Row>
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Row items="center">
+                <label for="size-lg" class="w-12 opacity-75 cursor-pointer">
+                  lg
+                </label>
+                <Radio id="size-lg" name="size" size="lg" />
+              </Row>
+              <Row items="center">
+                <label for="size-md" class="w-12 opacity-75 cursor-pointer">
+                  md
+                </label>
+                <Radio id="size-md" name="size" size="md" />
+              </Row>
+              <Row items="center">
+                <label for="size-sm" class="w-12 opacity-75 cursor-pointer">
+                  sm
+                </label>
+                <Radio id="size-sm" name="size" size="sm" />
+              </Row>
+              <Row items="center">
+                <label for="size-xs" class="w-12 opacity-75 cursor-pointer">
+                  xs
+                </label>
+                <Radio id="size-xs" name="size" size="xs" />
+              </Row>
+            </Row>
+          `}
+        />
       </Page.Section>
 
       <Page.Section name="colors">
-        <h3 class="text-xl">Colors</h3>
-        <br />
-        <Row orientation="col" class="gap-2">
-          <For each={colors}>
-            {color => (
-              <div class="flex items-center gap-2">
-                <label
-                  for={color || 'default'}
-                  class="w-24 opacity-75 cursor-pointer"
-                >
-                  {color || 'default'}
+        <Page.Title>Colors</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Row>
+                <label for="default" class="w-24 opacity-75 cursor-pointer">
+                  default
                 </label>
-                <Radio id={color || 'default'} name="color" color={color} />
-              </div>
-            )}
-          </For>
-        </Row>
+                <Radio id="default" name="color" />
+              </Row>
+              <Row>
+                <label for="secondary" class="w-24 opacity-75 cursor-pointer">
+                  secondary
+                </label>
+                <Radio id="secondary" name="color" color="secondary" />
+              </Row>
+              <Row>
+                <label for="primary" class="w-24 opacity-75 cursor-pointer">
+                  primary
+                </label>
+                <Radio id="primary" name="color" color="primary" />
+              </Row>
+              <Row>
+                <label for="accent" class="w-24 opacity-75 cursor-pointer">
+                  accent
+                </label>
+                <Radio id="accent" name="color" color="accent" />
+              </Row>
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Row>
+                <label for="default" class="w-24 opacity-75 cursor-pointer">
+                  default
+                </label>
+                <Radio id="default" name="color" />
+              </Row>
+              <Row>
+                <label for="secondary" class="w-24 opacity-75 cursor-pointer">
+                  secondary
+                </label>
+                <Radio id="secondary" name="color" color="secondary" />
+              </Row>
+              <Row>
+                <label for="primary" class="w-24 opacity-75 cursor-pointer">
+                  primary
+                </label>
+                <Radio id="primary" name="color" color="primary" />
+              </Row>
+              <Row>
+                <label for="accent" class="w-24 opacity-75 cursor-pointer">
+                  accent
+                </label>
+                <Radio id="accent" name="color" color="accent" />
+              </Row>
+            </Row>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="disabled">
+        <Page.Title>Disabled</Page.Title>
+
+        <Page.Component
+          preview={<Radio disabled value />}
+          snippet={`<Radio disabled value />`}
+        />
       </Page.Section>
     </Page>
   );
