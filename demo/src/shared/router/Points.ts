@@ -22,6 +22,7 @@ export enum Points {
   RADIO = 'radio',
   BADGE = 'badge',
   PROGRESS = 'progress',
+  SWAP = 'swap',
 }
 
 export enum RouterSDKEnum {

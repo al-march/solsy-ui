@@ -1,5 +1,5 @@
 import {Points, RouterSDKEnum} from './Points';
-import {ButtonPage, ModalPage} from '@page/actions';
+import {ButtonPage, ModalPage, SwapPage} from '@page/actions';
 import {
   AlertsPage,
   AvatarPage,
@@ -53,6 +53,7 @@ export const Routers: Component = () => {
       <Route path={`/${Points.RADIO}`} element={<RadioPage />} />
       <Route path={`/${Points.BADGE}`} element={<BadgePage />} />
       <Route path={`/${Points.PROGRESS}`} element={<ProgressPage />} />
+      <Route path={`/${Points.SWAP}`} element={<SwapPage />} />
 
       <Route path={`/${RouterSDKEnum.FORM}`} element={<FormPage />} />
 

@@ -32,6 +32,7 @@ export const Drawer = (props: ParentProps) => {
             <MenuTitle>Actions</MenuTitle>
             <MenuLink href={`/${Points.BUTTON}`}>Button</MenuLink>
             <MenuLink href={`/${Points.MODALS}`}>Modal</MenuLink>
+            <MenuLink href={`/${Points.SWAP}`}>Swap</MenuLink>
             <MenuDivider />
           </Menu>
 

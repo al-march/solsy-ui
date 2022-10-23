@@ -35,7 +35,7 @@ export const ButtonPage: Component = () => {
       </Page.Section>
 
       <Page.Section name="usage">
-        <Page.Title>Button</Page.Title>
+        <Page.Title>Usage</Page.Title>
 
         <Page.Component
           preview={<Button>Button</Button>}
@@ -84,6 +84,7 @@ export const ButtonPage: Component = () => {
 
       <Page.Section name="outline brands">
         <Page.Title>Outline buttons with brand colors</Page.Title>
+
         <Page.Component
           preview={
             <Row class="gap-1 py-4">
