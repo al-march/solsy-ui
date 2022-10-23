@@ -162,7 +162,7 @@ const PageBase = (props: ParentProps<Props>) => {
             {props.children}
           </div>
 
-          <div class="px-4 w-1/6 overflow-hidden overflow-y-scroll h-full">
+          <div class="px-4 p-1 w-1/6 overflow-hidden overflow-y-scroll h-full">
             <Row orientation="col">
               <For each={state.sections}>
                 {section => <AnchorLink section={section} />}
