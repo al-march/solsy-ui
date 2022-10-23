@@ -12,36 +12,73 @@ export const InputPage: Component = () => {
       </Page.Section>
 
       <Page.Section name="default usage">
-        <h2 class="text-2xl">Default usage</h2>
-        <br />
-        <Input type="text" placeholder="input" bordered />
-        <Code>{`<Input type="text" placeholder="primary" bordered />`}</Code>
+        <Page.Title>Default usage</Page.Title>
+
+        <Page.Component
+          preview={<Input type="text" placeholder="input" bordered />}
+          snippet={`<Input type="text" placeholder="input" bordered />`}
+        />
       </Page.Section>
 
       <Page.Section name="colors">
-        <h2 class="text-2xl">Colors</h2>
-        <br />
-        <Row orientation="col" class="w-96 gap-2">
-          <Input placeholder="primary" color="primary" bordered />
-          <Input placeholder="secondary" color="secondary" bordered />
-          <Input placeholder="accent" color="accent" bordered />
-          <Input placeholder="info" color="info" bordered />
-          <Input placeholder="success" color="success" bordered />
-          <Input placeholder="warning" color="warning" bordered />
-          <Input placeholder="error" color="error" bordered />
-        </Row>
-        <br />
-        <Code>{`
-          <Row orientation="col" class="w-96 gap-2">
-            <Input placeholder="primary" color="primary" bordered />
-            <Input placeholder="secondary" color="secondary" bordered />
-            <Input placeholder="accent" color="accent" bordered />
-            <Input placeholder="info" color="info" bordered />
-            <Input placeholder="success" color="success" bordered />
-            <Input placeholder="warning" color="warning" bordered />
-            <Input placeholder="error" color="error" bordered />
-          </Row>
-        `}</Code>
+        <Page.Title>Colors</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="w-96 gap-2">
+              <Input placeholder="primary" color="primary" bordered />
+              <Input placeholder="secondary" color="secondary" bordered />
+              <Input placeholder="accent" color="accent" bordered />
+              <Input placeholder="info" color="info" bordered />
+              <Input placeholder="success" color="success" bordered />
+              <Input placeholder="warning" color="warning" bordered />
+              <Input placeholder="error" color="error" bordered />
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="w-96 gap-2">
+              <Input placeholder="primary" color="primary" bordered />
+              <Input placeholder="secondary" color="secondary" bordered />
+              <Input placeholder="accent" color="accent" bordered />
+              <Input placeholder="info" color="info" bordered />
+              <Input placeholder="success" color="success" bordered />
+              <Input placeholder="warning" color="warning" bordered />
+              <Input placeholder="error" color="error" bordered />
+            </Row>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="Sizes">
+        <Page.Title>Sizes</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="w-96 gap-2">
+              <Input size="lg" placeholder="lg" color="primary" bordered />
+              <Input size="md" placeholder="md" color="secondary" bordered />
+              <Input size="sm" placeholder="sm" color="accent" bordered />
+              <Input size="xs" placeholder="xs" color="info" bordered />
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="w-96 gap-2">
+              <Input size="lg" placeholder="lg" color="primary" bordered />
+              <Input size="md" placeholder="md" color="secondary" bordered />
+              <Input size="sm" placeholder="sm" color="accent" bordered />
+              <Input size="xs" placeholder="xs" color="info" bordered />
+            </Row>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="Disabled">
+        <Page.Title>Disabled</Page.Title>
+
+        <Page.Component
+          preview={<Input placeholder="disabled" disabled bordered />}
+          snippet={`<Input placeholder="disabled" disabled bordered />`}
+        />
       </Page.Section>
     </Page>
   );
