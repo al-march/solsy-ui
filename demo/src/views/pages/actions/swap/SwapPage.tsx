@@ -1,7 +1,7 @@
 import {ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
-import {Button, ButtonProps, Swap} from '@ui/actions';
-import {ParentProps} from 'solid-js';
+import {Button, Swap} from '@ui/actions';
+import {Badge} from '@ui/data-display';
 
 export const SwapPage = () => {
   return (
@@ -223,6 +223,25 @@ export const SwapPage = () => {
             <Swap flip class="text-9xl">
               <Swap.Off>😈</Swap.Off>
               <Swap.On>😇</Swap.On>
+            </Swap>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="swap badge">
+        <Page.Title>Swap Badge</Page.Title>
+
+        <Page.Component
+          preview={
+            <Swap as={Badge} flip color="secondary" class="cursor-pointer">
+              <Swap.Off>Off</Swap.Off>
+              <Swap.On>On</Swap.On>
+            </Swap>
+          }
+          snippet={`
+            <Swap as={Badge} flip color="secondary" class="cursor-pointer">
+              <Swap.Off>Off</Swap.Off>
+              <Swap.On>On</Swap.On>
             </Swap>
           `}
         />
