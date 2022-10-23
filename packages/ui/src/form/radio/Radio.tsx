@@ -21,6 +21,8 @@ export type RadioProps = {
   color?: RadioColor;
   class?: string;
 
+  disabled?: boolean;
+
   onInput?: (e: PropInputEvent) => void;
   onChange?: (e: PropChangeEvent) => void;
   onFocus?: (e: PropFocusEvent) => void;
@@ -50,6 +52,7 @@ export const Radio = (props: RadioProps) => {
       onChange={props.onChange}
       onFocus={props.onFocus}
       onBlur={props.onBlur}
+      disabled={props.disabled}
     />
   );
 };
