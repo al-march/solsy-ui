@@ -1,10 +1,10 @@
-import {Code, ExampleTable, ImportPreview} from '@shared/components';
+import {ExampleTable, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Toggle} from '@ui/form';
 import {Row} from '@ui/layout';
 import {DaisyColorsSmall, DaisySizes} from '@ui/types';
-import {Component, For} from 'solid-js';
+import {Component} from 'solid-js';
 
 export const TogglePage: Component = () => {
   const sizes = [...DaisySizes];
@@ -32,80 +32,89 @@ export const TogglePage: Component = () => {
       </Page.Section>
 
       <Page.Section name="sizes">
-        <h3 class="text-xl">Sizes</h3>
-        <br />
-        <Row orientation="col" class="gap-2">
-          <For each={sizes}>
-            {size => (
-              <div class="flex items-center gap-2">
-                <label for={size} class="w-12 opacity-75 cursor-pointer">
-                  {size}
-                </label>
-                <Toggle id={size} name="size" size={size} />
-              </div>
-            )}
-          </For>
-        </Row>
+        <Page.Title>Sizes</Page.Title>
 
-        <Code>{`
-          <Row orientation="col">
-            <Toggle size="lg" />
-            <Toggle size="md" />
-            <Toggle size="sm" />
-            <Toggle size="xs" />
-          </Row>
-        `}</Code>
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Toggle size="lg" />
+              <Toggle size="md" />
+              <Toggle size="sm" />
+              <Toggle size="xs" />
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Toggle size="lg" />
+              <Toggle size="md" />
+              <Toggle size="sm" />
+              <Toggle size="xs" />
+            </Row>
+          `}
+        />
       </Page.Section>
 
       <Page.Section name="colors">
-        <h3 class="text-xl">Colors</h3>
-        <br />
-        <Row orientation="col" class=" gap-2">
-          <For each={colors}>
-            {color => (
-              <div class="flex items-center gap-2">
-                <label
-                  for={color || 'default'}
-                  class="w-24 opacity-75 cursor-pointer"
-                >
-                  {color || 'default'}
-                </label>
-                <Toggle id={color || 'default'} name="color" color={color} />
-              </div>
-            )}
-          </For>
-        </Row>
+        <Page.Title>Colors</Page.Title>
 
-        <Code>{`
-          <Row orientation="col">
-            <Toggle color="primary" />
-            <Toggle color="secondary" />
-            <Toggle color="accent" />
-          </Row>
-        `}</Code>
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Toggle color="primary" />
+              <Toggle color="secondary" />
+              <Toggle color="accent" />
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Toggle color="primary" />
+              <Toggle color="secondary" />
+              <Toggle color="accent" />
+            </Row>
+          `}
+        />
       </Page.Section>
 
       <Page.Section name="disabled">
-        <h3 class="text-xl">Disabled</h3>
-        <br />
-        <div class="flex items-center gap-3">
-          <label>Disabled</label>
-          <Toggle disabled />
-        </div>
-        <div class="flex items-center gap-3">
-          <label>Disabled checked</label>
-          <Toggle disabled value />
-        </div>
+        <Page.Title>Disabled</Page.Title>
 
-        <Code>{`<Toggle disabled />`}</Code>
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <div class="flex items-center gap-3">
+                <label>Disabled</label>
+                <Toggle disabled />
+              </div>
+
+              <div class="flex items-center gap-3">
+                <label>Disabled checked</label>
+                <Toggle disabled value />
+              </div>
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <div class="flex items-center gap-3">
+                <label>Disabled</label>
+                <Toggle disabled />
+              </div>
+              
+              <div class="flex items-center gap-3">
+                <label>Disabled checked</label>
+                <Toggle disabled value />
+              </div>
+            </Row>
+          `}
+        />
       </Page.Section>
 
       <Page.Section name="Indeterminate">
-        <h3 class="text-xl">Indeterminate</h3>
-        <br />
-        <Toggle indeterminate />
+        <Page.Title>Indeterminate</Page.Title>
 
-        <Code>{`<Toggle indeterminate />`}</Code>
+        <Page.Component
+          preview={<Toggle indeterminate />}
+          snippet={`<Toggle indeterminate />`}
+        />
       </Page.Section>
     </Page>
   );
