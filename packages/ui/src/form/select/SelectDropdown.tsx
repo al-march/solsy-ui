@@ -85,7 +85,7 @@ export const SelectDropdown = (props: ParentProps<Props>) => {
           >
             <ScaleTransition appear={true} onExit={destroy}>
               <Show when={state.isOpen}>
-                <ul class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-scroll">
+                <ul class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-auto">
                   {props.children}
                 </ul>
               </Show>

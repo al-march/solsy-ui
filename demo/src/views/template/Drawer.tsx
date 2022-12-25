@@ -14,7 +14,7 @@ export const Drawer = (props: ParentProps) => {
     <div class="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col">{props.children}</div>
-      <div class="drawer-side bg-base-200 shadow">
+      <div class="drawer-side bg-base-200 shadow overflow-x-hidden">
         <label for="my-drawer-2" class="drawer-overlay" />
         <div class="w-60">
           <div class="font-title p-4 text-primary inline-flex text-lg transition-all duration-200 md:text-3xl font-bold">
