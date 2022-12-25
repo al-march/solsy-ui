@@ -126,7 +126,7 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
       >
         <div
           data-testid={AutocompleteSelectors.DROPDOWN}
-          class="max-h-60 w-32 overflow-y-scroll"
+          class="max-h-60 w-32 overflow-y-auto"
           style={{width: width() + 'px'}}
         >
           <ul class="menu bg-base-200 z-10 shadow-xl">{props.children}</ul>

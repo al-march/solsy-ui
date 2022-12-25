@@ -106,7 +106,7 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
             createPopper();
           }}
           tabIndex={0}
-          class="z-50 overflow-hidden overflow-y-scroll outline-none"
+          class="z-50 overflow-hidden overflow-y-auto outline-none"
           classList={{[pr.class]: !!props.class}}
           style={{'min-width': pr.minWidth ? pr.minWidth + 'px' : undefined}}
           onKeyDown={props.onKeyDown}
