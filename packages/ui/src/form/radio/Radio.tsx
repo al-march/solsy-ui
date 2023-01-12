@@ -1,9 +1,5 @@
-import {
-  DaisySize,
-  PropChangeEvent,
-  PropFocusEvent,
-  PropInputEvent,
-} from '../../types';
+import {DaisySize} from '../../types';
+import {JSX, splitProps} from 'solid-js';
 
 export const RadioSelector = {
   RADIO: 'radio',
@@ -14,45 +10,39 @@ export type RadioSize = DaisySize;
 
 export type RadioProps = {
   value?: boolean;
-  name?: string;
-  id?: string;
-
   size?: RadioSize;
   color?: RadioColor;
-  class?: string;
-
-  disabled?: boolean;
-
-  onInput?: (e: PropInputEvent) => void;
-  onChange?: (e: PropChangeEvent) => void;
-  onFocus?: (e: PropFocusEvent) => void;
-  onBlur?: (e: PropFocusEvent) => void;
-};
+} & JSX.InputHTMLAttributes<HTMLInputElement>;
 
 export const Radio = (props: RadioProps) => {
+  const [local, others] = splitProps(props, [
+    'value',
+    'size',
+    'color',
+    'class',
+    'classList',
+  ]);
+
   return (
     <input
       data-testid={RadioSelector.RADIO}
       type="radio"
-      id={props.id || ''}
-      name={props.name}
-      checked={props.value}
-      class={`radio ${props.class || ''}`}
+      checked={local.value}
+      class="radio"
       classList={{
-        'radio-accent': props.color === 'accent',
-        'radio-primary': props.color === 'primary',
-        'radio-secondary': props.color === 'secondary',
+        [local.class || '']: !!local.class,
+        'radio-accent': local.color === 'accent',
+        'radio-primary': local.color === 'primary',
+        'radio-secondary': local.color === 'secondary',
 
-        'radio-lg': props.size === 'lg',
-        'radio-md': props.size === 'md',
-        'radio-sm': props.size === 'sm',
-        'radio-xs': props.size === 'xs',
+        'radio-lg': local.size === 'lg',
+        'radio-md': local.size === 'md',
+        'radio-sm': local.size === 'sm',
+        'radio-xs': local.size === 'xs',
+
+        ...local.classList,
       }}
-      onInput={props.onInput}
-      onChange={props.onChange}
-      onFocus={props.onFocus}
-      onBlur={props.onBlur}
-      disabled={props.disabled}
+      {...others}
     />
   );
 };
