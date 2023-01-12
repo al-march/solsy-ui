@@ -36,4 +36,14 @@ describe('Row', () => {
     render(() => <Row class={className} />);
     expect(getRow()).toHaveClass(className);
   });
+  test('should set classes by classList', () => {
+    const className = 'custom-class';
+    render(() => <Row classList={{[className]: true}} />);
+    expect(getRow()).toHaveClass(className);
+  });
+  test('should set id', () => {
+    const id = 'custom-id';
+    render(() => <Row id={id} />);
+    expect(getRow()).toHaveAttribute('id', id);
+  });
 });
