@@ -46,7 +46,7 @@ describe('Checkbox', () => {
   });
 
   test('should set value', () => {
-    const value = true;
+    const value = 'true';
     render(() => <Checkbox value={value} />);
     expect(screen.getByTestId(CHECKBOX)).toBeChecked();
   });

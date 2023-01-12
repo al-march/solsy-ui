@@ -1,51 +1,45 @@
 import {DaisySize} from '../../types';
-import {createEffect, createSignal, ParentProps} from 'solid-js';
-import {DOMElement} from 'solid-js/types/jsx';
+import {
+  createEffect,
+  createSignal,
+  JSX,
+  mergeProps,
+  splitProps,
+} from 'solid-js';
 
 export const CheckboxSelectors = {
   CHECKBOX: 'checkbox',
-};
-
-export type CheckboxInputEvent = InputEvent & {
-  currentTarget: HTMLInputElement;
-  target: DOMElement;
-};
-export type CheckboxChangeEvent = Event & {
-  currentTarget: HTMLInputElement;
-  target: DOMElement;
-};
-export type CheckboxFocusEvent = FocusEvent & {
-  currentTarget: HTMLInputElement;
-  target: DOMElement;
 };
 
 export type CheckboxColor = 'primary' | 'secondary' | 'accent';
 export type CheckboxSize = DaisySize;
 
 export type CheckboxProps = {
-  value?: boolean;
   ref?: (el: HTMLInputElement) => void;
-  id?: string;
-
   size?: CheckboxSize;
   color?: CheckboxColor;
-  class?: string;
-
-  onInput?: (e: CheckboxInputEvent) => void;
-  onChange?: (e: CheckboxChangeEvent) => void;
-  onFocus?: (e: CheckboxFocusEvent) => void;
-  onBlur?: (e: CheckboxFocusEvent) => void;
-
   indeterminate?: boolean;
-};
+} & JSX.InputHTMLAttributes<HTMLInputElement>;
 
-export const Checkbox = (props: ParentProps<CheckboxProps>) => {
+export const Checkbox = (props: CheckboxProps) => {
+  const merge = mergeProps({class: '', classList: {}}, props);
+  const [local, others] = splitProps(merge, [
+    'type',
+    'value',
+    'ref',
+    'size',
+    'color',
+    'indeterminate',
+    'class',
+    'classList',
+  ]);
+
   const [ref, setRef] = createSignal<HTMLInputElement>();
 
   createEffect(() => {
     const input = ref();
     if (input) {
-      input.indeterminate = !!props.indeterminate;
+      input.indeterminate = !!local.indeterminate;
     }
   });
 
@@ -53,28 +47,27 @@ export const Checkbox = (props: ParentProps<CheckboxProps>) => {
     <input
       data-testid={CheckboxSelectors.CHECKBOX}
       type="checkbox"
-      id={props.id || ''}
-      class={`checkbox ${props.class || ''}`}
-      checked={props.value}
+      class="checkbox"
+      checked={!!local.value}
       ref={el => {
-        el.indeterminate = !!props.indeterminate;
+        el.indeterminate = !!local.indeterminate;
         setRef(el);
-        props.ref?.(el);
+        local.ref?.(el);
       }}
       classList={{
-        'checkbox-accent': props.color === 'accent',
-        'checkbox-primary': props.color === 'primary',
-        'checkbox-secondary': props.color === 'secondary',
+        [local.class]: !!local.class,
+        'checkbox-accent': local.color === 'accent',
+        'checkbox-primary': local.color === 'primary',
+        'checkbox-secondary': local.color === 'secondary',
 
-        'checkbox-lg': props.size === 'lg',
-        'checkbox-md': props.size === 'md',
-        'checkbox-sm': props.size === 'sm',
-        'checkbox-xs': props.size === 'xs',
+        'checkbox-lg': local.size === 'lg',
+        'checkbox-md': local.size === 'md',
+        'checkbox-sm': local.size === 'sm',
+        'checkbox-xs': local.size === 'xs',
+
+        ...local.classList,
       }}
-      onInput={props.onInput}
-      onChange={props.onChange}
-      onFocus={props.onFocus}
-      onBlur={props.onBlur}
+      {...others}
     />
   );
 };
