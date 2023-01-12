@@ -1,10 +1,5 @@
-import {
-  DaisyColor,
-  DaisySize,
-  PropChangeEvent,
-  PropFocusEvent,
-  PropInputEvent,
-} from '../../types';
+import {DaisyColor, DaisySize} from '../../types';
+import {JSX, splitProps} from 'solid-js';
 
 export const InputSelectors = {
   INPUT: 'input',
@@ -14,39 +9,30 @@ export type InputColor = DaisyColor | 'ghost';
 export type InputSize = DaisySize;
 
 type Props = {
-  placeholder?: string;
-  type?: string;
-  value?: string | number;
-  name?: string;
-  autocomplete?: string;
-  disabled?: boolean;
-  ref?: (el: HTMLInputElement) => void;
-
   color?: InputColor;
   size?: InputSize;
-  class?: string;
   error?: boolean;
   bordered?: boolean;
-
-  onChange?: (e: PropChangeEvent<HTMLInputElement>) => void;
-  onInput?: (e: PropInputEvent<HTMLInputElement>) => void;
-  onFocus?: (e: PropFocusEvent<HTMLInputElement>) => void;
-  onBlur?: (e: PropFocusEvent<HTMLInputElement>) => void;
-};
+} & JSX.InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = (props: Props) => {
+  const [local, others] = splitProps(props, [
+    'color',
+    'size',
+    'error',
+    'bordered',
+    'value',
+    'class',
+    'classList',
+  ]);
+
   return (
     <input
       data-testid={InputSelectors.INPUT}
-      ref={props.ref}
-      type={props.type || 'text'}
-      placeholder={props.placeholder}
       value={props.value || ''}
-      name={props.name}
-      autocomplete={props.autocomplete}
-      disabled={props.disabled}
-      class={`input ${props.class || ''}`}
+      class="input"
       classList={{
+        [local.class || '']: !!local.class,
         'input-lg': props.size === 'lg',
         'input-md': props.size === 'md',
         'input-sm': props.size === 'sm',
@@ -62,11 +48,9 @@ export const Input = (props: Props) => {
         'input-ghost': props.color === 'ghost',
 
         'input-bordered': props.bordered,
+        ...local.classList,
       }}
-      onChange={props.onChange}
-      onInput={props.onInput}
-      onBlur={props.onBlur}
-      onFocus={props.onFocus}
+      {...others}
     />
   );
 };
