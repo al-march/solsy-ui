@@ -26,9 +26,12 @@ export const BtnGroupItem = <T extends any>(props: ParentProps<Props<T>>) => {
   }
 
   function initButton(el: HTMLElement) {
+    if (value()) {
+      return;
+    }
+
     const index = ctx.initButton(el);
-    const v = value();
-    if (!v) {
+    if (!value()) {
       setValue(index);
     }
   }
