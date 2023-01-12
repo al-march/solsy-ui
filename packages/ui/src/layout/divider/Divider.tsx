@@ -1,26 +1,33 @@
-import {ParentProps} from 'solid-js';
+import {JSX, mergeProps, splitProps} from 'solid-js';
 
 export const DividerSelectors = {
   DIVIDER: 'divider',
 };
 
 type Props = {
-  class?: string;
   orientation?: 'vertical' | 'horizontal';
-};
+} & JSX.HTMLAttributes<HTMLDivElement>;
 
-export const Divider = (props: ParentProps<Props>) => {
+export const Divider = (props: Props) => {
+  const merge = mergeProps({class: '', classList: {}}, props);
+  const [local, others] = splitProps(merge, [
+    'orientation',
+    'class',
+    'classList',
+  ]);
+
   return (
     <div
       data-testid={DividerSelectors.DIVIDER}
       class="divider"
       classList={{
-        [props.class || '']: !!props.class,
-        'divider-vertical': props.orientation === 'vertical',
-        'divider-horizontal': props.orientation === 'horizontal',
+        [local.class]: !!local.class,
+        'divider-vertical': local.orientation === 'vertical',
+        'divider-horizontal': local.orientation === 'horizontal',
+
+        ...local.classList,
       }}
-    >
-      {props.children}
-    </div>
+      {...others}
+    />
   );
 };
