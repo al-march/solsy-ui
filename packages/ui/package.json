@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
-    "dayjs": "^1.11.6",
-    "solid-js": "^1.6.0",
+    "dayjs": "^1.11.7",
+    "solid-js": "^1.6.8",
     "solid-transition-group": "^0.0.11"
   },
   "devDependencies": {
