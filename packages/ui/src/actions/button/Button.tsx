@@ -1,10 +1,5 @@
-import {
-  DaisyColor,
-  DaisySize,
-  PropClickEvent,
-  PropFocusEvent,
-} from '../../types';
-import {createMemo, ParentProps} from 'solid-js';
+import {DaisyColor, DaisySize} from '../../types';
+import {createMemo, JSX, splitProps} from 'solid-js';
 
 export const ButtonSelectors = {
   BUTTON: 'button',
@@ -16,77 +11,84 @@ export type ButtonSize = DaisySize;
 export type ButtonProps = {
   disabled?: boolean;
   active?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-
-  class?: string;
-
   color?: ButtonColor;
   size?: ButtonSize;
   link?: boolean;
   outline?: boolean;
   glass?: boolean;
-
   noAnimation?: boolean;
   loading?: boolean;
-
   wide?: boolean;
   block?: boolean;
   circle?: boolean;
   square?: boolean;
+} & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
-  onClick?: (e: PropClickEvent<HTMLButtonElement>) => void;
-  onFocus?: (e: PropFocusEvent<HTMLButtonElement>) => void;
-  onBlur?: (e: PropFocusEvent<HTMLButtonElement>) => void;
-  ref?: (button: HTMLButtonElement) => void;
-};
+export const Button = (props: ButtonProps) => {
+  const [local, others] = splitProps(props, [
+    'disabled',
+    'active',
+    'type',
+    'color',
+    'size',
+    'link',
+    'outline',
+    'glass',
+    'noAnimation',
+    'loading',
+    'wide',
+    'block',
+    'circle',
+    'square',
+    'children',
+    'class',
+    'classList',
+  ]);
 
-export const Button = (props: ParentProps<ButtonProps>) => {
   const activeClass = createMemo(() =>
-    props.color === 'primary' ? 'btn-accent' : 'btn-active'
+    local.color === 'primary' ? 'btn-accent' : 'btn-active'
   );
 
   return (
     <button
       data-testid={ButtonSelectors.BUTTON}
-      ref={props.ref}
-      onClick={props.onClick}
-      onFocus={props.onFocus}
-      onBlur={props.onBlur}
-      type={props.type || 'button'}
-      disabled={props.disabled}
+      type={local.type || 'button'}
+      disabled={local.disabled}
       class="btn"
       classList={{
-        [props.class || '']: !!props.class,
-        'btn-lg': props.size === 'lg',
-        'btn-md': props.size === 'md',
-        'btn-sm': props.size === 'sm',
-        'btn-xs': props.size === 'xs',
+        [local.class || '']: !!local.class,
+        'btn-lg': local.size === 'lg',
+        'btn-md': local.size === 'md',
+        'btn-sm': local.size === 'sm',
+        'btn-xs': local.size === 'xs',
 
-        'btn-outline': props.outline,
-        'btn-disabled': props.disabled,
-        'btn-circle': props.circle,
-        'btn-square': props.square,
-        'btn-block': props.block,
-        'btn-wide': props.wide,
+        'btn-outline': local.outline,
+        'btn-disabled': local.disabled,
+        'btn-circle': local.circle,
+        'btn-square': local.square,
+        'btn-block': local.block,
+        'btn-wide': local.wide,
 
-        'btn-primary': props.color === 'primary',
-        'btn-secondary': props.color === 'secondary',
-        'btn-accent': props.color === 'accent',
-        'btn-info': props.color === 'info',
-        'btn-success': props.color === 'success',
-        'btn-warning': props.color === 'warning',
-        'btn-error': props.color === 'error',
-        'btn-ghost': props.color === 'ghost',
-        'btn-link': props.link,
+        'btn-primary': local.color === 'primary',
+        'btn-secondary': local.color === 'secondary',
+        'btn-accent': local.color === 'accent',
+        'btn-info': local.color === 'info',
+        'btn-success': local.color === 'success',
+        'btn-warning': local.color === 'warning',
+        'btn-error': local.color === 'error',
+        'btn-ghost': local.color === 'ghost',
+        'btn-link': local.link,
 
-        'loading': props.loading,
-        'glass': props.glass,
-        'no-animation': props.noAnimation,
+        'loading': local.loading,
+        'glass': local.glass,
+        'no-animation': local.noAnimation,
 
-        [activeClass()]: props.active,
+        [activeClass()]: local.active,
+        ...local.classList,
       }}
+      {...others}
     >
-      {props.children}
+      {local.children}
     </button>
   );
 };
