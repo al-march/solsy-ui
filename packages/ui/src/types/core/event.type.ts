@@ -29,3 +29,9 @@ export type PropClickEvent<Target extends HTMLElement = HTMLElement> =
     currentTarget: Target;
     target: DOMElement;
   };
+
+export type PropsKeyboardEvent<Target extends HTMLElement = HTMLElement> =
+  KeyboardEvent & {
+    currentTarget: Target;
+    target: DOMElement;
+  };

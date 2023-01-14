@@ -94,4 +94,6 @@ describe('Autocomplete', () => {
     expect(input).toBeTruthy();
     expect(input instanceof HTMLInputElement).toBeTruthy();
   });
+
+  // Todo: add tests for navigation
 });

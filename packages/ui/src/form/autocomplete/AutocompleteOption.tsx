@@ -1,37 +1,64 @@
 import {AutocompleteSelectors, useAutocomplete} from './Autocomplete';
-import {ParentProps, Show} from 'solid-js';
+import {createMemo, createSignal, onMount, ParentProps, Show} from 'solid-js';
 
 type OptionProps = {
-  value?: string;
+  value: string;
   onClick?: (v: any) => void;
   disabled?: boolean;
 };
 
 export const AutocompleteOption = (props: ParentProps<OptionProps>) => {
-  const autocomplete = useAutocomplete();
+  const [ref, setRef] = createSignal<HTMLLIElement>();
+  const ctx = useAutocomplete();
 
-  function onClick() {
-    props.onClick?.(props.value);
-    autocomplete.checkOption(props.value);
+  onMount(() => {
+    init();
+  });
+
+  function init() {
+    ctx.initOption(props.value, ref()!);
   }
 
-  function isShow() {
+  const isFocused = createMemo(() => {
+    const isFocus = ctx.state.focusedOption === props.value;
+    if (isFocus) {
+      ref()?.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+    return isFocus;
+  });
+
+  const isShow = createMemo(() => {
     const value = props.value || '';
-    const search = (autocomplete.state.value || '').toLowerCase();
+    const search = (ctx.state.value || '').toLowerCase();
     if (value) {
       return value.toLowerCase().includes(search);
     }
     return true;
+  });
+
+  function onClick() {
+    props.onClick?.(props.value);
+    ctx.checkOption(props.value);
   }
 
   return (
     <Show when={isShow()} keyed>
-      <li class="overflow-hidden" classList={{disabled: props.disabled}}>
+      <li
+        ref={setRef}
+        class="overflow-hidden"
+        classList={{disabled: props.disabled}}
+      >
         <button
           data-testid={AutocompleteSelectors.OPTION}
           class="w-full text-left"
+          classList={{
+            'btn-active': isFocused(),
+          }}
           onClick={onClick}
           disabled={props.disabled}
+          value={props.value}
         >
           {props.children}
         </button>

@@ -1,5 +1,5 @@
 import {Dropdown} from '../../actions';
-import {PropFocusEvent, PropInputEvent} from '../../types';
+import {PropFocusEvent, PropInputEvent, PropsKeyboardEvent} from '../../types';
 import {Input, InputProps} from '../input';
 import {
   createContext,
@@ -19,8 +19,16 @@ export const AutocompleteSelectors = {
 
 type AutocompleteState = {
   value: string;
+  options: Map<string, HTMLLIElement>;
   isOpen: boolean;
   isClose: boolean;
+  focusedOption?: string;
+};
+
+type AutocompleteActions = {
+  setValue: (v: string) => void;
+  initOption: (v: string, el: HTMLLIElement) => void;
+  checkOption: (v: string) => void;
 };
 
 export type AutocompleteProps = {
@@ -38,12 +46,15 @@ export const Autocomplete = (props: AutocompleteProps) => {
     'onFocus',
     'autocomplete',
     'children',
+    'onKeyDown',
   ]);
 
   const [ref, setRef] = createSignal<HTMLElement>();
+  const [dropdown, setDropdown] = createSignal<HTMLDivElement>();
   const [width, setWidth] = createSignal(0);
   const [state, setState] = createStore<AutocompleteState>({
     value: local.value || '',
+    options: new Map(),
     isOpen: !!local.show,
     get isClose() {
       return !this.isOpen;
@@ -55,6 +66,8 @@ export const Autocomplete = (props: AutocompleteProps) => {
       setWidth(ref?.offsetWidth || 0);
     })
   );
+
+  const options = () => Array.from(state.options.values());
 
   function setValue(v: any) {
     setState('value', v);
@@ -90,20 +103,143 @@ export const Autocomplete = (props: AutocompleteProps) => {
     }
   }
 
-  const onBackdropClick = (e: Event) => {
+  function onBackdropClick(e: Event) {
     e.stopPropagation();
     const target = e.target as HTMLElement;
     if (ref()?.contains(target)) {
       return;
     }
     setState('isOpen', false);
-  };
+  }
+
+  function onKeyDown(e: PropsKeyboardEvent<HTMLInputElement>) {
+    switch (e.code) {
+      case 'ArrowDown':
+        e.preventDefault();
+        if (state.focusedOption) {
+          focusNextOption(state.focusedOption);
+        } else {
+          focusFirstOption();
+        }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if (state.focusedOption) {
+          focusPrevOption(state.focusedOption);
+        } else {
+          focusLastOption();
+        }
+        break;
+      case 'Enter':
+        e.preventDefault();
+        const focused = state.focusedOption;
+        const isHasFocused = focused && findFocusedBtn(focused);
+
+        if (isHasFocused) {
+          checkOption(focused);
+        } else {
+          const btn = dropdown()?.querySelector('li button');
+          if (btn instanceof HTMLButtonElement) {
+            const value = btn.value;
+            checkOption(value);
+          }
+        }
+    }
+
+    if (typeof local.onKeyDown === 'function') {
+      local.onKeyDown(e);
+    }
+  }
+
+  function focusNextOption(currentValue: string) {
+    const li = findFocusedBtn(currentValue);
+    if (li) {
+      const next = li.nextElementSibling;
+      if (next) {
+        const btn = next.querySelector('button');
+        if (btn instanceof HTMLButtonElement) {
+          if (btn.disabled) {
+            focusNextOption(btn.value);
+          } else {
+            focusOption(btn.value);
+          }
+        }
+      }
+    }
+  }
+
+  function focusPrevOption(currentValue: string) {
+    const li = findFocusedBtn(currentValue);
+    if (li) {
+      const prev = li.previousElementSibling;
+      if (prev) {
+        const btn = prev.querySelector('button');
+        if (btn instanceof HTMLButtonElement) {
+          if (btn.disabled) {
+            focusPrevOption(btn.value);
+          } else {
+            focusOption(btn.value);
+          }
+        }
+      }
+    }
+  }
+
+  function focusFirstOption() {
+    const [first] = options();
+    if (first instanceof HTMLLIElement) {
+      const btn = first.querySelector('button');
+      if (btn) {
+        focusButton(btn);
+      }
+    }
+  }
+
+  function focusLastOption() {
+    const last = options().at(-1);
+    if (last instanceof HTMLLIElement) {
+      const btn = last.querySelector('button');
+      if (btn) {
+        focusButton(btn);
+      }
+    }
+  }
+
+  function findFocusedBtn(value: string) {
+    const elements = dropdown()?.querySelectorAll('li');
+    if (!elements) {
+      return;
+    }
+
+    return Array.from(elements).find(li => {
+      const btn = li.querySelector('button');
+      if (btn instanceof HTMLButtonElement) {
+        return btn.value === value;
+      }
+    });
+  }
+
+  function focusButton(btn: HTMLButtonElement) {
+    const value = btn.value;
+    focusOption(value);
+  }
+
+  function focusOption(v: string) {
+    setState('focusedOption', v);
+  }
+
+  function initOption(v: string, ref: HTMLLIElement) {
+    const map = state.options;
+    map.set(v, ref);
+    setState('options', new Map(map));
+  }
 
   return (
     <AutocompleteCtx.Provider
       value={{
         state,
         setValue,
+        initOption,
         checkOption,
       }}
     >
@@ -114,6 +250,7 @@ export const Autocomplete = (props: AutocompleteProps) => {
         autocomplete="off"
         onInput={onInput}
         onFocus={onFocus}
+        onKeyDown={onKeyDown}
         {...others}
       />
 
@@ -128,7 +265,9 @@ export const Autocomplete = (props: AutocompleteProps) => {
           class="max-h-60 w-32 overflow-y-auto"
           style={{width: width() + 'px'}}
         >
-          <ul class="menu bg-base-200 z-10 shadow-xl">{local.children}</ul>
+          <ul class="menu bg-base-200 z-10 shadow-xl" ref={setDropdown}>
+            {local.children}
+          </ul>
         </div>
       </Dropdown>
     </AutocompleteCtx.Provider>
@@ -137,9 +276,7 @@ export const Autocomplete = (props: AutocompleteProps) => {
 
 type AutocompleteCtx = {
   state: AutocompleteState;
-  setValue: (v: any) => void;
-  checkOption: (v: any) => void;
-};
+} & AutocompleteActions;
 
 const AutocompleteCtx = createContext<AutocompleteCtx>();
 

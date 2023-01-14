@@ -10,7 +10,7 @@ export const AutocompletePage: Component = () => {
         <ImportPreview component="Autocomplete" />
       </Page.Section>
 
-      <div class="w-96 grid gap-2">
+      <div class="w-96 grid gap-2 p-2">
         <Autocomplete show placeholder="Выберете город" bordered>
           <For each={getMockOptions()}>
             {state => (
