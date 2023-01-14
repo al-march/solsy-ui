@@ -4,9 +4,11 @@ import {Placement} from '@popperjs/core';
 import {
   createEffect,
   createSignal,
+  JSX,
   mergeProps,
   ParentProps,
   Show,
+  splitProps,
 } from 'solid-js';
 import {Portal} from 'solid-js/web';
 
@@ -17,24 +19,25 @@ export const DropdownSelectors = {
 export type DropdownProps = {
   trigger?: HTMLElement;
   show?: boolean;
-  ref?: (el: HTMLElement) => void;
-  class?: string;
-
   minWidth?: number;
   onHideEnd?: () => void;
   onShowEnd?: () => void;
   onBackdropClick?: (e: Event) => void;
-  onKeyDown?: (e: KeyboardEvent) => void;
-
   placement?: Placement;
   offset?: [number, number];
   autofocus?: boolean;
-};
+} & JSX.HTMLAttributes<HTMLDivElement>;
 
 type DropdownPropsDefault = Required<
   Pick<
     DropdownProps,
-    'placement' | 'offset' | 'show' | 'class' | 'minWidth' | 'autofocus'
+    | 'placement'
+    | 'offset'
+    | 'show'
+    | 'class'
+    | 'minWidth'
+    | 'autofocus'
+    | 'classList'
   >
 >;
 
@@ -45,42 +48,59 @@ const defaultProps: DropdownPropsDefault = {
   class: '',
   minWidth: 0,
   autofocus: true,
+  classList: {},
 };
 
 export const Dropdown = (props: ParentProps<DropdownProps>) => {
   const pr = mergeProps({...defaultProps}, props);
+  const [local, others] = splitProps(pr, [
+    'trigger',
+    'show',
+    'ref',
+    'minWidth',
+    'onHideEnd',
+    'onShowEnd',
+    'onBackdropClick',
+    'placement',
+    'offset',
+    'autofocus',
+    'class',
+    'classList',
+    'children',
+  ]);
+
   const [show, setShow] = createSignal(pr.show);
   const [trigger, setTrigger] = createSignal(pr.trigger);
   const [dropdown, setDropdown] = createSignal<HTMLElement>();
 
   createEffect(() => {
-    if (pr.show) {
+    if (local.show) {
       setShow(true);
-      if (pr.autofocus) {
+      if (local.autofocus) {
         focus();
       }
     }
 
-    if (pr.trigger !== trigger()) {
-      setTrigger(pr.trigger);
+    if (local.trigger !== trigger()) {
+      setTrigger(local.trigger);
     }
   });
 
   /* Listen changes of placement */
   createEffect(prev => {
-    if (pr.placement !== prev) {
+    if (local.placement !== prev) {
       createPopper();
     }
-  }, pr.placement);
+  }, local.placement);
 
   function createPopper() {
     usePopper(trigger, dropdown, {
-      placement: pr.placement,
+      placement: local.placement,
       modifiers: [
         {
           name: 'offset',
           options: {
-            offset: pr.offset,
+            offset: local.offset,
           },
         },
       ],
@@ -88,12 +108,12 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
   }
 
   function open() {
-    pr.onShowEnd?.();
+    local.onShowEnd?.();
   }
 
   function close() {
     setShow(false);
-    pr.onHideEnd?.();
+    local.onHideEnd?.();
   }
 
   function focus() {
@@ -106,20 +126,27 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
         <div
           data-testid={DropdownSelectors.DROPDOWN}
           ref={el => {
-            pr.ref?.(el);
+            if (typeof local.ref === 'function') {
+              local.ref?.(el);
+            }
             setDropdown(el);
             createPopper();
           }}
           tabIndex={0}
+          style={{
+            'min-width': local.minWidth ? local.minWidth + 'px' : undefined,
+          }}
           class="z-50 overflow-hidden overflow-y-auto outline-none"
-          classList={{[pr.class]: !!props.class}}
-          style={{'min-width': pr.minWidth ? pr.minWidth + 'px' : undefined}}
-          onKeyDown={props.onKeyDown}
+          classList={{
+            [local.class]: !!local.class,
+            ...local.classList,
+          }}
+          {...others}
         >
           <DropdownAnimation onEnter={open} onExit={close}>
-            {pr.show && (
-              <BackdropClick onBackdropClick={pr.onBackdropClick}>
-                <div class="overflow-hidden">{props.children}</div>
+            {local.show && (
+              <BackdropClick onBackdropClick={local.onBackdropClick}>
+                <div class="overflow-hidden">{local.children}</div>
               </BackdropClick>
             )}
           </DropdownAnimation>

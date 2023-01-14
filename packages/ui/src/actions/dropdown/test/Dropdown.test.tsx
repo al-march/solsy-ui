@@ -20,6 +20,11 @@ describe('Dropdown', () => {
     render(() => <Dropdown show class={className} />);
     expect(getDropdown()).toHaveClass(className);
   });
+  test('should set classList', () => {
+    const className = 'custom-class';
+    render(() => <Dropdown show classList={{[className]: true}} />);
+    expect(getDropdown()).toHaveClass(className);
+  });
   test('should emit onShowEnd', async () => {
     const [show, setShow] = createSignal(false);
     const onShowEnd = jest.fn();
@@ -43,5 +48,27 @@ describe('Dropdown', () => {
     render(() => <Dropdown show onBackdropClick={onBackdropClick} />);
     fireEvent.click(document.body);
     expect(onBackdropClick).toBeCalled();
+  });
+  test('should emit DOM events', () => {
+    const DOMEvents = {
+      onClick: jest.fn(),
+      onFocus: jest.fn(),
+      onBlur: jest.fn(),
+      onKeyDown: jest.fn(),
+    };
+
+    render(() => <Dropdown show {...DOMEvents} />);
+    // Click
+    fireEvent.click(getDropdown());
+    expect(DOMEvents.onClick).toBeCalled();
+    // Focus
+    fireEvent.focus(getDropdown());
+    expect(DOMEvents.onFocus).toBeCalled();
+    // Blur
+    fireEvent.blur(getDropdown());
+    expect(DOMEvents.onBlur).toBeCalled();
+    // KeyDown
+    fireEvent.keyDown(getDropdown(), {key: 'Escape'});
+    expect(DOMEvents.onKeyDown).toBeCalled();
   });
 });
