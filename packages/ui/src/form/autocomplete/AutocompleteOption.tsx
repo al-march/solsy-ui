@@ -60,7 +60,7 @@ export const AutocompleteOption = (props: ParentProps<OptionProps>) => {
           disabled={props.disabled}
           value={props.value}
         >
-          {props.children}
+          {props.children || props.value}
         </button>
       </li>
     </Show>
