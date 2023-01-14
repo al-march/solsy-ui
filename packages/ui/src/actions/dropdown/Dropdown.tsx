@@ -1,12 +1,10 @@
 import {BackdropClick, usePopper} from '../../utils';
 import {DropdownAnimation} from './animation/DropdownAnimation';
-import {Instance, Placement} from '@popperjs/core';
+import {Placement} from '@popperjs/core';
 import {
   createEffect,
   createSignal,
   mergeProps,
-  onCleanup,
-  onMount,
   ParentProps,
   Show,
 } from 'solid-js';
@@ -30,10 +28,14 @@ export type DropdownProps = {
 
   placement?: Placement;
   offset?: [number, number];
+  autofocus?: boolean;
 };
 
 type DropdownPropsDefault = Required<
-  Pick<DropdownProps, 'placement' | 'offset' | 'show' | 'class' | 'minWidth'>
+  Pick<
+    DropdownProps,
+    'placement' | 'offset' | 'show' | 'class' | 'minWidth' | 'autofocus'
+  >
 >;
 
 const defaultProps: DropdownPropsDefault = {
@@ -42,6 +44,7 @@ const defaultProps: DropdownPropsDefault = {
   show: false,
   class: '',
   minWidth: 0,
+  autofocus: true,
 };
 
 export const Dropdown = (props: ParentProps<DropdownProps>) => {
@@ -53,7 +56,9 @@ export const Dropdown = (props: ParentProps<DropdownProps>) => {
   createEffect(() => {
     if (pr.show) {
       setShow(true);
-      focus();
+      if (pr.autofocus) {
+        focus();
+      }
     }
 
     if (pr.trigger !== trigger()) {

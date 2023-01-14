@@ -5,7 +5,7 @@ import {fireEvent, render, screen} from 'solid-testing-library';
 
 const getDropdown = () => screen.getByTestId(DropdownSelectors.DROPDOWN);
 
-describe('Menu', () => {
+describe('Dropdown', () => {
   test('should be rendered', () => {
     render(() => <Dropdown show />);
     expect(getDropdown()).toBeInTheDocument();
