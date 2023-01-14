@@ -1,12 +1,12 @@
 import {Popover} from '../../data-display';
-import {Input, InputColor, InputSize} from '../input';
+import {Input, InputProps} from '../input';
 import {DatepickerNav, Month} from './base';
 import {Placement} from '@popperjs/core';
 import dayjs, {Dayjs} from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import weekday from 'dayjs/plugin/weekday';
-import {createContext, ParentProps, useContext} from 'solid-js';
+import {createContext, ParentProps, splitProps, useContext} from 'solid-js';
 import {createStore} from 'solid-js/store';
 
 dayjs.extend(isoWeek);
@@ -47,57 +47,63 @@ export type DatepickerProps = {
   onSelectDay?: (day: Dayjs) => void;
   onOpen?: () => void;
   onClose?: () => void;
-
-  placeholder?: string;
-  color?: InputColor;
-  size?: InputSize;
-  class?: string;
-  bordered?: boolean;
-  error?: boolean;
-
   placement?: Placement;
   weekHolidays?: number[];
   closeOnSelect?: boolean;
-};
+} & Omit<InputProps, 'value'>;
 
 export const Datepicker = (props: ParentProps<DatepickerProps>) => {
+  const [local, others] = splitProps(props, [
+    'show',
+    'value',
+    'month',
+    'onNextMonth',
+    'onPrevMonth',
+    'onSelectDay',
+    'onOpen',
+    'onClose',
+    'placement',
+    'weekHolidays',
+    'closeOnSelect',
+  ]);
+
   const [state, setState] = createStore<DatepickerState>({
-    show: !!props.show,
-    selected: props.value ? dayjs(props.value) : undefined,
-    month: props.month || dayjs(),
-    weekHolidays: props.weekHolidays || [],
+    show: !!local.show,
+    selected: local.value ? dayjs(local.value) : undefined,
+    month: local.month || dayjs(),
+    weekHolidays: local.weekHolidays || [],
   });
 
   function open() {
     if (!state.show) {
       setState('show', true);
-      props.onOpen?.();
+      local.onOpen?.();
     }
   }
 
   function close() {
     if (state.show) {
       setState('show', false);
-      props.onClose?.();
+      local.onClose?.();
     }
   }
 
   function onNextMonth() {
     const month = state.month.add(1, 'month');
     setState('month', month);
-    props.onNextMonth?.(month);
+    local.onNextMonth?.(month);
   }
 
   function onPrevMonth() {
     const month = state.month.subtract(1, 'month');
     setState('month', month);
-    props.onPrevMonth?.(month);
+    local.onPrevMonth?.(month);
   }
 
   function onSelectDay(day: Dayjs) {
     setState('selected', day);
-    props.onSelectDay?.(day);
-    if (props.closeOnSelect) {
+    local.onSelectDay?.(day);
+    if (local.closeOnSelect) {
       close();
     }
   }
@@ -127,18 +133,13 @@ export const Datepicker = (props: ParentProps<DatepickerProps>) => {
         onClose={close}
         onOpen={open}
         show={state.show}
-        placement={props.placement}
+        placement={local.placement}
         trigger={
           <Input
-            placeholder={props.placeholder}
-            size={props.size}
-            color={props.color}
-            class={props.class}
-            error={props.error}
-            bordered={props.bordered}
             value={state.selected?.format('YYYY.MM.DD')}
             onChange={e => onInput(e.currentTarget.value)}
             onFocus={() => open()}
+            {...others}
           />
         }
       >

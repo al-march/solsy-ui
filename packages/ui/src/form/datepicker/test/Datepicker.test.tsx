@@ -1,6 +1,6 @@
 import {InputSelectors} from '../../input';
 import {Datepicker, DatepickerSelectors} from '../Datepicker';
-import {DatepickerNav, DayBaseClasses} from '../base';
+import {DatepickerNav, DayBase, DayBaseClasses} from '../base';
 import dayjs, {Dayjs} from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -246,38 +246,38 @@ describe('Datepicker', () => {
     });
   });
 
-  // describe('Day', () => {
-  //   test('should be rendered', () => {
-  //     render(() => <DayBase/>);
-  //     expect(screen.getByTestId(DAY)).toBeInTheDocument();
-  //   });
-  //
-  //   test('should be today', () => {
-  //     render(() => <DayBase today/>);
-  //     expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.today);
-  //   });
-  //
-  //   test('should be selected', () => {
-  //     render(() => <DayBase selected/>);
-  //     expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.selected);
-  //   });
-  //
-  //   test('should be holiday', () => {
-  //     render(() => <DayBase holiday/>);
-  //     expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.holiday);
-  //   });
-  //
-  //   test('should be today class more important then holiday', () => {
-  //     render(() => <DayBase holiday today/>);
-  //     expect(screen.getByTestId(DAY)).not.toHaveClass(DayBaseClasses.holiday);
-  //     expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.today);
-  //   });
-  //
-  //   test('should be selected class be the most important', () => {
-  //     render(() => <DayBase today holiday selected/>);
-  //     expect(screen.getByTestId(DAY)).not.toHaveClass(DayBaseClasses.today);
-  //     expect(screen.getByTestId(DAY)).not.toHaveClass(DayBaseClasses.holiday);
-  //     expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.selected);
-  //   });
-  // });
+  describe('Day', () => {
+    test('should be rendered', () => {
+      render(() => <DayBase />);
+      expect(screen.getByTestId(DAY)).toBeInTheDocument();
+    });
+
+    test('should be today', () => {
+      render(() => <DayBase today />);
+      expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.today);
+    });
+
+    test('should be selected', () => {
+      render(() => <DayBase selected />);
+      expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.selected);
+    });
+
+    test('should be holiday', () => {
+      render(() => <DayBase holiday />);
+      expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.holiday);
+    });
+
+    test('should be today class more important then holiday', () => {
+      render(() => <DayBase holiday today />);
+      expect(screen.getByTestId(DAY)).not.toHaveClass(DayBaseClasses.holiday);
+      expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.today);
+    });
+
+    test('should be selected class be the most important', () => {
+      render(() => <DayBase today holiday selected />);
+      expect(screen.getByTestId(DAY)).not.toHaveClass(DayBaseClasses.today);
+      expect(screen.getByTestId(DAY)).not.toHaveClass(DayBaseClasses.holiday);
+      expect(screen.getByTestId(DAY)).toHaveClass(DayBaseClasses.selected);
+    });
+  });
 });
