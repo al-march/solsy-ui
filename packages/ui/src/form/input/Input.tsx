@@ -8,14 +8,14 @@ export const InputSelectors = {
 export type InputColor = DaisyColor | 'ghost';
 export type InputSize = DaisySize;
 
-type Props = {
+export type InputProps = {
   color?: InputColor;
   size?: InputSize;
   error?: boolean;
   bordered?: boolean;
 } & JSX.InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = (props: Props) => {
+export const Input = (props: InputProps) => {
   const [local, others] = splitProps(props, [
     'color',
     'size',

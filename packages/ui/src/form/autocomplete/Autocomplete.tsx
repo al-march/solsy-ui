@@ -1,12 +1,12 @@
 import {Dropdown} from '../../actions';
-import {PropChangeEvent, PropFocusEvent, PropInputEvent} from '../../types';
-import {Input, InputColor, InputSize} from '../input';
+import {PropFocusEvent, PropInputEvent} from '../../types';
+import {Input, InputProps} from '../input';
 import {
   createContext,
   createEffect,
   createSignal,
   on,
-  ParentProps,
+  splitProps,
   useContext,
 } from 'solid-js';
 import {createStore} from 'solid-js/store';
@@ -27,27 +27,24 @@ export type AutocompleteProps = {
   value?: string;
   show?: boolean;
   placeholder?: string;
-  ref?: (el: HTMLInputElement) => void;
+} & InputProps;
 
-  color?: InputColor;
-  size?: InputSize;
-  class?: string;
-  error?: boolean;
-  bordered?: boolean;
-  disabled?: boolean;
+export const Autocomplete = (props: AutocompleteProps) => {
+  const [local, others] = splitProps(props, [
+    'value',
+    'show',
+    'ref',
+    'onInput',
+    'onFocus',
+    'autocomplete',
+    'children',
+  ]);
 
-  onInput?: (e: PropInputEvent<HTMLInputElement>) => void;
-  onChange?: (e: PropChangeEvent<HTMLInputElement>) => void;
-  onFocus?: (e: PropFocusEvent<HTMLInputElement>) => void;
-  onBlur?: (e: PropFocusEvent<HTMLInputElement>) => void;
-};
-
-export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
   const [ref, setRef] = createSignal<HTMLElement>();
   const [width, setWidth] = createSignal(0);
   const [state, setState] = createStore<AutocompleteState>({
-    value: props.value || '',
-    isOpen: !!props.show,
+    value: local.value || '',
+    isOpen: !!local.show,
     get isClose() {
       return !this.isOpen;
     },
@@ -73,12 +70,24 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
       setState('isOpen', true);
     }
     setValue((e.target as HTMLInputElement).value);
-    props.onInput?.(e);
+
+    if (typeof local.onInput === 'function') {
+      local.onInput(e);
+    }
   }
 
   function onFocus(e: PropFocusEvent<HTMLInputElement>) {
     setState('isOpen', true);
-    props.onFocus?.(e);
+    if (typeof local.onFocus === 'function') {
+      local.onFocus(e);
+    }
+  }
+
+  function setInputRef(el: HTMLInputElement) {
+    setRef(el);
+    if (typeof local.ref === 'function') {
+      local.ref(el);
+    }
   }
 
   const onBackdropClick = (e: Event) => {
@@ -100,27 +109,17 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
     >
       <Input
         data-testid={AutocompleteSelectors.AUTOCOMPLETE}
-        ref={el => {
-          setRef(el);
-          props.ref?.(el);
-        }}
+        ref={setInputRef}
         value={state.value}
-        placeholder={props.placeholder}
-        size={props.size}
-        color={props.color}
-        class={props.class}
-        error={props.error}
-        bordered={props.bordered}
-        disabled={props.disabled}
         autocomplete="off"
         onInput={onInput}
         onFocus={onFocus}
-        onBlur={props.onBlur}
-        onChange={props.onChange}
+        {...others}
       />
 
       <Dropdown
         trigger={ref()}
+        autofocus={false}
         show={state.isOpen && !!ref()}
         onBackdropClick={onBackdropClick}
       >
@@ -129,7 +128,7 @@ export const Autocomplete = (props: ParentProps<AutocompleteProps>) => {
           class="max-h-60 w-32 overflow-y-auto"
           style={{width: width() + 'px'}}
         >
-          <ul class="menu bg-base-200 z-10 shadow-xl">{props.children}</ul>
+          <ul class="menu bg-base-200 z-10 shadow-xl">{local.children}</ul>
         </div>
       </Dropdown>
     </AutocompleteCtx.Provider>

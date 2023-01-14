@@ -88,4 +88,10 @@ describe('Autocomplete', () => {
       screen.getByTestId(DROPDOWN).offsetWidth
     );
   });
+  test('should set input ref', () => {
+    let input!: HTMLInputElement;
+    render(() => <Autocomplete ref={el => (input = el)} />);
+    expect(input).toBeTruthy();
+    expect(input instanceof HTMLInputElement).toBeTruthy();
+  });
 });
