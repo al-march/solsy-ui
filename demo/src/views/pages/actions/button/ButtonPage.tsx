@@ -1,10 +1,15 @@
-import {ExampleTable, ImportPreview, TypeLine} from '@shared/components';
+import {
+  ComponentProps,
+  ExampleTable,
+  ImportPreview,
+  TypeLine,
+} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {ArrMerge} from '@shared/utils/ArrMerge';
 import {Button} from '@ui/actions';
-import {Row} from '@ui/layout';
+import {Divider, Row} from '@ui/layout';
 import {DaisyColor, DaisyColors, DaisySizes} from '@ui/types';
-import {Component} from 'solid-js';
+import {Component, For} from 'solid-js';
 
 export const ButtonPage: Component = () => {
   const colors = ArrMerge<DaisyColor, 'ghost'>([...DaisyColors], ['ghost']);
@@ -360,6 +365,128 @@ export const ButtonPage: Component = () => {
           preview={<Button noAnimation>No Animation</Button>}
           snippet={`<Button noAnimation>No Animation</Button>`}
         />
+      </Page.Section>
+
+      <Page.Section name="Props">
+        <Page.Title>Button props</Page.Title>
+
+        <Row orientation="col">
+          <ComponentProps
+            name="Size"
+            description="The size of the Button"
+            types={
+              <div class="flex gap-2">
+                <For each={DaisySizes}>
+                  {size => <span class="badge badge-primary">{size}</span>}
+                </For>
+              </div>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="Color"
+            description="The color of the Button"
+            types={
+              <div class="flex gap-2">
+                <For each={DaisyColors}>
+                  {color => <span class="badge badge-primary">{color}</span>}
+                </For>
+              </div>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="Disabled"
+            description="Makes button disabled"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="link"
+            description="Button as link"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="outline"
+            description="Button with outline"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="glass"
+            description="Button with glass"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="noAnimation"
+            description="Button without animation"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="loading"
+            description="Loading mode"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="wide"
+            description="Wide mode"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="block"
+            description="Block mode"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="circle"
+            description="Circle mode"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="square"
+            description="Square mode"
+            types="boolean"
+            defaultValue="false"
+          />
+        </Row>
       </Page.Section>
     </Page>
   );
