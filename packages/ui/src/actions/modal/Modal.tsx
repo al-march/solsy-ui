@@ -2,12 +2,14 @@ import {ScaleTransition} from '../../utils';
 import {
   createEffect,
   createSignal,
+  JSX,
   mergeProps,
   on,
   onCleanup,
   onMount,
   ParentProps,
   Show,
+  splitProps,
 } from 'solid-js';
 import {createStore} from 'solid-js/store';
 import {Portal} from 'solid-js/web';
@@ -21,23 +23,26 @@ export type ModalProps = {
   show?: boolean;
   class?: string;
   trigger?: HTMLButtonElement;
-
+  responsive?: boolean;
   onBackdropClick?: () => void;
-
   onOpen?: () => void;
   onClose?: () => void;
-};
+} & JSX.HTMLAttributes<HTMLDivElement>;
 
 export type ModalState = {
   show: boolean;
   trigger?: HTMLElement;
 };
 
-type ModalDefaultProps = Required<Pick<ModalProps, 'show' | 'class'>>;
+type ModalDefaultProps = Required<
+  Pick<ModalProps, 'show' | 'class' | 'tabIndex' | 'classList'>
+>;
 
 const modalDefaultProps: ModalDefaultProps = {
   show: false,
   class: '',
+  tabIndex: '0',
+  classList: {},
 };
 
 /**
@@ -54,9 +59,24 @@ const modalDefaultProps: ModalDefaultProps = {
  */
 export const Modal = (props: ParentProps<ModalProps>) => {
   const pr = mergeProps({...modalDefaultProps}, props);
+  const [local, others] = splitProps(pr, [
+    'show',
+    'trigger',
+    'responsive',
+    'onBackdropClick',
+    'onOpen',
+    'onClose',
+    'onClick',
+    'class',
+    'classList',
+    'children',
+    'tabIndex',
+    'ref',
+    'style',
+  ]);
 
   const [state, setState] = createStore<ModalState>({
-    show: pr.show,
+    show: local.show,
   });
 
   const [modalRef, setModalRef] = createSignal<HTMLElement>();
@@ -107,7 +127,7 @@ export const Modal = (props: ParentProps<ModalProps>) => {
   }
 
   function backdropClickHandler() {
-    props.onBackdropClick?.();
+    local.onBackdropClick?.();
   }
 
   function focusOn(el?: HTMLElement) {
@@ -135,22 +155,38 @@ export const Modal = (props: ParentProps<ModalProps>) => {
         <div
           data-testid={ModalSelectors.BACKDROP}
           class="modal opacity-100 visible z-50 pointer-events-auto"
+          classList={{
+            'modal-bottom sm:modal-middle': !!local.responsive,
+          }}
           onClick={backdropClickHandler}
         >
           <ScaleTransition appear onExit={close}>
-            <Show when={pr.show} keyed>
+            <Show when={local.show} keyed>
               <div
                 data-testid={ModalSelectors.MODAL}
-                tabIndex="0"
+                tabIndex={local.tabIndex}
                 ref={ref => {
                   setModalRef(ref);
                   focusOn(ref);
+                  if (typeof local.ref === 'function') {
+                    local.ref(ref);
+                  }
                 }}
-                class="modal-box transition-none transform-none opacity-100 outline-none"
-                classList={{[pr.class]: !!pr.class}}
-                onClick={e => e.stopPropagation()}
+                style={`transform: scale(1);  ${local.style}`}
+                class="modal-box transition-none transform-none outline-none opacity-100"
+                classList={{
+                  [local.class]: !!local.class,
+                  ...local.classList,
+                }}
+                onClick={e => {
+                  e.stopPropagation();
+                  if (typeof local.onClick === 'function') {
+                    local.onClick(e);
+                  }
+                }}
+                {...others}
               >
-                {props.children}
+                {local.children}
               </div>
             </Show>
           </ScaleTransition>
