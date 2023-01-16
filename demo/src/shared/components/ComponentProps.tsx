@@ -14,7 +14,7 @@ export const ComponentProps = (props: Props) => {
         <thead>
           <tr>
             <th class="w-[170px]">
-              <span class="text-xl lowercase">{props.name}</span>
+              <span class="text-xl normal-case">{props.name}</span>
             </th>
             <th></th>
           </tr>
