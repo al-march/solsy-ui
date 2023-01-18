@@ -1,9 +1,11 @@
-import {ExampleTable, ImportPreview} from '@shared/components';
+import {ComponentProps, ExampleTable, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {ArrMerge} from '@shared/utils/ArrMerge';
+import {Badge} from '@ui/data-display';
 import {Radio} from '@ui/form';
-import {Row} from '@ui/layout';
-import {DaisyColorsSmall, DaisySizes} from '@ui/types';
+import {Divider, Row} from '@ui/layout';
+import {DaisyColors, DaisyColorsSmall, DaisySizes} from '@ui/types';
+import {For} from 'solid-js';
 
 export const RadioPage = () => {
   const sizes = [...DaisySizes];
@@ -161,6 +163,56 @@ export const RadioPage = () => {
           preview={<Radio disabled value />}
           snippet={`<Radio disabled value />`}
         />
+      </Page.Section>
+
+      <Page.Section name="Props">
+        <Page.Title>Radio props</Page.Title>
+
+        <Row orientation="col">
+          <ComponentProps
+            name="size"
+            description="Size of the Autocomplete"
+            types={
+              <Row class="gap-2">
+                <For each={DaisySizes}>
+                  {size => <span class="badge badge-primary">{size}</span>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="color"
+            description="Color of the Radio"
+            types={
+              <Row class="gap-2">
+                <For each={DaisyColors}>
+                  {color => <Badge color={color}>{color}</Badge>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="disabled"
+            description="If `true`, the input will be disabled."
+            types="boolean"
+            defaultValue={false}
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="required"
+            description="If `true`, the input will be required."
+            types="boolean"
+            defaultValue={false}
+          />
+        </Row>
       </Page.Section>
     </Page>
   );

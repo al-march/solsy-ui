@@ -8,11 +8,13 @@ export const RadioSelector = {
 export type RadioColor = 'primary' | 'secondary' | 'accent';
 export type RadioSize = DaisySize;
 
+type InputProps = Omit<JSX.InputHTMLAttributes<HTMLInputElement>, 'value'>;
+
 export type RadioProps = {
   value?: boolean;
   size?: RadioSize;
   color?: RadioColor;
-} & JSX.InputHTMLAttributes<HTMLInputElement>;
+} & InputProps;
 
 export const Radio = (props: RadioProps) => {
   const [local, others] = splitProps(props, [
