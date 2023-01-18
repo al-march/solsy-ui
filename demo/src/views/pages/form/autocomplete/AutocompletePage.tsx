@@ -194,7 +194,7 @@ export const AutocompletePage: Component = () => {
 
           <ComponentProps
             name="color"
-            description="Size of the Autocomplete"
+            description="Color of the Autocomplete"
             types={
               <Row class="gap-2">
                 <For each={DaisyColors}>
