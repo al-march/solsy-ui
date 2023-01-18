@@ -1,8 +1,10 @@
-import {ImportPreview} from '@shared/components';
+import {ComponentProps, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
+import {Badge} from '@ui/data-display';
 import {Autocomplete, AutocompleteOption} from '@ui/form';
-import {Row} from '@ui/layout';
-import {Component} from 'solid-js';
+import {Divider, Row} from '@ui/layout';
+import {DaisyColors, DaisySizes} from '@ui/types';
+import {Component, For} from 'solid-js';
 
 export const AutocompletePage: Component = () => {
   return (
@@ -166,6 +168,69 @@ export const AutocompletePage: Component = () => {
             <Autocomplete error placeholder="error" />
           `}
         />
+      </Page.Section>
+
+      <Page.Section name="Props">
+        <Page.Title>Autocomplete props</Page.Title>
+
+        <p class="mb-4">
+          Autocomplete has props as HTMLInputElement and the following:
+        </p>
+
+        <Row orientation="col">
+          <ComponentProps
+            name="size"
+            description="Size of the Autocomplete"
+            types={
+              <Row class="gap-2">
+                <For each={DaisySizes}>
+                  {size => <span class="badge badge-primary">{size}</span>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="color"
+            description="Size of the Autocomplete"
+            types={
+              <Row class="gap-2">
+                <For each={DaisyColors}>
+                  {color => <Badge color={color}>{color}</Badge>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="bordered"
+            description="Autocomplete with border styles"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="error"
+            description="Autocomplete with error styles"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="show"
+            description="Show/hide of autocomplete dropdown"
+            types="boolean"
+            defaultValue="false"
+          />
+        </Row>
       </Page.Section>
     </Page>
   );

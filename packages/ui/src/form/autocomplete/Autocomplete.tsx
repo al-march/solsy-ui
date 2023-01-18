@@ -34,7 +34,6 @@ type AutocompleteActions = {
 export type AutocompleteProps = {
   value?: string;
   show?: boolean;
-  placeholder?: string;
 } & InputProps;
 
 export const Autocomplete = (props: AutocompleteProps) => {
