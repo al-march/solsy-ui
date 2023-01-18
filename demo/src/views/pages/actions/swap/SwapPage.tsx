@@ -1,7 +1,8 @@
-import {ImportPreview} from '@shared/components';
+import {ComponentProps, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {Button, Swap} from '@ui/actions';
 import {Badge} from '@ui/data-display';
+import {Divider, Row} from '@ui/layout';
 
 export const SwapPage = () => {
   return (
@@ -245,6 +246,55 @@ export const SwapPage = () => {
             </Swap>
           `}
         />
+      </Page.Section>
+
+      <Page.Section name="props">
+        <Page.Title>Swap props</Page.Title>
+
+        <Row orientation="col">
+          <ComponentProps
+            name="as"
+            description="Wrapper component"
+            types="Component<T>"
+            defaultValue="undefined"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="isOn"
+            description="Is show On state"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="rotate"
+            description="Rotate animation"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="flip"
+            description="Flip animation"
+            types="boolean"
+            defaultValue="false"
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="onSwap"
+            description="Emit on swap changes"
+            types="(isOn: boolean) => void"
+            defaultValue="undefined"
+          />
+        </Row>
       </Page.Section>
     </Page>
   );
