@@ -1,10 +1,11 @@
-import {ExampleTable, ImportPreview} from '@shared/components';
+import {ComponentProps, ExampleTable, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {ArrMerge} from '@shared/utils/ArrMerge';
+import {Badge} from '@ui/data-display';
 import {Toggle} from '@ui/form';
-import {Row} from '@ui/layout';
-import {DaisyColorsSmall, DaisySizes} from '@ui/types';
-import {Component} from 'solid-js';
+import {Divider, Row} from '@ui/layout';
+import {DaisyColors, DaisyColorsSmall, DaisySizes} from '@ui/types';
+import {Component, For} from 'solid-js';
 
 export const TogglePage: Component = () => {
   const sizes = [...DaisySizes];
@@ -115,6 +116,56 @@ export const TogglePage: Component = () => {
           preview={<Toggle indeterminate />}
           snippet={`<Toggle indeterminate />`}
         />
+      </Page.Section>
+
+      <Page.Section name="props">
+        <Page.Title>Toggle props</Page.Title>
+
+        <Row orientation="col">
+          <ComponentProps
+            name="size"
+            description="Size of the Autocomplete"
+            types={
+              <Row class="gap-2">
+                <For each={DaisySizes}>
+                  {size => <span class="badge badge-primary">{size}</span>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="color"
+            description="Color of the Toggle"
+            types={
+              <Row class="gap-2">
+                <For each={DaisyColors}>
+                  {color => <Badge color={color}>{color}</Badge>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="disabled"
+            description="If `true`, the input will be disabled."
+            types="boolean"
+            defaultValue={false}
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="required"
+            description="If `true`, the input will be required."
+            types="boolean"
+            defaultValue={false}
+          />
+        </Row>
       </Page.Section>
     </Page>
   );
