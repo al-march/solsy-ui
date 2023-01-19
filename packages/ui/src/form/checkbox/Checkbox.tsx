@@ -14,12 +14,15 @@ export const CheckboxSelectors = {
 export type CheckboxColor = 'primary' | 'secondary' | 'accent';
 export type CheckboxSize = DaisySize;
 
+type InputProps = Omit<JSX.InputHTMLAttributes<HTMLInputElement>, 'value'>;
+
 export type CheckboxProps = {
+  value?: boolean;
   ref?: (el: HTMLInputElement) => void;
   size?: CheckboxSize;
   color?: CheckboxColor;
   indeterminate?: boolean;
-} & JSX.InputHTMLAttributes<HTMLInputElement>;
+} & InputProps;
 
 export const Checkbox = (props: CheckboxProps) => {
   const merge = mergeProps({class: '', classList: {}}, props);

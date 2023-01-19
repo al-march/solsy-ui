@@ -1,8 +1,11 @@
-import {ExampleTable, ImportPreview} from '@shared/components';
+import {ComponentProps, ExampleTable, ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
+import {Component} from '@shared/components/page/Component';
 import {ArrMerge} from '@shared/utils/ArrMerge';
+import {Badge} from '@ui/data-display';
 import {Checkbox} from '@ui/form';
-import {DaisyColorsSmall, DaisySizes} from '@ui/types';
+import {Divider, Row} from '@ui/layout';
+import {DaisyColors, DaisyColorsSmall, DaisySizes} from '@ui/types';
 import {For} from 'solid-js';
 
 export const CheckboxPage = () => {
@@ -27,40 +30,117 @@ export const CheckboxPage = () => {
       </Page.Section>
 
       <Page.Section name="sizes">
-        <h3 class="text-xl">Sizes</h3>
-        <br />
-        <div class="flex flex-col gap-2">
-          <For each={sizes}>
-            {size => (
-              <div class="flex items-center gap-2">
-                <label for={size} class="w-12 opacity-75 cursor-pointer">
-                  {size}
-                </label>
-                <Checkbox id={size} size={size} />
-              </div>
-            )}
-          </For>
-        </div>
+        <Page.Title>Sizes</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Checkbox size="lg" />
+              <Checkbox size="md" />
+              <Checkbox size="sm" />
+              <Checkbox size="xs" />
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Checkbox size="lg" />
+              <Checkbox size="md" />
+              <Checkbox size="sm" />
+              <Checkbox size="xs" />
+            </Row>
+          `}
+        />
       </Page.Section>
 
       <Page.Section name="colors">
-        <h3 class="text-xl">Colors</h3>
-        <br />
-        <div class="flex flex-col gap-2">
-          <For each={colors}>
-            {color => (
-              <div class="flex items-center gap-2">
-                <label
-                  for={color || 'default'}
-                  class="w-24 opacity-75 cursor-pointer"
-                >
-                  {color || 'default'}
-                </label>
-                <Checkbox id={color || 'default'} color={color} />
-              </div>
-            )}
-          </For>
-        </div>
+        <Page.Title>Colors</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Checkbox />
+              <Checkbox color="secondary" />
+              <Checkbox color="primary" />
+              <Checkbox color="accent" />
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Checkbox />
+              <Checkbox color="secondary" />
+              <Checkbox color="primary" />
+              <Checkbox color="accent" />
+            </Row>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="disabled">
+        <Page.Title>Disabled</Page.Title>
+
+        <Component
+          preview={<Checkbox disabled />}
+          snippet={`<Checkbox disabled />`}
+        />
+      </Page.Section>
+
+      <Page.Section name="checked">
+        <Page.Title>Checked</Page.Title>
+
+        <Component
+          preview={<Checkbox value />}
+          snippet={`<Checkbox value />`}
+        />
+      </Page.Section>
+
+      <Page.Section name="props">
+        <Page.Title>Checkbox title</Page.Title>
+
+        <Row orientation="col">
+          <ComponentProps
+            name="size"
+            description="Size of the Autocomplete"
+            types={
+              <Row class="gap-2">
+                <For each={DaisySizes}>
+                  {size => <span class="badge badge-primary">{size}</span>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="color"
+            description="Color of the Radio"
+            types={
+              <Row class="gap-2">
+                <For each={DaisyColors}>
+                  {color => <Badge color={color}>{color}</Badge>}
+                </For>
+              </Row>
+            }
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="disabled"
+            description="If `true`, the input will be disabled."
+            types="boolean"
+            defaultValue={false}
+          />
+
+          <Divider />
+
+          <ComponentProps
+            name="required"
+            description="If `true`, the input will be required."
+            types="boolean"
+            defaultValue={false}
+          />
+        </Row>
       </Page.Section>
     </Page>
   );
