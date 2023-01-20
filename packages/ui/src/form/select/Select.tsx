@@ -1,10 +1,12 @@
 import {DaisyColor, DaisySize} from '../../types';
 import {SelectDropdown} from './SelectDropdown';
+import {SelectField} from './SelectField';
 import {
   createContext,
   createEffect,
   createSignal,
   JSXElement,
+  mergeProps,
   ParentProps,
   useContext,
 } from 'solid-js';
@@ -54,12 +56,14 @@ export type SelectProps = {
 };
 
 export const Select = (props: ParentProps<SelectProps>) => {
+  const pr = mergeProps({class: '', classList: {}, value: ''}, props);
+
   const [reference, setReference] = createSignal<HTMLElement>();
 
   const [state, setState] = createStore<SelectState>({
-    value: props.value,
-    isOpen: !!props.show,
-    compareKey: props.compareKey,
+    value: pr.value,
+    isOpen: !!pr.show,
+    compareKey: pr.compareKey,
 
     get isClose() {
       return !this._isOpen;
@@ -67,7 +71,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
   });
 
   createEffect(() => {
-    const value = props.value;
+    const value = pr.value;
     setState('value', reconcile(value, {merge: true}));
   });
 
@@ -78,17 +82,17 @@ export const Select = (props: ParentProps<SelectProps>) => {
       setState('value', value);
     }
 
-    props.onInput?.(value);
+    pr.onInput?.(value);
   };
 
   const open = () => {
     setState('isOpen', true);
-    props.onOpen?.();
+    pr.onOpen?.();
   };
 
   const close = () => {
     setState('isOpen', false);
-    props.onClose?.();
+    pr.onClose?.();
   };
 
   const check = (value: any) => {
@@ -106,32 +110,18 @@ export const Select = (props: ParentProps<SelectProps>) => {
         check,
       }}
     >
-      <div
+      <SelectField
         data-testid={SelectSelectors.SELECT}
         ref={setReference}
-        class={`select z-10 flex items-center ${props.class || ''}`}
-        classList={{
-          'select-lg': props.size === 'lg',
-          'select-md': props.size === 'md',
-          'select-sm': props.size === 'sm',
-          'select-xs': props.size === 'xs',
-
-          'select-primary': props.color === 'primary',
-          'select-secondary': props.color === 'secondary',
-          'select-accent': props.color === 'accent',
-          'select-info': props.color === 'info',
-          'select-success': props.color === 'success',
-          'select-warning': props.color === 'warning',
-          'select-error': props.color === 'error' || props.error,
-          'select-ghost': props.color === 'ghost',
-
-          'select-bordered': props.bordered,
-        }}
+        size={pr.size}
+        color={pr.color}
+        bordered={pr.bordered}
+        error={pr.error}
         onClick={open}
         onFocus={open}
       >
         <span data-testid={SelectSelectors.CUSTOM_VIEW}>
-          {state.value && props.customValue?.(state.value)}
+          {state.value && pr.customValue?.(state.value)}
         </span>
 
         <input
@@ -139,17 +129,17 @@ export const Select = (props: ParentProps<SelectProps>) => {
           type="text"
           class="bg-inherit h-full border-none cursor-pointer"
           classList={{
-            hidden: !!props.customValue && state.value,
+            hidden: !!pr.customValue && state.value,
           }}
           disabled
           value={state.value}
-          placeholder={props.placeholder || ''}
-          name={props.name}
+          placeholder={pr.placeholder || ''}
+          name={pr.name}
         />
-      </div>
+      </SelectField>
 
       <SelectDropdown show={state.isOpen} reference={reference} onClose={close}>
-        {props.children}
+        {pr.children}
       </SelectDropdown>
     </SelectCtx.Provider>
   );

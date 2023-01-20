@@ -74,7 +74,7 @@ export const SelectDropdown = (props: ParentProps<Props>) => {
   };
 
   return (
-    <Show when={state.isRender}>
+    <Show when={state.isRender} keyed>
       <Portal>
         <BackdropClick onBackdropClick={onBackdropClick}>
           <div
@@ -84,7 +84,7 @@ export const SelectDropdown = (props: ParentProps<Props>) => {
             style={{'min-width': props.reference()?.offsetWidth + 'px'}}
           >
             <ScaleTransition appear={true} onExit={destroy}>
-              <Show when={state.isOpen}>
+              <Show when={state.isOpen} keyed>
                 <ul class="shadow-lg menu dropdown-content bg-base-200 max-h-60 overflow-y-auto">
                   {props.children}
                 </ul>

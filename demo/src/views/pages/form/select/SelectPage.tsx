@@ -74,12 +74,7 @@ export const SelectPage: Component = () => {
       <div class="flex flex-col items-start gap-2">
         <For each={sizes}>
           {state => (
-            <Select
-              value="Cars"
-              bordered
-              size={state}
-              placeholder="Select category"
-            >
+            <Select bordered size={state} placeholder="Select category">
               <Option value="Cars">
                 <i class="fa-solid fa-car pr-2" />
                 Cars
