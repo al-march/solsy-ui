@@ -115,6 +115,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
         ref={setReference}
         size={pr.size}
         color={pr.color}
+        class={pr.class}
         bordered={pr.bordered}
         error={pr.error}
         onClick={open}

@@ -56,7 +56,11 @@ export const SelectPage: Component = () => {
         bordered
         placeholder="Custom view"
         compareKey="id"
-        value={4}
+        customValue={item => (
+          <>
+            <i class={`fa-solid ${item.icon} pr-2`} /> {item.option}
+          </>
+        )}
       >
         <For each={options}>
           {opt => (
