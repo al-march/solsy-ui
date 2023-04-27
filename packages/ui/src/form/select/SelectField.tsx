@@ -39,6 +39,7 @@ export const SelectField = (props: Props) => {
         'select-ghost': local.color === 'ghost',
 
         'select-bordered': local.bordered,
+        'opacity-40 cursor-not-allowed': others.disabled
       }}
       {...others}
     />

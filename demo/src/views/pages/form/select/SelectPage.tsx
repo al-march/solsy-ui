@@ -1,19 +1,8 @@
 import {ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
-import {Option, Select, SelectColor, SelectSize} from '@ui/form';
+import {Option, Select} from '@ui/form';
+import {Row} from '@ui/layout';
 import {Component, For} from 'solid-js';
-
-const sizes: SelectSize[] = ['lg', 'md', 'sm', 'xs'];
-const colors: SelectColor[] = [
-  'primary',
-  'secondary',
-  'accent',
-  'info',
-  'success',
-  'warning',
-  'error',
-  'ghost',
-];
 
 const options = [
   {
@@ -41,86 +30,226 @@ const options = [
 export const SelectPage: Component = () => {
   return (
     <Page full class="p-4">
-      <h3 class="text-xl">Select Page</h3>
+      <Page.Section name="import">
+        <ImportPreview component="Select" />
+      </Page.Section>
 
-      <br />
-      <ImportPreview component="Select" />
-      <br />
+      <Page.Section name="usage">
+        <Page.Title>Usage</Page.Title>
 
-      <span class="divider" />
-      <h3 class="text-xl">Custom view</h3>
-      <span class="divider" />
-
-      <Select
-        class="max-w-md"
-        bordered
-        placeholder="Custom view"
-        compareKey="id"
-        customValue={item => (
-          <>
-            <i class={`fa-solid ${item.icon} pr-2`} /> {item.option}
-          </>
-        )}
-      >
-        <For each={options}>
-          {opt => (
-            <Option value={opt}>
-              <i class={`fa-solid ${opt.icon} pr-2`} /> {opt.option}
-            </Option>
-          )}
-        </For>
-      </Select>
-
-      <span class="divider" />
-      <h3 class="text-xl">Sizes</h3>
-      <span class="divider" />
-
-      <div class="flex flex-col items-start gap-2">
-        <For each={sizes}>
-          {state => (
-            <Select bordered size={state} placeholder="Select category">
-              <Option value="Cars">
-                <i class="fa-solid fa-car pr-2" />
-                Cars
-              </Option>
-              <Option value="Plane" disabled>
-                <i class="fa-solid fa-plane-departure pr-2" />
-                Plane
-              </Option>
-              <Option value="Buildings">
-                <i class="fa-solid fa-building pr-2" />
-                Buildings
-              </Option>
+        <Page.Component
+          preview={
+            <Select placeholder="placeholder">
+              <Option value={1}>1</Option>
+              <Option value={2}>2</Option>
+              <Option value={3}>3</Option>
             </Select>
-          )}
-        </For>
-        <span class="divider" />
-        <h3 class="text-xl">Colors</h3>
-        <span class="divider" />
-        <For each={colors}>
-          {state => (
+          }
+          snippet={`
+            <Select>
+              <Option value={1}>1</Option>
+              <Option value={2}>2</Option>
+              <Option value={3}>3</Option>
+            </Select>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="sizes">
+        <Page.Title>Sizes</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Select placeholder="xs" size="xs">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="sm" size="sm">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="md" size="md">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="lg" size="lg">
+                <Option value={1}>1</Option>
+              </Select>
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Select placeholder="xs" size="xs">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="sm" size="sm">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="md" size="md">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="lg" size="lg">
+                <Option value={1}>1</Option>
+              </Select>
+            </Row>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="colors">
+        <Page.Title>Colors</Page.Title>
+
+        <Page.Component
+          preview={
+            <Row orientation="col" class="gap-2">
+              <Select placeholder="primary" color="primary">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="secondary" color="secondary">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="accent" color="accent">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="info" color="info">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="warning" color="warning">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="error" color="error">
+                <Option value={1}>1</Option>
+              </Select>
+            </Row>
+          }
+          snippet={`
+            <Row orientation="col" class="gap-2">
+              <Select placeholder="primary" color="primary">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="secondary" color="secondary">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="accent" color="accent">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="info" color="info">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="warning" color="warning">
+                <Option value={1}>1</Option>
+              </Select>
+              <Select placeholder="error" color="error">
+                <Option value={1}>1</Option>
+              </Select>
+            </Row>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="bordered">
+        <Page.Title>Bordered</Page.Title>
+
+        <Page.Component
+          preview={
+            <Select placeholder="bordered" bordered>
+              <Option value={1}>1</Option>
+            </Select>
+          }
+          snippet={`
+            <Select placeholder="bordered" bordered>
+              <Option value={1}>1</Option>
+            </Select>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="disabled">
+        <Page.Title>Disabled</Page.Title>
+
+        <Page.Component
+          preview={
+            <Select placeholder="disabled" disabled>
+              <Option value={1}>1</Option>
+            </Select>
+          }
+          snippet={`
+            <Select placeholder="bordered" bordered>
+              <Option value={1}>1</Option>
+            </Select>
+          `}
+        />
+      </Page.Section>
+
+      <Page.Section name="Custom view">
+        <Page.Title>Custom view</Page.Title>
+
+        <Page.Component
+          preview={
             <Select
-              value="Cars"
+              class="max-w-md w-full"
               bordered
-              color={state}
-              placeholder="Select category"
+              placeholder="Custom view"
+              compareKey="id"
+              customValue={item => (
+                <>
+                  <i class={`fa-solid ${item.icon} pr-2`} /> {item.option}
+                </>
+              )}
             >
-              <Option value="Cars">
-                <i class="fa-solid fa-car pr-2" />
-                Cars
-              </Option>
-              <Option value="Plane" disabled>
-                <i class="fa-solid fa-plane-departure pr-2" />
-                Plane
-              </Option>
-              <Option value="Buildings">
-                <i class="fa-solid fa-building pr-2" />
-                Buildings
-              </Option>
+              <For each={options}>
+                {opt => (
+                  <Option value={opt}>
+                    <i class={`fa-solid ${opt.icon} pr-2`} /> {opt.option}
+                  </Option>
+                )}
+              </For>
             </Select>
-          )}
-        </For>
-      </div>
+          }
+          snippet={`
+            const options = [
+              {
+                id: 1,
+                option: 'Car',
+                icon: 'fa-car',
+              },
+              {
+                id: 2,
+                option: 'Plane',
+                icon: 'fa-plane-departure',
+              },
+              {
+                id: 3,
+                option: 'Motorcycle',
+                icon: 'fa-motorcycle',
+              },
+              {
+                id: 4,
+                option: 'Bicycle',
+                icon: 'fa-bicycle',
+              },
+            ];
+
+            <Select
+              class="max-w-md w-full"
+              bordered
+              placeholder="Custom view"
+              compareKey="id" // is needed to detect active element
+              customValue={item => (
+                <>
+                  <i class={\`fa-solid \${item.icon} pr-2\`} /> {item.option}
+                </>
+              )}
+            >
+              <For each={options}>
+                {opt => (
+                  <Option value={opt}>
+                    <i class={\`fa-solid \${opt.icon} pr-2\`} /> {opt.option}
+                  </Option>
+                )}
+              </For>
+            </Select>
+          `}
+        />
+      </Page.Section>
     </Page>
   );
 };

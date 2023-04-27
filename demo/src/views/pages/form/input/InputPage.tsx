@@ -1,4 +1,4 @@
-import {Code, ImportPreview} from '@shared/components';
+import {ImportPreview} from '@shared/components';
 import {Page} from '@shared/components/page';
 import {Input} from '@ui/form';
 import {Row} from '@ui/layout';

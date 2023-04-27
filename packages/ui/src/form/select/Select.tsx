@@ -35,6 +35,7 @@ export type SelectProps = {
   placeholder?: string;
   name?: string;
   value?: any;
+  disabled?: boolean;
   show?: boolean;
 
   color?: SelectColor;
@@ -52,6 +53,7 @@ export type SelectProps = {
   onClose?: () => void;
 
   customValue?: (v: any) => JSXElement;
+  // compareKey is needed to detect active element
   compareKey?: string;
 };
 
@@ -120,6 +122,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
         error={pr.error}
         onClick={open}
         onFocus={open}
+        disabled={pr.disabled}
       >
         <span data-testid={SelectSelectors.CUSTOM_VIEW}>
           {state.value && pr.customValue?.(state.value)}
