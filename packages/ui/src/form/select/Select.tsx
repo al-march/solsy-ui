@@ -131,7 +131,7 @@ export const Select = (props: ParentProps<SelectProps>) => {
         <input
           data-testid={SelectSelectors.INPUT}
           type="text"
-          class="bg-inherit h-full border-none cursor-pointer"
+          class="bg-inherit h-full w-full border-none cursor-pointer"
           classList={{
             hidden: !!pr.customValue && state.value,
           }}
