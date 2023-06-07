@@ -10,13 +10,13 @@ module.exports = {
         "<rootDir>/packages/*/test/**/*.test.{ts,tsx}",
     ],
     modulePathIgnorePatterns: ["lib", "temp"],
-    globals: {
-        "ts-jest": {
-            tsconfig: "<rootDir>/tsconfig.jest.json",
-            babelConfig: {
-                presets: ["babel-preset-solid", "@babel/preset-env"],
-            },
+    transform: {
+      '^.+\\.tsx?$': ["ts-jest", {
+        tsconfig: "<rootDir>/tsconfig.jest.json",
+        babelConfig: {
+          presets: ["babel-preset-solid", "@babel/preset-env"],
         },
+      }]
     },
     moduleNameMapper: {
         "solid-js/web": `${solidjsPath}/web/dist/web.cjs`,

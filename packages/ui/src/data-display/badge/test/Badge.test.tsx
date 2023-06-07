@@ -1,6 +1,6 @@
 import {ObjectKeys} from '../../../utils/object';
 import {Badge, BadgeColor, BadgeSelectors, BadgeSize} from '../Badge';
-import {cleanup, render, screen} from 'solid-testing-library';
+import {cleanup, render, screen} from '@solidjs/testing-library';
 
 type Classes = {
   main: string;

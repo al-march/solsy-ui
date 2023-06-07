@@ -1,7 +1,7 @@
 import {ObjectKeys} from '../../../utils/object';
 import {Toggle, ToggleColor, ToggleSelectors, ToggleSize} from '../Toggle';
 import {createSignal} from 'solid-js';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {INPUT} = ToggleSelectors;
 

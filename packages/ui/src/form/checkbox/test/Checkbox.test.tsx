@@ -6,7 +6,7 @@ import {
   CheckboxSize,
 } from '../Checkbox';
 import {createSignal} from 'solid-js';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 type CheckboxClasses = {
   main: string;

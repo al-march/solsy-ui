@@ -1,6 +1,6 @@
 import {Collapse, CollapseIcon, CollapseSelectors} from '../Collapse';
 import {createSignal} from 'solid-js';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {COLLAPSE, LABEL, CONTENT} = CollapseSelectors;
 

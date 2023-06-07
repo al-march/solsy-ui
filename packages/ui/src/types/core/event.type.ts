@@ -1,37 +1,37 @@
-import {DOMElement} from 'solid-js/types/jsx';
+import { DOMElement } from 'solid-js/jsx-runtime';
 
 export type PropMouseEvent<Target extends HTMLElement = HTMLElement> =
   MouseEvent & {
     currentTarget: Target;
-    target: DOMElement;
+    target: Element;
   };
 
-export type PropInputEvent<Target extends HTMLElement = HTMLElement> =
+export type PropInputEvent<Current extends HTMLElement = HTMLElement, Target extends Element = Element> =
   InputEvent & {
-    currentTarget: Target;
-    target: DOMElement;
+    currentTarget: Current;
+    target: Target;
   };
 
 export type PropChangeEvent<Target extends HTMLElement = HTMLElement> =
   Event & {
     currentTarget: Target;
-    target: DOMElement;
+    target: Element;
   };
 
-export type PropFocusEvent<Target extends HTMLElement = HTMLElement> =
+export type PropFocusEvent<Current extends HTMLElement = HTMLElement, Target extends Element = Element> =
   FocusEvent & {
-    currentTarget: Target;
-    target: DOMElement;
+    currentTarget: Current;
+    target: Target extends (HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) ? HTMLInputElement : DOMElement;
   };
 
 export type PropClickEvent<Target extends HTMLElement = HTMLElement> =
   MouseEvent & {
     currentTarget: Target;
-    target: DOMElement;
+    target: Element;
   };
 
 export type PropsKeyboardEvent<Target extends HTMLElement = HTMLElement> =
   KeyboardEvent & {
     currentTarget: Target;
-    target: DOMElement;
+    target: Element;
   };

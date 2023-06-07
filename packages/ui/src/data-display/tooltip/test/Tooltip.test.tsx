@@ -1,5 +1,5 @@
 import {Tooltip} from '../Tooltip';
-import {fireEvent, queryByTestId, render} from 'solid-testing-library';
+import {fireEvent, queryByTestId, render} from '@solidjs/testing-library';
 
 const tooltipMessage = 'Tooltip Message';
 const TooltipTest = () => (

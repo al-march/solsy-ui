@@ -5,7 +5,7 @@ import dayjs, {Dayjs} from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import weekday from 'dayjs/plugin/weekday';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 dayjs.extend(isoWeek);
 dayjs.extend(weekday);

@@ -1,6 +1,6 @@
 import {Button, ButtonSelectors} from '../../button';
 import {Swap, SwapSelectors} from '../Swap';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 const getSwap = () => screen.getByTestId(SwapSelectors.SWAP);
 const getSwapOn = () => screen.getByTestId(SwapSelectors.SWAP_ON);

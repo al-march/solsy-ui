@@ -1,6 +1,6 @@
 import {ObjectKeys} from '../../../utils/object';
 import {Textarea, TextareaColors, TextareaSelectors} from '../Textarea';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {TEXTAREA} = TextareaSelectors;
 

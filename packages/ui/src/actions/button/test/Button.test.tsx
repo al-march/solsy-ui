@@ -1,14 +1,15 @@
-import {ObjectKeys} from '../../../utils/object';
-import {Button, ButtonColor, ButtonSelectors} from '../Button';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import { ObjectKeys } from '../../../utils/object';
+import { Button, ButtonColor, ButtonSelectors } from '../Button';
+import { cleanup, fireEvent, render, screen } from '@solidjs/testing-library';
 
 const {BUTTON} = ButtonSelectors;
 
 describe('Button', () => {
   test('should be rendered', async () => {
     render(() => <Button>button</Button>);
-    const component = await screen.findByRole('button');
+    const component = await screen.getByTestId(BUTTON);
     expect(component).toBeInTheDocument();
+    expect(component).toHaveTextContent('button');
   });
   test('should emit onClick', () => {
     const onClick = jest.fn();

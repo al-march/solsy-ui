@@ -1,6 +1,6 @@
 import {DaisyColors} from '../../../types';
 import {Progress, ProgressDefaultProps, ProgressSelectors} from '../Progress';
-import {cleanup, render, screen} from 'solid-testing-library';
+import {cleanup, render, screen} from '@solidjs/testing-library';
 
 const getProgress = () =>
   screen.getByTestId(ProgressSelectors.PROGRESS) as HTMLProgressElement;

@@ -1,5 +1,5 @@
 import {Avatar, AvatarSelectors} from '../Avatar';
-import {render, screen} from 'solid-testing-library';
+import {render, screen} from '@solidjs/testing-library';
 
 const avatarRef = () => screen.getByTestId(AvatarSelectors.AVATAR);
 const avatarItemRef = () => screen.getByTestId(AvatarSelectors.ITEM);

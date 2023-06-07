@@ -3,7 +3,7 @@ import {Option} from '../Option';
 import {Select, SelectColor, SelectSelectors, SelectSize} from '../Select';
 import {SelectDropdown} from '../SelectDropdown';
 import {createSignal, For} from 'solid-js';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 type Classes = {
   main: string;
