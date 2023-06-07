@@ -1,6 +1,6 @@
 import {alignItems, justifyItems} from '../../../types';
 import {Row, RowOrientation, RowSelectors} from '../Row';
-import {cleanup, render, screen} from 'solid-testing-library';
+import {cleanup, render, screen} from '@solidjs/testing-library';
 
 const getRow = () => screen.getByTestId(RowSelectors.ROW);
 

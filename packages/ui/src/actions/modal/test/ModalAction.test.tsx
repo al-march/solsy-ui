@@ -1,5 +1,5 @@
 import {ModalAction} from '../ModalAction';
-import {render, screen} from 'solid-testing-library';
+import {render, screen} from '@solidjs/testing-library';
 
 describe('ModalAction', () => {
   test('should render content', async () => {

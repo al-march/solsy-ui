@@ -1,5 +1,5 @@
-import {DaisyColor, DaisySize} from '../../types';
-import {createMemo, JSX, splitProps} from 'solid-js';
+import { DaisyColor, DaisySize } from '../../types';
+import { Component, createMemo, JSX, splitProps } from 'solid-js';
 
 export const ButtonSelectors = {
   BUTTON: 'button',
@@ -24,7 +24,7 @@ export type ButtonProps = {
   square?: boolean;
 } & JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = (props: ButtonProps) => {
+export const Button: Component<ButtonProps> = (props) => {
   const [local, others] = splitProps(props, [
     'disabled',
     'active',

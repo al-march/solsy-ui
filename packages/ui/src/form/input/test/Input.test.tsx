@@ -1,6 +1,6 @@
 import {ObjectKeys} from '../../../utils/object';
 import {Input, InputColor, InputSelectors, InputSize} from '../Input';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {INPUT} = InputSelectors;
 

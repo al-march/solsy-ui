@@ -3,7 +3,7 @@ import {AlertsContainer, AlertsCtx, useAlerts} from '../AlertsContainer';
 import {AlertTypes} from '../types';
 import {classes} from './Alert.test';
 import {onMount, ParentProps} from 'solid-js';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 type ContainerApiProps = {
   alertsApi: (ctx: AlertsCtx) => void;

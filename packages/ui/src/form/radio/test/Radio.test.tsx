@@ -1,6 +1,6 @@
 import {ObjectKeys} from '../../../utils/object';
 import {Radio, RadioColor, RadioSelector, RadioSize} from '../Radio';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 type Classes = {
   main: string;

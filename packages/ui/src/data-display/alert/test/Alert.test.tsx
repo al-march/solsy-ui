@@ -1,7 +1,7 @@
 import {ObjectKeys} from '../../../utils/object';
 import {Alert, AlertSelectors} from '../Alert';
 import {AlertType} from '../types';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {ALERT, DEFAULT_ACTION, CUSTOM_ACTION, CLOSE_BTN} = AlertSelectors;
 

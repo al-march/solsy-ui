@@ -2,7 +2,7 @@ import {ObjectKeys} from '../../../utils/object';
 import {Tab} from '../Tab';
 import {Tabs, TabSelectors, TabSize, TabsProps, TabView} from '../Tabs';
 import {For, ParentProps} from 'solid-js';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {TAB, TAB_GROUP} = TabSelectors;
 

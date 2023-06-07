@@ -1,7 +1,7 @@
 import {Menu, MenuSelectors, MenuState} from '../Menu';
 import {Placement} from '@popperjs/core';
 import {createSignal} from 'solid-js';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 const getMenu = () => screen.getByTestId(MenuSelectors.MENU);
 const getDropdown = () => screen.getByTestId(MenuSelectors.DROPDOWN);

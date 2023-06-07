@@ -17,7 +17,7 @@ export type CheckboxSize = DaisySize;
 type InputProps = Omit<JSX.InputHTMLAttributes<HTMLInputElement>, 'value'>;
 
 export type CheckboxProps = {
-  value?: boolean;
+  value?: boolean | string;
   ref?: (el: HTMLInputElement) => void;
   size?: CheckboxSize;
   color?: CheckboxColor;

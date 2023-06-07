@@ -1,6 +1,6 @@
 import {Modal, ModalProps, ModalSelectors} from '../Modal';
 import {createSignal, ParentProps} from 'solid-js';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 const ModalTest = (props: ParentProps<ModalProps>) => {
   const [show, setShow] = createSignal(props.show);

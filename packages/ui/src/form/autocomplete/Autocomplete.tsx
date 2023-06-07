@@ -1,10 +1,10 @@
 import {Dropdown} from '../../actions';
-import {PropFocusEvent, PropInputEvent, PropsKeyboardEvent} from '../../types';
+import {PropsKeyboardEvent} from '../../types';
 import {Input, InputProps} from '../input';
 import {
   createContext,
   createEffect,
-  createSignal,
+  createSignal, JSX,
   on,
   splitProps,
   useContext,
@@ -77,18 +77,17 @@ export const Autocomplete = (props: AutocompleteProps) => {
     setState('isOpen', false);
   }
 
-  function onInput(e: PropInputEvent<HTMLInputElement>) {
+  const onInput: JSX.InputEventHandler<HTMLInputElement, InputEvent> = (e) => {
     if (state.isClose) {
       setState('isOpen', true);
     }
     setValue((e.target as HTMLInputElement).value);
-
     if (typeof local.onInput === 'function') {
       local.onInput(e);
     }
   }
 
-  function onFocus(e: PropFocusEvent<HTMLInputElement>) {
+  const onFocus: JSX.FocusEventHandler<HTMLInputElement, FocusEvent> = (e) => {
     setState('isOpen', true);
     if (typeof local.onFocus === 'function') {
       local.onFocus(e);

@@ -1,6 +1,6 @@
 import {ObjectKeys} from '../../../utils/object';
 import {Range, RangeColor, RangeSelectors, RangeSize} from '../Range';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {INPUT} = RangeSelectors;
 

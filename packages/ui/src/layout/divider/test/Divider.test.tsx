@@ -1,5 +1,5 @@
 import {Divider, DividerSelectors} from '../Divider';
-import {cleanup, render, screen} from 'solid-testing-library';
+import {cleanup, render, screen} from '@solidjs/testing-library';
 
 const ref = () => screen.getByTestId(DividerSelectors.DIVIDER);
 

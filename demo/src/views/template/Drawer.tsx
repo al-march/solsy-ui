@@ -1,5 +1,5 @@
-import {Points, RouterSDKEnum} from '@shared/router/Points';
-import {NavLink} from '@solidjs/router';
+import {Points} from '@shared/router/Points';
+import {A} from '@solidjs/router';
 import {onMount, ParentProps} from 'solid-js';
 
 export const Drawer = (props: ParentProps) => {
@@ -11,22 +11,23 @@ export const Drawer = (props: ParentProps) => {
   });
 
   return (
-    <div class="drawer drawer-mobile">
-      <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col">{props.children}</div>
+    <div class="drawer drawer-open">
+      <input id="my-drawer-2" type="checkbox" class="drawer-toggle" checked />
+      <div class="drawer-content h-screen flex flex-col">{props.children}</div>
       <div class="drawer-side bg-base-200 shadow overflow-x-hidden">
         <label for="my-drawer-2" class="drawer-overlay" />
         <div class="w-60">
           <div class="font-title p-4 text-primary inline-flex text-lg transition-all duration-200 md:text-3xl font-bold">
             <span class="lowercase">solsy</span>
             <span class="text-base-content uppercase">UI</span>
+            <span></span>
           </div>
 
-          <Menu>
+          {/* <Menu>
             <MenuTitle>SDK</MenuTitle>
             <MenuLink href={`/${RouterSDKEnum.FORM}`}>Form</MenuLink>
             <MenuDivider />
-          </Menu>
+          </Menu> */}
 
           <Menu>
             <MenuTitle>Actions</MenuTitle>
@@ -44,7 +45,7 @@ export const Drawer = (props: ParentProps) => {
             <MenuLink href={`/${Points.INPUT}`}>Input</MenuLink>
             <MenuLink href={`/${Points.RADIO}`}>Radio</MenuLink>
             <MenuLink href={`/${Points.TEXTAREA}`}>Textarea</MenuLink>
-            <MenuLink href={`/${Points.DATEPICKER}`}>Datepicker</MenuLink>
+            {/* <MenuLink href={`/${Points.DATEPICKER}`}>Datepicker</MenuLink> */}
             <MenuLink href={`/${Points.RANGE}`}>Range</MenuLink>
             <MenuLink href={`/${Points.TOGGLE}`}>Toggle</MenuLink>
             <MenuDivider />
@@ -95,9 +96,9 @@ const MenuTitle = (props: ParentProps) => (
 const MenuLink = (props: ParentProps<{href: string}>) => {
   return (
     <li>
-      <NavLink href={props.href} activeClass="active">
+      <A href={props.href} activeClass="active">
         {props.children}
-      </NavLink>
+      </A>
     </li>
   );
 };

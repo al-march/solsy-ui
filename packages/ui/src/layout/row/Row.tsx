@@ -1,5 +1,5 @@
 import {AlignItems, JustifyItems} from '../../types';
-import {JSX, mergeProps, splitProps} from 'solid-js';
+import {JSX, ParentProps, mergeProps, splitProps} from 'solid-js';
 
 export const RowSelectors = {
   ROW: 'row',
@@ -23,7 +23,7 @@ const defaultProps: Required<
   justify: 'start',
 };
 
-export const Row = (props: RowProps) => {
+export const Row = (props: ParentProps<RowProps>) => {
   const pr = mergeProps({...defaultProps}, props);
   const [local, others] = splitProps(pr, [
     'orientation',

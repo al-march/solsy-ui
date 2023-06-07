@@ -154,16 +154,16 @@ const PageBase = (props: ParentProps<Props>) => {
           [pr.class]: !!pr.class,
         }}
       >
-        <div class="flex h-full overflow-hidden gap-6">
+        <div class="flex flex-1 h-full overflow-hidden gap-6">
           <div
-            class="w-5/6 overflow-hidden overflow-y-auto scroll-smooth"
+            class="w-5/6 overflow-y-auto"
             ref={setContentRef}
           >
             {props.children}
           </div>
 
-          <div class="px-4 p-1 w-1/6 overflow-hidden overflow-y-auto h-full">
-            <Row orientation="col">
+          <div class="px-4 p-1 w-1/6">
+            <Row orientation="col" class="sticky top-4">
               <For each={state.sections}>
                 {section => <AnchorLink section={section} />}
               </For>

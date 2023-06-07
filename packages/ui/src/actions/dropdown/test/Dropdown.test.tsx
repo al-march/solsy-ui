@@ -1,7 +1,7 @@
 import {tick} from '../../../utils/test/tick';
 import {Dropdown, DropdownSelectors} from '../Dropdown';
 import {createSignal} from 'solid-js';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 const getDropdown = () => screen.getByTestId(DropdownSelectors.DROPDOWN);
 

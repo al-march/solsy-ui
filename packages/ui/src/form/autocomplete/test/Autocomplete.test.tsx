@@ -2,7 +2,7 @@ import {InputSelectors} from '../../input';
 import {Autocomplete, AutocompleteSelectors} from '../Autocomplete';
 import {AutocompleteOption} from '../AutocompleteOption';
 import {For} from 'solid-js';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {AUTOCOMPLETE, DROPDOWN, OPTION} = AutocompleteSelectors;
 const {INPUT} = InputSelectors;

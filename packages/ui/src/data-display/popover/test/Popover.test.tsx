@@ -1,5 +1,5 @@
 import {Popover, PopoverSelectors} from '../Popover';
-import {fireEvent, render, screen} from 'solid-testing-library';
+import {fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {TRIGGER, CONTENT} = PopoverSelectors;
 

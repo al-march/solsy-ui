@@ -1,6 +1,6 @@
 import {BackdropClick, BackdropClickSelectors} from './BackdropClick';
 import {createSignal} from 'solid-js';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const {CLICKER} = BackdropClickSelectors;
 

@@ -1,7 +1,7 @@
 import {ObjectKeys} from '../../../utils/object';
 import {BtnGroup, BtnGroupSelectors, BtnGroupSize} from '../BtnGroup';
 import {For} from 'solid-js';
-import {cleanup, fireEvent, render, screen} from 'solid-testing-library';
+import {cleanup, fireEvent, render, screen} from '@solidjs/testing-library';
 
 const toggleButtons = ['first', 'second', 'third'];
 
